@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>DESA BACA - Website Baca Buku 15 Menit</title>
+  <meta name="description" content="Baca berbagai buku dari berbagai kategori dan genre hanya dalam 15 menit. Platform baca buku gratis dan mudah dioperasikan." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/landing.css" />
+
+  <!-- Terapkan tema sebelum render (cegah flash) -->
+  <script src="js/theme-init.js"></script>
+  <!-- Google Identity Services SDK -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="site-header">
+    <div class="container bar">
+      <a href="#" class="brand">
+        <span class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="3" width="20" height="14" rx="3" />
+            <line x1="8" y1="21" x2="16" y2="21" />
+            <line x1="12" y1="17" x2="12" y2="21" />
+            <circle cx="8" cy="10" r="1.5" fill="currentColor" />
+            <circle cx="16" cy="10" r="1.5" fill="currentColor" />
+            <path d="M11 13h2" />
+          </svg>
+        </span>
+        <span class="brand-name">DESA BACA</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Navigasi utama">
+        <div class="nav-item">
+          <button class="nav-trigger" type="button">BELAJAR <i class="fa-solid fa-chevron-down"></i></button>
+          <div class="dropdown">
+            <a href="#ebooks"><i class="fa-solid fa-book-open accent"></i> E-Book Populer</a>
+            <a href="katalog.html"><i class="fa-solid fa-book-open accent"></i> Katalog Buku</a>
+            <a href="#kategori"><i class="fa-solid fa-list-check accent"></i> Semua Kategori</a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="dashboard.html" class="nav-trigger">DASHBOARD <i class="fa-solid fa-chevron-down"></i></a>
+          <div class="dropdown">
+            <a href="dashboard.html"><i class="fa-solid fa-chart-pie" style="color:#06b6d4"></i> Statistik Membaca</a>
+            <a href="dashboard.html#bookmarks"><i class="fa-solid fa-bookmark" style="color:#f59e0b"></i> Buku Tersimpan</a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <button class="nav-trigger" type="button">DEVELOPER <i class="fa-solid fa-chevron-down"></i></button>
+          <div class="dropdown">
+            <a href="#tech-stack"><i class="fa-solid fa-code" style="color:#10b981"></i> Tech Stack</a>
+            <a href="#footer"><i class="fa-solid fa-circle-info accent"></i> Tentang Kami</a>
+            <a href="developer.html"><i class="fa-solid fa-user-gear" style="color:#06b6d4"></i> Developer</a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="header-actions">
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Ganti Tema (Dark/Light)" title="Klik untuk ganti tema (Gelap / Terang)">
+          <i id="themeIcon" class="fa-solid fa-moon"></i>
+          <span id="themeLabel" class="label">Mode Gelap</span>
+        </button>
+
+        <div class="user-action-wrap">
+          <button id="navAuthBtn" class="btn-auth-nav" type="button" data-action="open-auth" data-tab="login">
+            <i class="fa-solid fa-user"></i>
+            <span id="navAuthText">Masuk</span>
+          </button>
+          <div id="userDropdown" class="user-dropdown hidden">
+            <div class="user-info">
+              <strong id="dropdownUserName">Pengguna</strong>
+              <small id="dropdownUserSub">Akun Desa Baca</small>
+            </div>
+            <a href="dashboard.html"><i class="fa-solid fa-chart-pie" style="color:#06b6d4"></i> Dashboard Saya</a>
+            <a href="dashboard.html#bookmarks"><i class="fa-solid fa-bookmark" style="color:#f59e0b"></i> Buku Tersimpan</a>
+            <a href="dashboard.html#riwayat"><i class="fa-solid fa-clock-rotate-left" style="color:#10b981"></i> Riwayat Baca</a>
+            <button type="button" id="logoutBtn" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Keluar</button>
+          </div>
+        </div>
+
+        <button id="menuToggle" class="menu-toggle" type="button" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobileMenu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="mobile-menu hidden">
+      <a href="katalog.html">KATALOG</a>
+      <a href="#ebooks">BELAJAR</a>
+      <a href="dashboard.html">DASHBOARD</a>
+      <a href="developer.html">DEVELOPER</a>
+      <div id="mobileAuthWrap">
+        <button type="button" class="login-link" id="mobileAuthBtn" data-action="open-auth" data-tab="login">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i> <span id="mobileAuthText">Masuk / Daftar Akun</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= HERO ================= -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-inner">
+          <div class="badge"><span class="dot"></span><span>Baca Buku Gratis dalam 15 Menit</span></div>
+
+          <h1><span>DESA</span> <span class="accent">BACA</span></h1>
+
+          <p class="hero-sub">Baca berbagai buku dari berbagai kategori dan genre hanya dalam 15 menit</p>
+
+          <div class="search-wrap">
+            <form id="searchForm" class="search-box" role="search">
+              <input id="heroBookSearch" type="text" placeholder="Buku apa yang anda cari?" autocomplete="off" aria-label="Cari buku" />
+              <button type="submit" aria-label="Cari Buku"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+            <div id="searchResult" class="search-result hidden" role="region" aria-live="polite" aria-label="Hasil pencarian">
+              <div class="sr-head">
+                <span>Hasil pencarian untuk: <strong id="searchTerm"></strong></span>
+                <button id="searchReset" type="button">(reset)</button>
+              </div>
+              <div id="searchBody" class="sr-body"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slider genre otomatis (diisi js/app.js) -->
+      <div class="marquee">
+        <div id="genreTrack" class="marquee-track"></div>
+      </div>
+    </section>
+
+    <!-- ================= E-BOOK ================= -->
+    <section id="ebooks" class="ebooks">
+      <div class="container">
+        <div class="section-intro">
+          <h2 class="section-title">E-BOOK</h2>
+          <p>Pilihan buku populer yang bisa kamu baca ringkasannya dalam 15 menit sehari.</p>
+        </div>
+
+        <div class="subhead">
+          <h3>E-BOOK <span class="accent">POPULER</span></h3>
+          <a href="katalog.html" class="link-all"><span>Lihat Semua</span> <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div id="bookGrid" class="book-grid"></div>
+      </div>
+    </section>
+
+    <!-- ================= KATEGORI ================= -->
+    <section id="kategori" class="kategori">
+      <div class="container">
+        <h2 class="section-title">KATEGORI</h2>
+
+        <div class="kategori-layout">
+          <div id="catGrid" class="cat-grid"></div>
+
+          <div class="side-stack">
+            <div class="hover-card widget">
+              <div class="widget-title"><i class="fa-solid fa-border-all"></i><span>KATEGORI</span></div>
+              <div id="catList" class="list"></div>
+              <a href="katalog.html" class="btn-soft" style="text-transform:uppercase;letter-spacing:.05em">LIHAT SEMUA KATEGORI</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TECH STACK ================= -->
+    <section id="tech-stack" class="tech">
+      <div class="container">
+        <h3>DIBANGUN DAN DIRANCANG DENGAN</h3>
+        <div class="tech-list">
+          <div class="tech-item" style="--hover:#f59e0b"><span class="tech-js">JS</span><span>JavaScript</span></div>
+          <div class="tech-item" style="--hover:#3b82f6"><i class="fa-brands fa-css3-alt" style="color:#3b82f6"></i><span>Css</span></div>
+          <div class="tech-item" style="--hover:#6366f1"><i class="fa-brands fa-php" style="color:#818cf8;font-size:20px"></i><span>Php</span></div>
+          <div class="tech-item" style="--hover:#f97316"><i class="fa-brands fa-html5" style="color:#f97316"></i><span>Html</span></div>
+          <div class="tech-item" style="--hover:#a855f7"><i class="fa-brands fa-figma" style="color:#c084fc;font-size:16px"></i><span>Figma</span></div>
+          <div class="tech-item" style="--hover:#0ea5e9"><i class="fa-solid fa-database" style="color:#0ea5e9;font-size:16px"></i><span>MySQL</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer id="footer" class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="brand">
+            <span class="brand-mark">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="3" width="20" height="14" rx="3" />
+                <circle cx="8" cy="10" r="1.5" fill="currentColor" />
+                <circle cx="16" cy="10" r="1.5" fill="currentColor" />
+              </svg>
+            </span>
+            <span class="brand-name">DESA BACA</span>
+          </a>
+          <p class="footer-about">Website baca buku gratis hanya dalam 15 menit. Mudah dioperasikan dengan tampilan yang nyaman dilihat.</p>
+          <div class="footer-meta">
+            <div><i class="fa-solid fa-location-dot"></i><span>Gadingrejo, Kab. Pringsewu, Lampung</span></div>
+            <div><i class="fa-brands fa-instagram"></i><a href="https://instagram.com/prostep.stella" target="_blank" rel="noopener">@prostep.stella</a></div>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Tentang Kami</h4>
+          <ul class="footer-links">
+            <li>Stella Programming</li>
+            <li>Muhammad Adam Al Fatih</li>
+            <li>Joel Jarren</li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Referensi</h4>
+          <ul class="footer-links">
+            <li><a href="https://santrikoding.com" target="_blank" rel="noopener">SantriKoding.com</a></li>
+            <li><a href="https://wevlra.dev" target="_blank" rel="noopener">Wevlra.dev</a></li>
+            <li><a href="https://f15library.com" target="_blank" rel="noopener">f15library.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= MODAL LOGIN / DAFTAR ================= -->
+  <div id="authModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <div class="modal-card">
+      <button type="button" class="modal-close" data-action="close-auth" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+
+      <div class="modal-head">
+        <div class="modal-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="2" y="3" width="20" height="14" rx="3" />
+            <circle cx="8" cy="10" r="1.5" fill="currentColor" />
+            <circle cx="16" cy="10" r="1.5" fill="currentColor" />
+          </svg>
+        </div>
+        <h3 id="authTitle">Masuk ke Desa Baca</h3>
+        <p id="authSubtitle">Akses ribuan ringkasan buku dan fitur eksklusif lainnya</p>
+      </div>
+
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" data-tab-btn="login" class="active">Masuk</button>
+        <button type="button" role="tab" data-tab-btn="register">Daftar Baru</button>
+      </div>
+
+      <div class="social" id="socialButtons">
+        <button type="button" class="social-btn google" id="googleAuthBtn">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span id="googleBtnText">Lanjutkan dengan Google</span>
+        </button>
+        <button type="button" class="social-btn facebook" data-action="social">
+          <i class="fa-brands fa-facebook-f"></i><span>Lanjutkan dengan Facebook</span>
+        </button>
+      </div>
+
+      <!-- VIEW KHUSUS MASUK DENGAN GOOGLE -->
+      <div id="googleFormView" class="hidden" style="margin-bottom:16px">
+        <div style="padding:16px;border-radius:var(--radius-lg);border:1px solid var(--border);background:var(--input-bg)">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)">
+            <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" style="flex-shrink:0">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <div>
+              <strong style="font-size:13px;display:block;color:var(--text-strong)">Masuk dengan Akun Google</strong>
+              <small style="color:var(--muted);font-size:11px">Tersimpan permanen di database MySQL</small>
+            </div>
+          </div>
+
+          <!-- Tombol resmi Google GIS jika client_id diset -->
+          <div id="googleGisOfficialBtn" style="margin-bottom:12px;display:flex;justify-content:center"></div>
+
+          <form id="googleDirectForm" style="display:flex;flex-direction:column;gap:12px">
+            <div class="field">
+              <label for="googleNameInput">Nama Akun Google</label>
+              <div class="input-wrap">
+                <input id="googleNameInput" type="text" required placeholder="Contoh: Muhammad Adam" autocomplete="name" />
+                <i class="fa-regular fa-user"></i>
+              </div>
+            </div>
+            <div class="field">
+              <label for="googleEmailInput">Email Google</label>
+              <div class="input-wrap">
+                <input id="googleEmailInput" type="email" required placeholder="nama@gmail.com" autocomplete="email" />
+                <i class="fa-regular fa-envelope"></i>
+              </div>
+            </div>
+            <button type="submit" class="btn-submit" style="background:#4285F4">
+              <i class="fa-brands fa-google"></i><span>Masuk Sekarang dengan Google</span>
+            </button>
+            <button type="button" class="btn-soft" id="cancelGoogleBtn" style="padding:10px;font-size:12px;margin-top:4px">
+              <i class="fa-solid fa-arrow-left"></i> Kembali ke Form Biasa
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="divider" id="authDivider"><span>atau</span></div>
+
+      <!-- FORM LOGIN -->
+      <form id="loginForm" class="auth-form">
+        <div class="field">
+          <label for="loginName">Nama Pengguna / Akun</label>
+          <div class="input-wrap">
+            <input id="loginName" type="text" required placeholder="Masukkan nama Anda" autocomplete="username" />
+            <i class="fa-regular fa-user"></i>
+          </div>
+        </div>
+        <div class="field">
+          <label for="loginPass">Kata Sandi</label>
+          <div class="input-wrap">
+            <input id="loginPass" class="has-toggle" type="password" required placeholder="Masukkan kata sandi" autocomplete="current-password" />
+            <i class="fa-solid fa-lock"></i>
+            <button type="button" class="toggle-pass" data-action="toggle-pass" aria-label="Tampilkan kata sandi"><i class="fa-regular fa-eye"></i></button>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit"><span>Masuk Sekarang</span><i class="fa-solid fa-arrow-right"></i></button>
+        <p class="form-switch">Belum punya akun?
+          <button type="button" data-tab-btn="register">Daftar sekarang (Hanya Nama &amp; Password)</button>
+        </p>
+      </form>
+
+      <!-- FORM DAFTAR -->
+      <form id="registerForm" class="auth-form hidden">
+        <div class="notice"><i class="fa-solid fa-bolt"></i> Pendaftaran instan: <strong>hanya butuh Nama dan Password</strong> tanpa perlu verifikasi email rumit!</div>
+        <div class="field">
+          <label for="regName">Nama Lengkap</label>
+          <div class="input-wrap">
+            <input id="regName" type="text" required placeholder="Contoh: Budi Santoso" autocomplete="username" />
+            <i class="fa-regular fa-user"></i>
+          </div>
+        </div>
+        <div class="field">
+          <label for="regPass">Kata Sandi Baru</label>
+          <div class="input-wrap">
+            <input id="regPass" class="has-toggle" type="password" required placeholder="Buat kata sandi minimal 6 karakter" autocomplete="new-password" />
+            <i class="fa-solid fa-lock"></i>
+            <button type="button" class="toggle-pass" data-action="toggle-pass" aria-label="Tampilkan kata sandi"><i class="fa-regular fa-eye"></i></button>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit"><span>Daftar Akun Baru</span><i class="fa-solid fa-check"></i></button>
+        <p class="form-switch">Sudah punya akun?
+          <button type="button" data-tab-btn="login">Masuk di sini</button>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Tombol dashboard mengambang -->
+  <a href="dashboard.html" class="floating-dashboard-btn"><span>Dashboard</span><i class="fa-solid fa-arrow-right"></i></a>
+
+  <!-- Toast -->
+  <div id="toast" class="toast success" role="status" aria-live="polite">
+    <i class="fa-solid fa-circle-check"></i><span id="toastMsg"></span>
+  </div>
+
+  <!-- Data layer (mockup localStorage). Baca catatan di header js/store.js sebelum mengubah apa pun. -->
+  <script src="js/store.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/catalog.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Developer - DESA BACA</title>
+  <meta name="description" content="Kenali tim pengembang Desa Baca: frontend dan backend developer." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/landing.css" />
+  <script src="js/theme-init.js"></script>
+
+  <style>
+    .is-active { color: var(--red); }
+    .dev-main { padding-bottom: 72px; }
+    .dev-section + .dev-section { margin-top: 40px; }
+    .dev-heading { margin-bottom: 16px; font-size: 18px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--text-strong); }
+    .dev-name { font-size: 28px; font-weight: 800; line-height: 1.2; letter-spacing: -.01em; color: var(--text-strong); }
+    @media (min-width: 640px) { .dev-heading { font-size: 22px; } .dev-name { font-size: 34px; } }
+
+    .dev-card { display: grid; grid-template-columns: 6fr 2fr; gap: 24px; align-items: stretch; padding: 28px; border-radius: var(--radius-xl); border: 1px solid var(--border); background: var(--surface); }
+    .dev-info, .dev-side { display: flex; flex-direction: column; min-width: 0; }
+    .dev-info { gap: 20px; }
+    .dev-intro { font-size: 14px; line-height: 1.8; color: var(--muted); }
+    .dev-quote { padding-left: 14px; border-left: 3px solid var(--red); font-size: 14px; font-weight: 600; font-style: italic; color: var(--text); }
+
+    .dev-skills-wrap { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+    .dev-label { font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--faint); }
+    .dev-skills { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); grid-auto-rows: 1fr; gap: 12px; padding: 14px; border-radius: var(--radius-lg); border: 1px solid var(--border); }
+    .dev-skills li { display: flex; align-items: center; gap: 12px; padding: 12px 14px; min-height: 56px; border-radius: var(--radius-md); border: 1px solid var(--border); background: var(--surface-2); font-size: 14px; font-weight: 700; color: var(--text-strong); transition: border-color .2s; }
+    .dev-skills li:hover { border-color: var(--faint); }
+    .dev-skills li > :first-child { flex-shrink: 0; width: 36px; height: 36px; padding: 7px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--b); background: color-mix(in srgb, var(--b) 16%, var(--surface-2)); }
+
+    .dev-side { gap: 16px; }
+    .dev-photo { position: relative; flex: 1 0 auto; aspect-ratio: 3 / 4; overflow: hidden; border-radius: var(--radius-lg); border: 1px solid var(--border); background: var(--surface-2); color: var(--faint); display: flex; align-items: center; justify-content: center; font-size: 72px; }
+    .dev-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .dev-contact { display: grid; grid-template-columns: 68px 1fr; gap: 6px 8px; margin: 0; font-size: 12px; }
+    .dev-contact dt { color: var(--muted); }
+    .dev-contact dd { margin: 0; font-weight: 700; color: var(--text-strong); overflow-wrap: anywhere; }
+
+    @media (max-width: 899px) {
+      .dev-card { grid-template-columns: 1fr; padding: 20px; }
+      .dev-side { order: -1; max-width: 320px; }
+      .dev-photo { flex: none; }
+    }
+    @media (max-width: 480px) {
+      .dev-card { padding: 16px; }
+      .dev-skills { padding: 10px; gap: 10px; }
+      .dev-skills li { padding: 10px; gap: 10px; font-size: 13px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="site-header">
+    <div class="container bar">
+      <a href="index.html" class="brand">
+        <span class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="3" width="20" height="14" rx="3" />
+            <line x1="8" y1="21" x2="16" y2="21" />
+            <line x1="12" y1="17" x2="12" y2="21" />
+            <circle cx="8" cy="10" r="1.5" fill="currentColor" />
+            <circle cx="16" cy="10" r="1.5" fill="currentColor" />
+            <path d="M11 13h2" />
+          </svg>
+        </span>
+        <span class="brand-name">DESA BACA</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Navigasi utama">
+        <div class="nav-item">
+          <button class="nav-trigger" type="button">BELAJAR <i class="fa-solid fa-chevron-down"></i></button>
+          <div class="dropdown">
+            <a href="index.html#ebooks"><i class="fa-solid fa-book-open accent"></i> E-Book Populer</a>
+            <a href="katalog.html"><i class="fa-solid fa-book-open accent"></i> Katalog Buku</a>
+            <a href="index.html#kategori"><i class="fa-solid fa-list-check accent"></i> Semua Kategori</a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="dashboard.html" class="nav-trigger">DASHBOARD <i class="fa-solid fa-chevron-down"></i></a>
+          <div class="dropdown">
+            <a href="dashboard.html"><i class="fa-solid fa-chart-pie" style="color:#06b6d4"></i> Statistik Membaca</a>
+            <a href="dashboard.html#bookmarks"><i class="fa-solid fa-bookmark" style="color:#f59e0b"></i> Buku Tersimpan</a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <button class="nav-trigger is-active" type="button">DEVELOPER <i class="fa-solid fa-chevron-down"></i></button>
+          <div class="dropdown">
+            <a href="index.html#tech-stack"><i class="fa-solid fa-code" style="color:#10b981"></i> Tech Stack</a>
+            <a href="index.html#footer"><i class="fa-solid fa-circle-info accent"></i> Tentang Kami</a>
+            <a href="developer.html"><i class="fa-solid fa-user-gear" style="color:#06b6d4"></i> Developer</a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="header-actions">
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Ganti Tema (Dark/Light)" title="Klik untuk ganti tema (Gelap / Terang)">
+          <i id="themeIcon" class="fa-solid fa-moon"></i>
+          <span id="themeLabel" class="label">Mode Gelap</span>
+        </button>
+        <div class="user-action-wrap">
+          <a id="navAuthBtn" class="btn-auth-nav" href="index.html?auth=login"><i class="fa-solid fa-user"></i><span>Masuk</span></a>
+        </div>
+        <button id="menuToggle" class="menu-toggle" type="button" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobileMenu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="mobile-menu hidden">
+      <a href="katalog.html">KATALOG</a>
+      <a href="index.html#ebooks">BELAJAR</a>
+      <a href="dashboard.html">DASHBOARD</a>
+      <a href="developer.html" class="is-active">DEVELOPER</a>
+      <div>
+        <a id="mobileAuth" href="index.html?auth=login" class="login-link">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i> <span>Masuk / Daftar Akun</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="dev-main">
+    <section class="hero">
+      <div class="container">
+        <div class="hero-inner">
+          <div class="badge"><span class="dot"></span><span>Tim Pengembang Desa Baca</span></div>
+          <h1><span>KENALI</span> <span class="accent">DEVELOPER</span></h1>
+          <p class="hero-sub">Orang-orang di balik layar yang membangun Desa Baca, dari tampilan hingga sistemnya.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- kartu developer digambar dari array DEVS di bawah -->
+    <div class="container" id="devs"></div>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer id="footer" class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="brand">
+            <span class="brand-mark">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="3" width="20" height="14" rx="3" />
+                <circle cx="8" cy="10" r="1.5" fill="currentColor" />
+                <circle cx="16" cy="10" r="1.5" fill="currentColor" />
+              </svg>
+            </span>
+            <span class="brand-name">DESA BACA</span>
+          </a>
+          <p class="footer-about">Website baca buku gratis hanya dalam 15 menit. Mudah dioperasikan dengan tampilan yang nyaman dilihat.</p>
+          <div class="footer-meta">
+            <div><i class="fa-solid fa-location-dot"></i><span>Gadingrejo, Kab. Pringsewu, Lampung</span></div>
+            <div><i class="fa-brands fa-instagram"></i><a href="https://instagram.com/prostep.stella" target="_blank" rel="noopener">@prostep.stella</a></div>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Tentang Kami</h4>
+          <ul class="footer-links">
+            <li>Stella Programming</li>
+            <li>Muhammad Adam Al Fatih</li>
+            <li>Joel Jarren</li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Referensi</h4>
+          <ul class="footer-links">
+            <li><a href="https://santrikoding.com" target="_blank" rel="noopener">SantriKoding.com</a></li>
+            <li><a href="https://wevlra.dev" target="_blank" rel="noopener">Wevlra.dev</a></li>
+            <li><a href="https://f15library.com" target="_blank" rel="noopener">f15library.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="cpp" viewBox="0 0 24 24"><path d="M12 1.5 21 6.75v10.5L12 22.5 3 17.25V6.75z" fill="currentColor"/><text x="12" y="15.2" text-anchor="middle" font-size="8" font-weight="800" font-family="Plus Jakarta Sans,sans-serif" fill="#fff">C++</text></symbol>
+  </svg>
+
+  <script>
+  /* ============ DATA — EDIT DI SINI SAJA ============ */
+  // [nama, kelas ikon Font Awesome (kosong = C++), warna merek]
+  const SKILLS = [
+    ['Python', 'fa-brands fa-python', '#3776AB'],
+    ['C++', '', '#00599C'],
+    ['Java', 'fa-brands fa-java', '#F89820'],
+    ['HTML', 'fa-brands fa-html5', '#E34F26'],
+    ['CSS', 'fa-brands fa-css3-alt', '#1572B6'],
+    ['JavaScript', 'fa-brands fa-js', '#F7DF1E'],
+  ];
+
+  const DEVS = [
+    {
+      role: 'FRONTEND DEVELOPER',
+      nama: 'Muhammad Adam Al Fatih',
+      intro: 'Saya adalah seorang siswa SMK Telkom Lampung jurusan RPL (Rekayasa Perangkat Lunak) yang berminat di bidang frontend development dan web design. Saya senang melukis dengan kode. Mengubah desain menjadi tampilan web yang rapi, responsif, dan nyaman digunakan.',
+      moto: 'Desain dengan Hati, Melukis dengan Kode.',
+      foto: 'images/dev-frontend.jpg',
+      kontak: ['adamfatih060410@gmail.com', 'github.com/Adam-Semogasukses', '@aadm.c86', '+62 895-3922-44422', 'Bernung, Kab. Pesawaran, Lampung'],
+    },
+    {
+      role: 'BACKEND DEVELOPER',
+      nama: 'Joel Jarren',
+      intro: 'Saya adalah seorang siswa SMK Telkom Lampung jurusan RPL (Rekayasa Perangkat Lunak) yang berminat di bidang backend development. Saya tertarik membangun sistem di balik layar: database, API, dan keamanan akun agar data pengguna tersimpan dengan rapi.',
+      moto: "If the code works, don't touch it.",
+      foto: 'images/dev-backend.jpg',
+      kontak: ['joel@email.com', 'github.com/joeljarren', '@joel.jarren', '+62 813-9876-5432', 'Pringsewu, Lampung'],
+    },
+  ];
+  const LABEL = ['email', 'github', 'instagram', 'telpon', 'alamat'];
+
+  /* ============ RENDER KARTU ============ */
+  const skillHtml = SKILLS.map(([n, ic, c]) =>
+    `<li style="--b:${c}">${ic ? `<i class="${ic}"></i>` : '<svg><use href="#cpp"/></svg>'}${n}</li>`).join('');
+
+  document.getElementById('devs').innerHTML = DEVS.map((d) => `
+    <section class="dev-section">
+      <h2 class="dev-heading">${d.role}</h2>
+      <article class="dev-card">
+        <div class="dev-info">
+          <h3 class="dev-name">${d.nama}</h3>
+          <p class="dev-intro">${d.intro}</p>
+          <p class="dev-quote">${d.moto}</p>
+          <div class="dev-skills-wrap">
+            <span class="dev-label">Skills</span>
+            <ul class="dev-skills">${skillHtml}</ul>
+          </div>
+        </div>
+        <div class="dev-side">
+          <div class="dev-photo">
+            <i class="fa-solid fa-user"></i>
+            <img src="${d.foto}" alt="Foto ${d.nama}" loading="lazy" onerror="this.remove()" />
+          </div>
+          <dl class="dev-contact">${d.kontak.map((v, i) => `<dt>${LABEL[i]}:</dt><dd>${v}</dd>`).join('')}</dl>
+        </div>
+      </article>
+    </section>`).join('');
+
+  /* ============ NAVBAR: tema, login, menu HP, dropdown ============ */
+  (() => {
+    const $ = (s) => document.querySelector(s);
+    const root = document.documentElement;
+    const ls = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+
+    const syncTheme = () => {
+      const dark = root.classList.contains('dark');
+      $('#themeIcon').className = dark ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+      $('#themeLabel').textContent = dark ? 'Mode Gelap' : 'Mode Terang';
+    };
+    $('#themeToggle').onclick = () => {
+      const dark = root.classList.toggle('dark');
+      try { localStorage.setItem('desabaca_theme', dark ? 'dark' : 'light'); } catch (e) {}
+      syncTheme();
+    };
+    syncTheme();
+
+    // status login disimpan index.html di localStorage
+    let user = null;
+    try { user = JSON.parse(ls('desabaca_user_profile')); } catch (e) {}
+    const name = (user && (user.display_name || user.username)) || ls('desabaca_user');
+    if (name) {
+      const btn = $('#navAuthBtn');
+      btn.href = 'dashboard.html';
+      btn.classList.add('is-logged');
+      btn.innerHTML = '<i class="fa-solid fa-user-check" style="color:#10b981"></i><span></span>';
+      btn.lastChild.textContent = name;
+      $('#mobileAuth').href = 'dashboard.html';
+      $('#mobileAuth').lastElementChild.textContent = name;
+    }
+    document.addEventListener('click', (e) => {
+      if (!name && e.target.closest('a[href*="dashboard.html"]')) {
+        e.preventDefault();
+        location.href = 'index.html?auth=login';
+      }
+    });
+
+    const menu = $('#mobileMenu'), toggle = $('#menuToggle');
+    toggle.onclick = () => toggle.setAttribute('aria-expanded', !menu.classList.toggle('hidden'));
+    menu.onclick = (e) => { if (e.target.closest('a')) menu.classList.add('hidden'); };
+
+    // dropdown: hanya satu terbuka (sama dengan app.js)
+    const items = [...document.querySelectorAll('.main-nav .nav-item')];
+    const hover = matchMedia('(hover: hover) and (pointer: fine)');
+    let timer;
+    const setOpen = (i, on) => { i.classList.toggle('open', on); i.firstElementChild.setAttribute('aria-expanded', on); };
+    const closeAll = (except) => items.forEach((i) => i !== except && setOpen(i, false));
+    const open = (i) => { clearTimeout(timer); closeAll(i); setOpen(i, true); };
+    items.forEach((item) => {
+      const t = item.firstElementChild;
+      item.onmouseenter = () => hover.matches && open(item);
+      item.onmouseleave = () => { if (hover.matches) timer = setTimeout(() => setOpen(item, false), 120); };
+      t.onclick = (e) => {
+        const isOpen = item.classList.contains('open');
+        if (t.tagName === 'A') { if (!hover.matches && !isOpen) { e.preventDefault(); open(item); } }  // DASHBOARD: ketukan kedua = buka halaman
+        else if (hover.matches || !isOpen) open(item);
+        else setOpen(item, false);
+      };
+    });
+    document.addEventListener('click', (e) => { if (!e.target.closest('.main-nav .nav-item')) closeAll(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
+  })();
+  </script>
+</body>
+</html>

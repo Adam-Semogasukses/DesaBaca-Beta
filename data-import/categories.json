@@ -1,0 +1,122 @@
+[
+  {
+    "slug": "biography-memoir",
+    "name": "Biografi & Memoar",
+    "f15_collection": "biography-memoir",
+    "status": "aktif",
+    "site_count": 394,
+    "collected": 394
+  },
+  {
+    "slug": "business-leadership",
+    "name": "Kepemimpinan",
+    "f15_collection": "business-leadership",
+    "status": "aktif",
+    "site_count": 397,
+    "collected": 397
+  },
+  {
+    "slug": "communication-skills",
+    "name": "Skill Komunikasi",
+    "f15_collection": "communication-skills",
+    "status": "aktif",
+    "site_count": 168,
+    "collected": 168
+  },
+  {
+    "slug": "editorial-picks",
+    "name": "Pilihan Editor",
+    "f15_collection": "editorial-picks",
+    "status": "aktif",
+    "site_count": 8,
+    "collected": 8
+  },
+  {
+    "slug": "future-innovation",
+    "name": "Masa Depan & Inovasi",
+    "f15_collection": "future-innovation",
+    "status": "aktif",
+    "site_count": 228,
+    "collected": 228
+  },
+  {
+    "slug": "health-wellbeing",
+    "name": "Kesehatan & Kesejahteraan",
+    "f15_collection": "health-wellbeing",
+    "status": "aktif",
+    "site_count": 249,
+    "collected": 249
+  },
+  {
+    "slug": "high-performance",
+    "name": "Performa & Produktivitas",
+    "f15_collection": "high-performance",
+    "status": "aktif",
+    "site_count": 176,
+    "collected": 176
+  },
+  {
+    "slug": "meaningful-stories",
+    "name": "Cerita Inspiratif",
+    "f15_collection": "meaningful-stories",
+    "status": "aktif",
+    "site_count": 474,
+    "collected": 474
+  },
+  {
+    "slug": "mind-behavior",
+    "name": "Pikiran & Perilaku",
+    "f15_collection": "mind-behavior",
+    "status": "aktif",
+    "site_count": 306,
+    "collected": 306
+  },
+  {
+    "slug": "mindfulness-wisdom",
+    "name": "Mindfulness & Kebijaksanaan",
+    "f15_collection": "mindfulness-wisdom",
+    "status": "aktif",
+    "site_count": 328,
+    "collected": 328
+  },
+  {
+    "slug": "personal-growth",
+    "name": "Pengembangan Diri",
+    "f15_collection": "personal-growth",
+    "status": "aktif",
+    "site_count": 269,
+    "collected": 269
+  },
+  {
+    "slug": "relationships-parenting",
+    "name": "Hubungan & Keluarga",
+    "f15_collection": "relationships-parenting",
+    "status": "aktif",
+    "site_count": 213,
+    "collected": 213
+  },
+  {
+    "slug": "wealth-finance",
+    "name": "Keuangan",
+    "f15_collection": "wealth-finance",
+    "status": "aktif",
+    "site_count": 253,
+    "collected": 253
+  },
+  {
+    "slug": "world-culture",
+    "name": "Dunia & Budaya",
+    "f15_collection": "world-culture",
+    "status": "aktif",
+    "site_count": 527,
+    "collected": 527
+  },
+  {
+    "slug": "dongeng-cerita-rakyat",
+    "name": "Dongeng & Cerita Rakyat",
+    "f15_collection": null,
+    "status": "segera_datang",
+    "site_count": null,
+    "collected": 0
+  }
+]

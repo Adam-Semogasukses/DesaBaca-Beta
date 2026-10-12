@@ -1,0 +1,151 @@
+/* =============================================================================
+ * DESA BACA — katalog.css (katalog.html)
+ * Dipakai bersama css/main.css + css/panel.css. Hanya komponen khusus katalog.
+ * Jumlah kolom mengikuti lebar frame (container query), bukan lebar layar,
+ * jadi tetap rapi dengan/ tanpa sub-sidebar.
+ * ========================================================================== */
+
+.kt-frame { container-type: inline-size; gap: 20px; }
+
+.kt-back { padding: 8px 14px; font-size: 11px; }
+
+/* ---------- Chip kategori ---------- */
+.kt-chips {
+  display: flex; gap: 8px; overflow-x: auto;
+  scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch;
+}
+.kt-chips::-webkit-scrollbar { display: none; }
+.kt-chip {
+  flex-shrink: 0; display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 14px; border-radius: 999px; border: 1px solid var(--panel-border);
+  background: var(--panel-card-2); font-size: 11px; font-weight: 700; color: var(--muted);
+  white-space: nowrap; transition: color .2s, border-color .2s, background-color .2s;
+}
+html:not(.dark) .kt-chip { background: #EFE8DB; }
+.kt-chip i { font-size: 11px; color: var(--faint); }
+.kt-chip:hover { color: var(--text-strong); border-color: rgba(239, 68, 68, .5); }
+.kt-chip.active {
+  color: var(--text-strong); background: var(--active-bg); border-color: var(--active-border);
+}
+.kt-chip.active i { color: var(--red); }
+
+/* ---------- Section kategori ---------- */
+.kt-sections { display: flex; flex-direction: column; gap: 32px; }
+.kt-section-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  margin-bottom: 12px;
+}
+.kt-section-head h2 { font-size: 13px; font-weight: 800; color: var(--text-strong); }
+.kt-section-head .count { margin-left: 8px; font-size: 11px; font-weight: 600; color: var(--faint); }
+.kt-all {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600; color: var(--muted); transition: color .2s;
+}
+.kt-all i { font-size: 10px; transition: transform .2s; }
+.kt-all:hover { color: var(--red); }
+.kt-all:hover i { transform: translateX(3px); }
+
+/* ---------- Grid kartu ---------- */
+.kt-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+@container (min-width: 520px) { .kt-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@container (min-width: 760px) { .kt-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; } }
+
+/* ---------- Kartu buku ---------- */
+.kt-card {
+  min-width: 0; padding: 14px; display: flex; flex-direction: column; justify-content: space-between;
+  cursor: pointer; border-radius: var(--radius-lg);
+  transition: transform .28s cubic-bezier(.16, 1, .3, 1), border-color .28s, box-shadow .28s;
+}
+.kt-card:hover, .kt-card:focus-visible {
+  transform: translateY(-4px); border-color: rgba(255, 45, 32, .4); box-shadow: var(--card-hover-shadow);
+}
+.kt-cover {
+  width: 100%; aspect-ratio: 4 / 5; padding: 8px; border-radius: var(--radius-md); overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--cover-bg); border: 1px solid var(--border-soft);
+}
+.kt-cover img { width: 100%; height: 100%; object-fit: contain; border-radius: 10px; transition: transform .3s; }
+.kt-card:hover .kt-cover img { transform: scale(1.04); }
+
+.kt-title {
+  margin-top: 14px; font-size: 13px; font-weight: 800; line-height: 1.35; color: var(--text-strong);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  min-height: 2.7em;
+}
+.kt-title a:hover { color: var(--red); text-decoration: underline; }
+.kt-card > div:first-child .kt-author { margin-top: 4px; display: block; }
+
+.kt-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--panel-border);
+}
+.kt-row.foot { margin-top: 10px; padding-top: 10px; }
+.kt-author {
+  min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-strong);
+}
+.kt-bookmark {
+  flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; margin: -6px -6px -6px 0; border-radius: 8px;
+  color: #a8a29e; font-size: 13px; transition: color .2s, background-color .2s;
+}
+.kt-bookmark:hover, .kt-bookmark.on { color: var(--red); }
+.kt-bookmark:hover { background: rgba(239, 68, 68, .1); }
+
+.kt-readers { flex-shrink: 0; display: flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 600; color: var(--muted); }
+.kt-readers i { font-size: 10px; }
+.kt-tags { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 6px; min-width: 0; }
+.kt-tag {
+  padding: 3px 9px; border-radius: 999px; border: 1px solid var(--panel-border);
+  background: var(--tag-bg); font-size: 9px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted);
+}
+.kt-card > .kt-tags { margin-top: 10px; justify-content: flex-start; }
+.kt-ext { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; margin: -6px -6px -6px 0; color: var(--faint); font-size: 12px; }
+.kt-card:hover .kt-ext { color: var(--red); }
+
+.kt-cover.broken { color: var(--faint); font-size: 28px; }
+
+/* ---------- Chip & daftar "segera datang" ---------- */
+.kt-chip small { font-size: 9px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--faint); }
+.kt-chip.soon { border-style: dashed; }
+.kt-soon-list { display: flex; flex-wrap: wrap; gap: 10px; }
+.kt-soon-item {
+  display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px;
+  border-radius: var(--radius-md); border: 1px dashed var(--panel-border);
+  font-size: 12px; font-weight: 600; color: var(--muted); transition: color .2s, border-color .2s;
+}
+.kt-soon-item i { font-size: 12px; color: var(--faint); }
+.kt-soon-item:hover { color: var(--text-strong); border-color: rgba(239, 68, 68, .5); }
+.kt-soon .ic { color: var(--amber); }
+.kt-soon .d { max-width: 460px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+
+.kt-loading { padding: 40px 0; text-align: center; font-size: 13px; color: var(--faint); }
+.kt-more { display: flex; justify-content: center; margin-top: 24px; }
+.kt-credit { font-size: 11px; line-height: 1.6; color: var(--faint); }
+.kt-credit a { text-decoration: underline; }
+.kt-credit a:hover { color: var(--red); }
+
+/* ---------- Kotak cari ---------- */
+.kt-search {
+  display: flex; align-items: center; gap: 10px; height: 46px; padding: 0 6px 0 14px;
+  border-radius: var(--radius-lg); border: 1px solid var(--panel-border); background: var(--input-bg);
+  transition: border-color .2s, box-shadow .2s;
+}
+.kt-search:focus-within { border-color: var(--red); box-shadow: 0 0 0 2px rgba(239, 68, 68, .2); }
+.kt-search > i { font-size: 13px; color: var(--faint); }
+.kt-search input {
+  flex: 1; min-width: 0; border: 0; outline: 0; background: transparent;
+  font-size: 13px; color: var(--text-strong);
+}
+.kt-search input::placeholder { color: var(--faint); }
+.kt-search-btn {
+  flex-shrink: 0; padding: 8px 14px; border-radius: var(--radius-md);
+  background: var(--red-strong); color: #fff; font-size: 12px; font-weight: 700; transition: background-color .2s;
+}
+.kt-search-btn:hover { background: var(--red); }
+.kt-search-cats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.kt-more-note { margin-top: 16px; font-size: 11px; color: var(--faint); text-align: center; }
+
+/* Dark mode: ikon bookmark memakai token teks */
+html.dark .kt-bookmark { color: var(--faint); }
+html.dark .kt-bookmark:hover, html.dark .kt-bookmark.on { color: var(--red); }

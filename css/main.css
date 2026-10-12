@@ -1,0 +1,186 @@
+/* =============================================================================
+ * DESA BACA — main.css (native CSS, tanpa Tailwind)
+ * Berisi: token tema, reset, dan komponen yang dipakai semua halaman.
+ *   css/landing.css -> index.html
+ *   css/panel.css   -> dashboard.html + baca.html
+ * Tema: <html class="dark"> = gelap, tanpa class = putih warm.
+ * ========================================================================== */
+
+/* 1. Token tema ------------------------------------------------------------ */
+:root {
+  --font: 'Plus Jakarta Sans', Inter, system-ui, sans-serif;
+
+  --bg: #EFE8DB;
+  --surface: #F8F3EA;          /* kartu */
+  --surface-2: #EFE8DB;        /* kartu di dalam kartu / input */
+  --surface-3: #E2D9CA;        /* tombol lembut */
+  --surface-3-hover: #D7CDBC;
+  --tag-bg: #E7DFD1;
+  --track: #DDD4C3;            /* jalur progress bar */
+  --border: #D8CEBC;
+  --border-soft: #E5DDD0;
+  --text: #231E18;
+  --text-strong: #171310;
+  --muted: #695F52;
+  --faint: #8B8174;
+  --input-bg: #EFE8DB;
+  --input-border: #D5CABB;
+  --cover-bg: #ECE4D5;
+  --header-bg: rgba(239, 232, 219, .9);
+  --footer-bg: #EBE4D5;
+  --marquee-bg: rgba(231, 224, 210, .7);
+  --card-hover-shadow: 0 16px 28px -10px rgba(130, 70, 20, .12), 0 0 0 1px rgba(255, 45, 32, .15);
+
+  /* panel (dashboard & baca) */
+  --rail-bg: #ECE4D5;
+  --rail-border: #D8CEBC;
+  --panel-bg: #EFE8DB;
+  --panel-card: #F8F3EA;
+  --panel-card-2: #EFE8DB;
+  --panel-border: #D8CEBC;
+  --active-bg: #DCD0BE;
+  --active-border: #CBBDA8;
+  --topbar-bg: #E5DDD0;
+  --inset-bg: #F8F3EA;
+  --scroll-thumb: #2b2e3e;
+  --scroll-thumb-hover: #3c4056;
+
+  --red: #ef4444;
+  --red-strong: #dc2626;
+  --blue: #3b82f6;
+  --emerald: #059669;
+  --amber: #d97706;
+  --purple: #9333ea;
+
+  --radius-xl: 24px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+}
+
+/* Dark mode: HANYA 5 warna surface di bawah ini (gelap -> terang).
+ * Semua surface/border/hover di tema gelap wajib memakai token --d1..--d5,
+ * jangan menulis hex baru. Warna teks punya token sendiri (--text, --muted, --faint). */
+html.dark {
+  --d1: #0A0A0A;   /* background utama */
+  --d2: #181818;   /* card / surface */
+  --d3: #262626;   /* border, divider, hover dasar */
+  --d4: #303030;   /* elemen muted, hover komponen */
+  --d5: #525252;   /* highlight halus, state aktif */
+
+  /* teks (kontras di atas --d1..--d4, WCAG AA) */
+  --text-strong: #FFFFFF;   /* heading            ~19:1 di --d1 */
+  --text: #E5E5E5;          /* body               ~15:1 di --d1, ~12:1 di --d2 */
+  --muted: #B3B3B3;         /* teks sekunder      ~9:1 di --d2,  ~6.8:1 di --d4 */
+  --faint: #999999;         /* label/placeholder  ~6.5:1 di --d2, ~4.9:1 di --d4 */
+
+  --bg: var(--d1);
+  --surface: var(--d2);
+  --surface-2: var(--d3);
+  --surface-3: var(--d4);
+  --surface-3-hover: var(--d5);
+  --tag-bg: var(--d3);
+  --track: var(--d4);
+  --border: var(--d3);
+  --border-soft: var(--d3);
+  --input-bg: var(--d1);
+  --input-border: var(--d4);
+  --cover-bg: var(--d1);
+  --header-bg: rgba(10, 10, 10, .9);
+  --footer-bg: var(--d1);
+  --marquee-bg: var(--d1);
+  --card-hover-shadow: 0 16px 32px -10px rgba(0, 0, 0, .5), 0 0 0 1px rgba(255, 45, 32, .15);
+
+  --rail-bg: var(--d2);
+  --rail-border: var(--d3);
+  --panel-bg: var(--d1);
+  --panel-card: var(--d2);
+  --panel-card-2: var(--d1);
+  --panel-border: var(--d3);
+  --active-bg: var(--d4);
+  --active-border: var(--d5);
+  --topbar-bg: var(--d2);
+  --inset-bg: var(--d1);
+
+  --scroll-thumb: var(--d4);
+  --scroll-thumb-hover: var(--d5);
+
+  --blue: #60a5fa;
+  --emerald: #34d399;
+  --amber: #f59e0b;
+  --purple: #c084fc;
+}
+
+/* 2. Reset & dasar --------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  overflow-x: hidden;
+  transition: background-color .35s ease, color .35s ease;
+}
+h1, h2, h3, h4, p, ul, ol { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+button, input { font: inherit; color: inherit; }
+button { background: none; border: 0; padding: 0; cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+::selection { background: var(--red); color: #fff; }
+:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.hidden { display: none !important; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* 3. Komponen bersama ------------------------------------------------------ */
+.heading { font-family: var(--font); font-weight: 800; }
+.accent { color: var(--red); }
+
+.progress { height: 8px; border-radius: 999px; background: var(--track); overflow: hidden; }
+.progress > span { display: block; height: 100%; border-radius: 999px; background: var(--blue); transition: width .5s ease; }
+.progress.thin { height: 6px; }
+.progress.tiny { height: 4px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px 16px; border-radius: var(--radius-md);
+  font-size: 12px; font-weight: 700;
+  transition: background-color .2s, color .2s, border-color .2s, transform .15s;
+}
+.btn:active { transform: scale(.97); }
+.btn-primary { background: var(--red-strong); color: #fff; }
+.btn-primary:hover { background: var(--red); }
+.btn-outline { border: 1px solid var(--border); color: var(--text); }
+.btn-outline:hover { background: rgba(127, 127, 127, .1); }
+.btn-outline:disabled { opacity: .3; }
+
+/* toast */
+html.dark .toast { background: var(--d2); border-color: var(--d4); }
+.toast {
+  position: fixed; top: 96px; right: 20px; z-index: 60;
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 20px; border-radius: var(--radius-lg);
+  background: #171717; color: #fff; border: 1px solid #404040;
+  font-size: 13px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, .35);
+  transform: translateX(140%); opacity: 0; pointer-events: none;
+  transition: transform .3s, opacity .3s;
+}
+.toast.show { transform: none; opacity: 1; }
+.toast i { font-size: 16px; }
+.toast.success i { color: #34d399; }
+.toast.error i { color: #f87171; }
+
+/* 4. Scrollbar tipis (halaman panel) --------------------------------------- */
+.panel-body ::-webkit-scrollbar { width: 6px; height: 6px; }
+.panel-body ::-webkit-scrollbar-track { background: transparent; }
+.panel-body ::-webkit-scrollbar-thumb { background: var(--scroll-thumb); border-radius: 999px; }
+.panel-body ::-webkit-scrollbar-thumb:hover { background: var(--scroll-thumb-hover); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>KATALOG BUKU - DESA BACA</title>
+  <meta name="description" content="Katalog buku Desa Baca: telusuri semua kategori atau pilih satu kategori." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/panel.css" />
+  <link rel="stylesheet" href="css/katalog.css" />
+  <script src="js/theme-init.js"></script>
+</head>
+
+<body class="panel-body">
+  <!-- Layout sama dengan dashboard.html: tinggi dikunci setinggi layar, hanya <main> yang scroll.
+       Halaman ini punya dua tampilan, dipilih lewat query:
+         katalog.html                      -> semua kategori
+         katalog.html?kategori=<slug>      -> satu kategori (slug ada di js/catalog.js) -->
+  <div class="app-shell">
+
+    <header class="topbar">
+      <div class="topbar-left"><span class="title">KATALOG BUKU</span></div>
+      <div class="topbar-right">
+        <a href="index.html" class="back"><i class="fa-solid fa-arrow-left"></i><span>Kembali ke Beranda</span></a>
+      </div>
+    </header>
+
+    <div class="workspace">
+
+      <!-- 1. RAIL IKON -->
+      <aside class="rail">
+        <div class="rail-group">
+          <a href="index.html" class="rail-home" title="Beranda Desa Baca" aria-label="Beranda Desa Baca"><i class="fa-solid fa-lightbulb"></i></a>
+          <nav class="rail-nav" aria-label="Navigasi dashboard">
+            <a href="dashboard.html#dashboard" class="rail-btn" title="Dashboard" aria-label="Dashboard"><i class="fa-solid fa-table-cells-large"></i></a>
+            <a href="dashboard.html#progres" class="rail-btn" title="Progres Baca" aria-label="Progres Baca"><i class="fa-solid fa-graduation-cap"></i></a>
+            <a href="dashboard.html#bookmarks" class="rail-btn" title="Buku Tersimpan" aria-label="Buku Tersimpan"><i class="fa-regular fa-bookmark"></i></a>
+            <a href="dashboard.html#riwayat" class="rail-btn" title="Riwayat Baca" aria-label="Riwayat Baca"><i class="fa-solid fa-chart-column"></i></a>
+            <a href="katalog.html" class="rail-btn active" title="Katalog Buku" aria-label="Katalog Buku" aria-current="page"><i class="fa-solid fa-book-open"></i></a>
+          </nav>
+        </div>
+        <button id="themeToggle" class="rail-theme" type="button" aria-label="Ganti Tema"><i id="themeIcon" class="fa-solid fa-moon"></i></button>
+      </aside>
+
+      <!-- 2. SUB-NAV -->
+      <aside class="subnav">
+        <div>
+          <h2>Dashboard</h2>
+          <p class="label">Overview</p>
+          <div class="subnav-links">
+            <a href="dashboard.html#dashboard" class="subnav-link"><i class="fa-solid fa-table-cells-large"></i><span>Dashboard</span></a>
+            <a href="dashboard.html#progres" class="subnav-link"><i class="fa-solid fa-chart-line"></i><span>Progres Baca</span></a>
+            <a href="dashboard.html#riwayat" class="subnav-link"><i class="fa-solid fa-clock-rotate-left"></i><span>Riwayat Baca</span></a>
+            <a href="katalog.html" class="subnav-link active" aria-current="page"><i class="fa-solid fa-book-open"></i><span>Katalog Buku</span></a>
+            <a href="dashboard.html#bookmarks" class="subnav-link"><i class="fa-regular fa-bookmark"></i><span>Buku Tersimpan</span></a>
+          </div>
+        </div>
+        <div class="account">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+            <p class="label" style="margin:0">Akun Aktif</p>
+            <button type="button" id="dashLogoutBtn" title="Keluar dari akun" style="background:none;border:none;color:var(--red);font-size:11px;cursor:pointer;font-weight:700;display:flex;align-items:center;gap:4px">
+              <i class="fa-solid fa-right-from-bracket"></i> Keluar
+            </button>
+          </div>
+          <p id="userName" style="font-weight:700">Pengguna Desa Baca</p>
+        </div>
+      </aside>
+
+      <!-- 3. KONTEN -->
+      <main class="panel-main" id="main">
+        <section class="frame kt-frame" id="ktFrame">
+
+          <div class="view-head">
+            <div>
+              <h1 id="ktTitle">Katalog Buku</h1>
+              <p id="ktSub">Telusuri buku dari semua kategori.</p>
+            </div>
+            <a id="ktBack" href="katalog.html" class="btn btn-outline kt-back hidden"><i class="fa-solid fa-arrow-left"></i> Semua Kategori</a>
+          </div>
+
+          <form id="ktSearchForm" class="kt-search" role="search">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <input id="ktSearch" type="search" placeholder="Cari judul, penulis, atau kategori…" autocomplete="off" aria-label="Cari buku di katalog" />
+            <button type="submit" class="kt-search-btn">Cari</button>
+          </form>
+
+          <nav id="ktChips" class="kt-chips" aria-label="Kategori buku"></nav>
+
+          <div id="ktBody"></div>
+
+          <div id="ktEmpty" class="empty hidden">
+            <div class="ic"><i class="fa-solid fa-book-open"></i></div>
+            <p class="t">Kategori tidak ditemukan</p>
+            <p class="d">Pilih salah satu kategori di atas untuk melihat bukunya.</p>
+            <div class="actions"><a href="katalog.html" class="btn btn-primary">Lihat semua kategori</a></div>
+          </div>
+
+          <p class="kt-credit">Data katalog (judul, penulis, durasi baca) bersumber dari
+            <a href="https://www.f15library.com" target="_blank" rel="noopener">F15 Library</a>.
+            Buku yang diberi ikon panah dibuka di F15 Library untuk membaca ringkasannya.</p>
+
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div id="toast" class="toast success" role="status" aria-live="polite">
+    <i class="fa-solid fa-circle-check"></i><span></span>
+  </div>
+
+  <!-- Data layer (mockup localStorage). Baca catatan di header js/store.js sebelum mengubah apa pun. -->
+  <script src="js/store.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/rail.js"></script>
+  <script src="js/catalog.js"></script>
+  <script src="js/content.js"></script>
+  <script src="js/katalog.js"></script>
+</body>
+</html>

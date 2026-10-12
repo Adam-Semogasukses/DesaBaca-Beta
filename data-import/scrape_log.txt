@@ -1,0 +1,679 @@
+[2026-10-10 13:51:00] === MULAI DRY RUN ===
+[2026-10-10 13:51:03] GET /collections/world-culture?sort=title -> 200 (178813 B)
+[2026-10-10 13:51:03]   world-culture: 24 kartu di halaman 1 (situs: 527 buku), diambil 7
+[2026-10-10 13:51:06] GET /collections/meaningful-stories?sort=title -> 200 (178238 B)
+[2026-10-10 13:51:06]   meaningful-stories: 24 kartu di halaman 1 (situs: 474 buku), diambil 7
+[2026-10-10 13:51:08] GET /collections/business-leadership?sort=title -> 200 (178642 B)
+[2026-10-10 13:51:08]   business-leadership: 24 kartu di halaman 1 (situs: 397 buku), diambil 6
+[2026-10-10 13:51:08]   cek tumpang-tindih: 72 kartu unik dari 3 halaman, 0 muncul di >1 koleksi
+[2026-10-10 13:51:08] Ringkasan: buku=20 request=3 cache=0 gagal=0 kartu_ok=72 dilewati=0
+[2026-10-10 13:51:08]   tanpa_penulis: 0 []
+[2026-10-10 13:51:08]   tanpa_durasi: 0 []
+[2026-10-10 13:51:08]   tanpa_sampul: 0 []
+[2026-10-10 13:51:08]   slug>80: 0 []
+[2026-10-10 13:51:08]   judul>150: 0 []
+
+[2026-10-10 14:26:07] === MULAI DRY RUN ===
+[2026-10-10 14:26:07]   world-culture: 24 kartu di halaman 1 (situs: 527 buku), diambil 7
+[2026-10-10 14:26:07]   meaningful-stories: 24 kartu di halaman 1 (situs: 474 buku), diambil 7
+[2026-10-10 14:26:07]   business-leadership: 24 kartu di halaman 1 (situs: 397 buku), diambil 6
+[2026-10-10 14:26:10] GET /collections/personal-growth?sort=title -> 200 (178569 B)
+[2026-10-10 14:26:10]   tambahan: atomic-habits ditemukan di personal-growth halaman 1
+[2026-10-10 14:26:10]   cek tumpang-tindih: 72 kartu unik dari 3 halaman, 0 muncul di >1 koleksi
+[2026-10-10 14:26:10] Ringkasan: buku=20 request=1 cache=3 gagal=0 kartu_ok=96 dilewati=0
+[2026-10-10 14:26:10]   tanpa_penulis: 0 []
+[2026-10-10 14:26:10]   tanpa_durasi: 0 []
+[2026-10-10 14:26:10]   tanpa_sampul: 0 []
+[2026-10-10 14:26:10]   slug>80: 0 []
+[2026-10-10 14:26:10]   judul>150: 0 []
+
+[2026-10-10 14:26:39] === MULAI DRY RUN ===
+[2026-10-10 14:26:39]   world-culture: 24 kartu di halaman 1 (situs: 527 buku), diambil 7
+[2026-10-10 14:26:39]   meaningful-stories: 24 kartu di halaman 1 (situs: 474 buku), diambil 7
+[2026-10-10 14:26:39]   business-leadership: 24 kartu di halaman 1 (situs: 397 buku), diambil 6
+[2026-10-10 14:26:40]   tambahan: atomic-habits ditemukan di personal-growth halaman 1
+[2026-10-10 14:26:40]   cek tumpang-tindih: 72 kartu unik dari 3 halaman, 0 muncul di >1 koleksi
+[2026-10-10 14:26:40] Ringkasan: buku=21 request=0 cache=4 gagal=0 kartu_ok=96 dilewati=0
+[2026-10-10 14:26:40]   tanpa_penulis: 0 []
+[2026-10-10 14:26:40]   tanpa_durasi: 0 []
+[2026-10-10 14:26:40]   tanpa_sampul: 0 []
+[2026-10-10 14:26:40]   slug>80: 0 []
+[2026-10-10 14:26:40]   judul>150: 0 []
+
+[2026-10-10 17:16:57] === MULAI FULL ===
+[2026-10-10 17:16:59] GET /collections/biography-memoir?sort=title -> 200 (177975 B)
+[2026-10-10 17:17:02] GET /collections/biography-memoir?sort=title&page=2 -> 200 (178539 B)
+[2026-10-10 17:17:05] GET /collections/biography-memoir?sort=title&page=3 -> 200 (179843 B)
+[2026-10-10 17:17:07] GET /collections/biography-memoir?sort=title&page=4 -> 200 (180754 B)
+[2026-10-10 17:17:10] GET /collections/biography-memoir?sort=title&page=5 -> 200 (179587 B)
+[2026-10-10 17:17:12] GET /collections/biography-memoir?sort=title&page=6 -> 200 (180029 B)
+[2026-10-10 17:17:15] GET /collections/biography-memoir?sort=title&page=7 -> 200 (180039 B)
+[2026-10-10 17:17:20] GET /collections/biography-memoir?sort=title&page=8 -> 200 (179740 B)
+[2026-10-10 17:17:24] GET /collections/biography-memoir?sort=title&page=9 -> 200 (179691 B)
+[2026-10-10 17:17:26] GET /collections/biography-memoir?sort=title&page=10 -> 200 (180130 B)
+[2026-10-10 17:17:29] GET /collections/biography-memoir?sort=title&page=11 -> 200 (180234 B)
+[2026-10-10 17:17:32] GET /collections/biography-memoir?sort=title&page=12 -> 200 (181102 B)
+[2026-10-10 17:17:55] GET /collections/biography-memoir?sort=title&page=13 -> ERROR URLError(ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None)) (percobaan 1)
+[2026-10-10 17:18:20] GET /collections/biography-memoir?sort=title&page=13 -> ERROR URLError(ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None)) (percobaan 2)
+[2026-10-10 17:18:49] GET /collections/biography-memoir?sort=title&page=13 -> ERROR URLError(ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None)) (percobaan 3)
+[2026-10-10 17:19:06] GET /collections/biography-memoir?sort=title&page=14 -> ERROR URLError(gaierror(11001, 'getaddrinfo failed')) (percobaan 1)
+[2026-10-10 17:19:11] GET /collections/biography-memoir?sort=title&page=14 -> ERROR URLError(gaierror(11001, 'getaddrinfo failed')) (percobaan 2)
+[2026-10-10 17:19:21] GET /collections/biography-memoir?sort=title&page=14 -> ERROR URLError(gaierror(11001, 'getaddrinfo failed')) (percobaan 3)
+[2026-10-10 17:19:38] GET /collections/biography-memoir?sort=title&page=15 -> ERROR URLError(gaierror(11001, 'getaddrinfo failed')) (percobaan 1)
+[2026-10-10 17:19:43] GET /collections/biography-memoir?sort=title&page=15 -> ERROR URLError(gaierror(11001, 'getaddrinfo failed')) (percobaan 2)
+[2026-10-10 17:19:53] GET /collections/biography-memoir?sort=title&page=15 -> ERROR URLError(gaierror(11001, 'getaddrinfo failed')) (percobaan 3)
+[2026-10-10 17:20:10] GET /collections/biography-memoir?sort=title&page=16 -> ERROR URLError(gaierror(11001, 'getaddrinfo failed')) (percobaan 1)
+[2026-10-10 17:20:15] GET /collections/biography-memoir?sort=title&page=16 -> ERROR URLError(gaierror(11001, 'getaddrinfo failed')) (percobaan 2)
+[2026-10-10 17:20:25] GET /collections/biography-memoir?sort=title&page=16 -> ERROR URLError(gaierror(11001, 'getaddrinfo failed')) (percobaan 3)
+[2026-10-10 17:20:41] GET /collections/biography-memoir?sort=title&page=17 -> ERROR URLError(gaierror(11001, 'getaddrinfo failed')) (percobaan 1)
+[2026-10-10 17:20:46] GET /collections/biography-memoir?sort=title&page=17 -> ERROR URLError(gaierror(11001, 'getaddrinfo failed')) (percobaan 2)
+[2026-10-10 17:20:56] GET /collections/biography-memoir?sort=title&page=17 -> ERROR URLError(gaierror(11001, 'getaddrinfo failed')) (percobaan 3)
+[2026-10-10 17:21:11]   biography-memoir: 288 buku terkumpul (situs: 394)
+[2026-10-10 17:21:13] GET /collections/business-leadership?sort=title&page=2 -> ERROR URLError(gaierror(11001, 'getaddrinfo failed')) (percobaan 1)
+[2026-10-10 17:21:18] GET /collections/business-leadership?sort=title&page=2 -> ERROR URLError(gaierror(11001, 'getaddrinfo failed')) (percobaan 2)
+[2026-10-10 17:21:29] GET /collections/business-leadership?sort=title&page=2 -> ERROR URLError(gaierror(11001, 'getaddrinfo failed')) (percobaan 3)
+[2026-10-10 17:21:45] GET /collections/business-leadership?sort=title&page=3 -> ERROR URLError(gaierror(11001, 'getaddrinfo failed')) (percobaan 1)
+[2026-10-10 17:21:50] GET /collections/business-leadership?sort=title&page=3 -> ERROR URLError(gaierror(11001, 'getaddrinfo failed')) (percobaan 2)
+[2026-10-10 17:22:00] GET /collections/business-leadership?sort=title&page=3 -> ERROR URLError(gaierror(11001, 'getaddrinfo failed')) (percobaan 3)
+[2026-10-10 17:22:17] GET /collections/business-leadership?sort=title&page=4 -> ERROR URLError(gaierror(11001, 'getaddrinfo failed')) (percobaan 1)
+[2026-10-10 17:22:22] GET /collections/business-leadership?sort=title&page=4 -> ERROR URLError(gaierror(11001, 'getaddrinfo failed')) (percobaan 2)
+[2026-10-10 17:22:32] GET /collections/business-leadership?sort=title&page=4 -> ERROR URLError(gaierror(11001, 'getaddrinfo failed')) (percobaan 3)
+[2026-10-10 17:22:51] GET /collections/business-leadership?sort=title&page=5 -> 200 (180620 B)
+[2026-10-10 17:22:54] GET /collections/business-leadership?sort=title&page=6 -> 200 (180493 B)
+[2026-10-10 17:22:57] GET /collections/business-leadership?sort=title&page=7 -> 200 (180031 B)
+[2026-10-10 17:23:00] GET /collections/business-leadership?sort=title&page=8 -> 200 (180510 B)
+[2026-10-10 17:23:03] GET /collections/business-leadership?sort=title&page=9 -> 200 (180617 B)
+[2026-10-10 17:23:06] GET /collections/business-leadership?sort=title&page=10 -> 200 (180313 B)
+[2026-10-10 17:23:09] GET /collections/business-leadership?sort=title&page=11 -> 200 (180808 B)
+[2026-10-10 17:23:11] GET /collections/business-leadership?sort=title&page=12 -> 200 (180767 B)
+[2026-10-10 17:23:14] GET /collections/business-leadership?sort=title&page=13 -> 200 (180633 B)
+[2026-10-10 17:23:17] GET /collections/business-leadership?sort=title&page=14 -> 200 (181750 B)
+[2026-10-10 17:23:20] GET /collections/business-leadership?sort=title&page=15 -> 200 (180551 B)
+[2026-10-10 17:23:24] GET /collections/business-leadership?sort=title&page=16 -> 200 (179968 B)
+[2026-10-10 17:23:27] GET /collections/business-leadership?sort=title&page=17 -> 200 (126700 B)
+[2026-10-10 17:23:27]   business-leadership: 325 buku terkumpul (situs: 397)
+[2026-10-10 17:23:30] GET /collections/communication-skills?sort=title -> 200 (182013 B)
+[2026-10-10 17:23:32] GET /collections/communication-skills?sort=title&page=2 -> 200 (182271 B)
+[2026-10-10 17:23:35] GET /collections/communication-skills?sort=title&page=3 -> 200 (182106 B)
+[2026-10-10 17:23:38] GET /collections/communication-skills?sort=title&page=4 -> 200 (181711 B)
+[2026-10-10 17:23:41] GET /collections/communication-skills?sort=title&page=5 -> 200 (181601 B)
+[2026-10-10 17:23:44] GET /collections/communication-skills?sort=title&page=6 -> 200 (181771 B)
+[2026-10-10 17:23:47] GET /collections/communication-skills?sort=title&page=7 -> 200 (184540 B)
+[2026-10-10 17:23:47]   communication-skills: 168 buku terkumpul (situs: 168)
+[2026-10-10 17:23:50] GET /collections/editorial-picks?sort=title -> 200 (93506 B)
+[2026-10-10 17:23:50]   editorial-picks: 8 buku terkumpul (situs: 8)
+[2026-10-10 17:23:54] GET /collections/future-innovation?sort=title -> 200 (178953 B)
+[2026-10-10 17:23:57] GET /collections/future-innovation?sort=title&page=2 -> 200 (178968 B)
+[2026-10-10 17:24:00] GET /collections/future-innovation?sort=title&page=3 -> 200 (179196 B)
+[2026-10-10 17:24:04] GET /collections/future-innovation?sort=title&page=4 -> 200 (180203 B)
+[2026-10-10 17:24:08] GET /collections/future-innovation?sort=title&page=5 -> 200 (180037 B)
+[2026-10-10 17:24:11] GET /collections/future-innovation?sort=title&page=6 -> 200 (180786 B)
+[2026-10-10 17:24:13] GET /collections/future-innovation?sort=title&page=7 -> 200 (181174 B)
+[2026-10-10 17:24:16] GET /collections/future-innovation?sort=title&page=8 -> 200 (180493 B)
+[2026-10-10 17:24:19] GET /collections/future-innovation?sort=title&page=9 -> 200 (179710 B)
+[2026-10-10 17:24:22] GET /collections/future-innovation?sort=title&page=10 -> 200 (121437 B)
+[2026-10-10 17:24:22]   future-innovation: 228 buku terkumpul (situs: 228)
+[2026-10-10 17:24:26] GET /collections/health-wellbeing?sort=title -> 200 (178093 B)
+[2026-10-10 17:24:29] GET /collections/health-wellbeing?sort=title&page=2 -> 200 (179735 B)
+[2026-10-10 17:24:33] GET /collections/health-wellbeing?sort=title&page=3 -> 200 (179483 B)
+[2026-10-10 17:24:36] GET /collections/health-wellbeing?sort=title&page=4 -> 200 (181299 B)
+[2026-10-10 17:24:40] GET /collections/health-wellbeing?sort=title&page=5 -> 200 (180984 B)
+[2026-10-10 17:24:42] GET /collections/health-wellbeing?sort=title&page=6 -> 200 (179883 B)
+[2026-10-10 17:24:47] GET /collections/health-wellbeing?sort=title&page=7 -> 200 (180424 B)
+[2026-10-10 17:24:51] GET /collections/health-wellbeing?sort=title&page=8 -> 200 (180908 B)
+[2026-10-10 17:24:55] GET /collections/health-wellbeing?sort=title&page=9 -> 200 (180400 B)
+[2026-10-10 17:24:58] GET /collections/health-wellbeing?sort=title&page=10 -> 200 (179575 B)
+[2026-10-10 17:25:01] GET /collections/health-wellbeing?sort=title&page=11 -> 200 (106376 B)
+[2026-10-10 17:25:01]   health-wellbeing: 249 buku terkumpul (situs: 249)
+[2026-10-10 17:25:04] GET /collections/high-performance?sort=title -> 200 (178045 B)
+[2026-10-10 17:25:07] GET /collections/high-performance?sort=title&page=2 -> 200 (178324 B)
+[2026-10-10 17:25:10] GET /collections/high-performance?sort=title&page=3 -> 200 (180403 B)
+[2026-10-10 17:25:14] GET /collections/high-performance?sort=title&page=4 -> 200 (180190 B)
+[2026-10-10 17:25:17] GET /collections/high-performance?sort=title&page=5 -> 200 (181060 B)
+[2026-10-10 17:25:20] GET /collections/high-performance?sort=title&page=6 -> 200 (181003 B)
+[2026-10-10 17:25:22] GET /collections/high-performance?sort=title&page=7 -> 200 (179670 B)
+[2026-10-10 17:25:26] GET /collections/high-performance?sort=title&page=8 -> 200 (101665 B)
+[2026-10-10 17:25:26]   high-performance: 176 buku terkumpul (situs: 176)
+[2026-10-10 17:25:29] GET /collections/meaningful-stories?sort=title&page=2 -> 200 (178600 B)
+[2026-10-10 17:25:32] GET /collections/meaningful-stories?sort=title&page=3 -> 200 (179561 B)
+[2026-10-10 17:25:35] GET /collections/meaningful-stories?sort=title&page=4 -> 200 (180535 B)
+[2026-10-10 17:25:40] GET /collections/meaningful-stories?sort=title&page=5 -> 200 (179381 B)
+[2026-10-10 17:25:44] GET /collections/meaningful-stories?sort=title&page=6 -> 200 (180308 B)
+[2026-10-10 17:25:47] GET /collections/meaningful-stories?sort=title&page=7 -> 200 (179505 B)
+[2026-10-10 17:25:50] GET /collections/meaningful-stories?sort=title&page=8 -> 200 (179431 B)
+[2026-10-10 17:25:53] GET /collections/meaningful-stories?sort=title&page=9 -> 200 (179484 B)
+[2026-10-10 17:25:55] GET /collections/meaningful-stories?sort=title&page=10 -> 200 (179317 B)
+[2026-10-10 17:25:59] GET /collections/meaningful-stories?sort=title&page=11 -> 200 (180013 B)
+[2026-10-10 17:26:02] GET /collections/meaningful-stories?sort=title&page=12 -> 200 (180138 B)
+[2026-10-10 17:26:04] GET /collections/meaningful-stories?sort=title&page=13 -> 200 (179928 B)
+[2026-10-10 17:26:07] GET /collections/meaningful-stories?sort=title&page=14 -> 200 (179818 B)
+[2026-10-10 17:26:10] GET /collections/meaningful-stories?sort=title&page=15 -> 200 (180003 B)
+[2026-10-10 17:26:13] GET /collections/meaningful-stories?sort=title&page=16 -> 200 (179744 B)
+[2026-10-10 17:26:17] GET /collections/meaningful-stories?sort=title&page=17 -> 200 (180586 B)
+[2026-10-10 17:26:21] GET /collections/meaningful-stories?sort=title&page=18 -> 200 (180122 B)
+[2026-10-10 17:26:23] GET /collections/meaningful-stories?sort=title&page=19 -> 200 (178090 B)
+[2026-10-10 17:26:26] GET /collections/meaningful-stories?sort=title&page=20 -> 200 (151123 B)
+[2026-10-10 17:26:26]   meaningful-stories: 474 buku terkumpul (situs: 474)
+[2026-10-10 17:26:29] GET /collections/mind-behavior?sort=title -> 200 (179290 B)
+[2026-10-10 17:26:32] GET /collections/mind-behavior?sort=title&page=2 -> 200 (178986 B)
+[2026-10-10 17:26:35] GET /collections/mind-behavior?sort=title&page=3 -> 200 (179874 B)
+[2026-10-10 17:26:37] GET /collections/mind-behavior?sort=title&page=4 -> 200 (180806 B)
+[2026-10-10 17:26:40] GET /collections/mind-behavior?sort=title&page=5 -> 200 (180225 B)
+[2026-10-10 17:26:42] GET /collections/mind-behavior?sort=title&page=6 -> 200 (180346 B)
+[2026-10-10 17:26:45] GET /collections/mind-behavior?sort=title&page=7 -> 200 (179983 B)
+[2026-10-10 17:26:48] GET /collections/mind-behavior?sort=title&page=8 -> 200 (180680 B)
+[2026-10-10 17:26:51] GET /collections/mind-behavior?sort=title&page=9 -> 200 (180802 B)
+[2026-10-10 17:26:54] GET /collections/mind-behavior?sort=title&page=10 -> 200 (181892 B)
+[2026-10-10 17:26:56] GET /collections/mind-behavior?sort=title&page=11 -> 200 (180293 B)
+[2026-10-10 17:26:59] GET /collections/mind-behavior?sort=title&page=12 -> 200 (180148 B)
+[2026-10-10 17:27:02] GET /collections/mind-behavior?sort=title&page=13 -> 200 (151806 B)
+[2026-10-10 17:27:02]   mind-behavior: 306 buku terkumpul (situs: 306)
+[2026-10-10 17:27:04] GET /collections/mindfulness-wisdom?sort=title -> 200 (178379 B)
+[2026-10-10 17:27:08] GET /collections/mindfulness-wisdom?sort=title&page=2 -> 200 (178882 B)
+[2026-10-10 17:27:11] GET /collections/mindfulness-wisdom?sort=title&page=3 -> 200 (180082 B)
+[2026-10-10 17:27:14] GET /collections/mindfulness-wisdom?sort=title&page=4 -> 200 (180280 B)
+[2026-10-10 17:27:17] GET /collections/mindfulness-wisdom?sort=title&page=5 -> 200 (180264 B)
+[2026-10-10 17:27:20] GET /collections/mindfulness-wisdom?sort=title&page=6 -> 200 (180267 B)
+[2026-10-10 17:27:23] GET /collections/mindfulness-wisdom?sort=title&page=7 -> 200 (179957 B)
+[2026-10-10 17:27:27] GET /collections/mindfulness-wisdom?sort=title&page=8 -> 200 (180719 B)
+[2026-10-10 17:27:36] GET /collections/mindfulness-wisdom?sort=title&page=9 -> 200 (180481 B)
+[2026-10-10 17:27:40] GET /collections/mindfulness-wisdom?sort=title&page=10 -> 200 (180171 B)
+[2026-10-10 17:27:42] GET /collections/mindfulness-wisdom?sort=title&page=11 -> 200 (181373 B)
+[2026-10-10 17:27:45] GET /collections/mindfulness-wisdom?sort=title&page=12 -> 200 (180625 B)
+[2026-10-10 17:27:48] GET /collections/mindfulness-wisdom?sort=title&page=13 -> 200 (179665 B)
+[2026-10-10 17:27:51] GET /collections/mindfulness-wisdom?sort=title&page=14 -> 200 (141488 B)
+[2026-10-10 17:27:51]   mindfulness-wisdom: 328 buku terkumpul (situs: 328)
+[2026-10-10 17:27:53] GET /collections/personal-growth?sort=title&page=2 -> 200 (179262 B)
+[2026-10-10 17:27:56] GET /collections/personal-growth?sort=title&page=3 -> 200 (180170 B)
+[2026-10-10 17:27:58] GET /collections/personal-growth?sort=title&page=4 -> 200 (181561 B)
+[2026-10-10 17:28:00] GET /collections/personal-growth?sort=title&page=5 -> 200 (180286 B)
+[2026-10-10 17:28:03] GET /collections/personal-growth?sort=title&page=6 -> 200 (179647 B)
+[2026-10-10 17:28:06] GET /collections/personal-growth?sort=title&page=7 -> 200 (180286 B)
+[2026-10-10 17:28:09] GET /collections/personal-growth?sort=title&page=8 -> 200 (180436 B)
+[2026-10-10 17:28:12] GET /collections/personal-growth?sort=title&page=9 -> 200 (181518 B)
+[2026-10-10 17:28:15] GET /collections/personal-growth?sort=title&page=10 -> 200 (180064 B)
+[2026-10-10 17:28:18] GET /collections/personal-growth?sort=title&page=11 -> 200 (179238 B)
+[2026-10-10 17:28:20] GET /collections/personal-growth?sort=title&page=12 -> 200 (86711 B)
+[2026-10-10 17:28:20]   personal-growth: 269 buku terkumpul (situs: 269)
+[2026-10-10 17:28:23] GET /collections/relationships-parenting?sort=title -> 200 (178722 B)
+[2026-10-10 17:28:25] GET /collections/relationships-parenting?sort=title&page=2 -> 200 (179406 B)
+[2026-10-10 17:28:28] GET /collections/relationships-parenting?sort=title&page=3 -> 200 (181163 B)
+[2026-10-10 17:28:31] GET /collections/relationships-parenting?sort=title&page=4 -> 200 (181633 B)
+[2026-10-10 17:28:34] GET /collections/relationships-parenting?sort=title&page=5 -> 200 (180482 B)
+[2026-10-10 17:28:36] GET /collections/relationships-parenting?sort=title&page=6 -> 200 (182114 B)
+[2026-10-10 17:28:39] GET /collections/relationships-parenting?sort=title&page=7 -> 200 (180726 B)
+[2026-10-10 17:28:42] GET /collections/relationships-parenting?sort=title&page=8 -> 200 (180178 B)
+[2026-10-10 17:28:45] GET /collections/relationships-parenting?sort=title&page=9 -> 200 (166543 B)
+[2026-10-10 17:28:45]   relationships-parenting: 213 buku terkumpul (situs: 213)
+[2026-10-10 17:28:48] GET /collections/wealth-finance?sort=title -> 200 (179474 B)
+[2026-10-10 17:28:50] GET /collections/wealth-finance?sort=title&page=2 -> 200 (179654 B)
+[2026-10-10 17:28:53] GET /collections/wealth-finance?sort=title&page=3 -> 200 (179867 B)
+[2026-10-10 17:28:55] GET /collections/wealth-finance?sort=title&page=4 -> 200 (181532 B)
+[2026-10-10 17:28:58] GET /collections/wealth-finance?sort=title&page=5 -> 200 (180121 B)
+[2026-10-10 17:29:02] GET /collections/wealth-finance?sort=title&page=6 -> 200 (180187 B)
+[2026-10-10 17:29:05] GET /collections/wealth-finance?sort=title&page=7 -> 200 (180863 B)
+[2026-10-10 17:29:07] GET /collections/wealth-finance?sort=title&page=8 -> 200 (182042 B)
+[2026-10-10 17:29:10] GET /collections/wealth-finance?sort=title&page=9 -> 200 (180776 B)
+[2026-10-10 17:29:12] GET /collections/wealth-finance?sort=title&page=10 -> 200 (179441 B)
+[2026-10-10 17:29:14] GET /collections/wealth-finance?sort=title&page=11 -> 200 (126685 B)
+[2026-10-10 17:29:14]   wealth-finance: 253 buku terkumpul (situs: 253)
+[2026-10-10 17:29:17] GET /collections/world-culture?sort=title&page=2 -> 200 (179778 B)
+[2026-10-10 17:29:21] GET /collections/world-culture?sort=title&page=3 -> 200 (179485 B)
+[2026-10-10 17:29:24] GET /collections/world-culture?sort=title&page=4 -> 200 (179800 B)
+[2026-10-10 17:29:27] GET /collections/world-culture?sort=title&page=5 -> 200 (179943 B)
+[2026-10-10 17:29:30] GET /collections/world-culture?sort=title&page=6 -> 200 (180364 B)
+[2026-10-10 17:29:33] GET /collections/world-culture?sort=title&page=7 -> 200 (179938 B)
+[2026-10-10 17:29:36] GET /collections/world-culture?sort=title&page=8 -> 200 (180039 B)
+[2026-10-10 17:29:39] GET /collections/world-culture?sort=title&page=9 -> 200 (180054 B)
+[2026-10-10 17:29:41] GET /collections/world-culture?sort=title&page=10 -> 200 (179598 B)
+[2026-10-10 17:29:45] GET /collections/world-culture?sort=title&page=11 -> 200 (179633 B)
+[2026-10-10 17:29:48] GET /collections/world-culture?sort=title&page=12 -> 200 (179891 B)
+[2026-10-10 17:29:50] GET /collections/world-culture?sort=title&page=13 -> 200 (179236 B)
+[2026-10-10 17:29:52] GET /collections/world-culture?sort=title&page=14 -> 200 (180276 B)
+[2026-10-10 17:29:55] GET /collections/world-culture?sort=title&page=15 -> 200 (180466 B)
+[2026-10-10 17:29:57] GET /collections/world-culture?sort=title&page=16 -> 200 (180280 B)
+[2026-10-10 17:30:00] GET /collections/world-culture?sort=title&page=17 -> 200 (180158 B)
+[2026-10-10 17:30:03] GET /collections/world-culture?sort=title&page=18 -> 200 (180279 B)
+[2026-10-10 17:30:06] GET /collections/world-culture?sort=title&page=19 -> 200 (180960 B)
+[2026-10-10 17:30:09] GET /collections/world-culture?sort=title&page=20 -> 200 (180673 B)
+[2026-10-10 17:30:18] GET /collections/world-culture?sort=title&page=21 -> 200 (179802 B)
+[2026-10-10 17:30:21] GET /collections/world-culture?sort=title&page=22 -> 200 (176301 B)
+[2026-10-10 17:30:21]   world-culture: 527 buku terkumpul (situs: 527)
+[2026-10-10 17:30:21] Ringkasan: buku=3804 request=184 cache=4 gagal=8 kartu_ok=3812 dilewati=0
+[2026-10-10 17:30:21]   tanpa_penulis: 0 []
+[2026-10-10 17:30:21]   tanpa_durasi: 0 []
+[2026-10-10 17:30:21]   tanpa_sampul: 0 []
+[2026-10-10 17:30:21]   slug>80: 11 ['a-city-on-mars-can-we-settle-space-should-we-settle-space-and-have-we-really-thought-this-through', 'a-world-of-three-zeros-the-new-economics-of-zero-poverty-zero-unemployment-and-zero-net-carbon-emissions', 'band-of-brothers-e-company-506th-regiment-101st-airborne-from-normandy-to-hitler-s-eagle-s-nest', 'empire-of-the-summer-moon-quanah-parker-and-the-rise-and-fall-of-the-comanches-the-most-powerful-indian-tribe-in-american-history', 'how-to-change-your-mind-what-the-new-science-of-psychedelics-teaches-us-about-consciousness-dying-addiction-depression-and-transcendence', 'rough-sleepers-dr-jim-o-connell-s-urgent-mission-to-bring-healing-to-homeless-people', 'spare-parts-four-undocumented-teenagers-one-ugly-robot-and-the-battle-for-the-american-dream', 'the-blue-sweater-bridging-the-gap-between-rich-and-poor-in-an-interconnected-world', 'the-boys-in-the-boat-nine-americans-and-their-epic-quest-for-gold-at-the-1936-berlin-olympics', 'the-fearless-organization-creating-psychological-safety-in-the-workplace-for-learning-innovation-and-growth']
+[2026-10-10 17:30:21]   judul>150: 0 []
+
+[2026-10-10 17:31:08] === MULAI FULL ===
+[2026-10-10 17:31:15] GET /collections/biography-memoir?sort=title&page=13 -> 200 (180945 B)
+[2026-10-10 17:31:18] GET /collections/biography-memoir?sort=title&page=14 -> 200 (180650 B)
+[2026-10-10 17:31:20] GET /collections/biography-memoir?sort=title&page=15 -> 200 (180007 B)
+[2026-10-10 17:31:23] GET /collections/biography-memoir?sort=title&page=16 -> 200 (179118 B)
+[2026-10-10 17:31:26] GET /collections/biography-memoir?sort=title&page=17 -> 200 (111190 B)
+[2026-10-10 17:31:26]   biography-memoir: 394 buku terkumpul (situs: 394)
+[2026-10-10 17:31:29] GET /collections/business-leadership?sort=title&page=2 -> 200 (179776 B)
+[2026-10-10 17:31:32] GET /collections/business-leadership?sort=title&page=3 -> 200 (180357 B)
+[2026-10-10 17:31:36] GET /collections/business-leadership?sort=title&page=4 -> 200 (180089 B)
+[2026-10-10 17:31:39]   business-leadership: 397 buku terkumpul (situs: 397)
+[2026-10-10 17:31:40]   communication-skills: 168 buku terkumpul (situs: 168)
+[2026-10-10 17:31:41]   editorial-picks: 8 buku terkumpul (situs: 8)
+[2026-10-10 17:31:42]   future-innovation: 228 buku terkumpul (situs: 228)
+[2026-10-10 17:31:44]   health-wellbeing: 249 buku terkumpul (situs: 249)
+[2026-10-10 17:31:46]   high-performance: 176 buku terkumpul (situs: 176)
+[2026-10-10 17:31:50]   meaningful-stories: 474 buku terkumpul (situs: 474)
+[2026-10-10 17:31:52]   mind-behavior: 306 buku terkumpul (situs: 306)
+[2026-10-10 17:31:55]   mindfulness-wisdom: 328 buku terkumpul (situs: 328)
+[2026-10-10 17:31:57]   personal-growth: 269 buku terkumpul (situs: 269)
+[2026-10-10 17:31:58]   relationships-parenting: 213 buku terkumpul (situs: 213)
+[2026-10-10 17:32:00]   wealth-finance: 253 buku terkumpul (situs: 253)
+[2026-10-10 17:32:04]   world-culture: 527 buku terkumpul (situs: 527)
+[2026-10-10 17:32:04] Ringkasan: buku=3982 request=8 cache=164 gagal=0 kartu_ok=3990 dilewati=0
+[2026-10-10 17:32:04]   tanpa_penulis: 0 []
+[2026-10-10 17:32:04]   tanpa_durasi: 0 []
+[2026-10-10 17:32:04]   tanpa_sampul: 0 []
+[2026-10-10 17:32:04]   slug>80: 12 ['a-city-on-mars-can-we-settle-space-should-we-settle-space-and-have-we-really-thought-this-through', 'a-world-of-three-zeros-the-new-economics-of-zero-poverty-zero-unemployment-and-zero-net-carbon-emissions', 'band-of-brothers-e-company-506th-regiment-101st-airborne-from-normandy-to-hitler-s-eagle-s-nest', 'empire-of-the-summer-moon-quanah-parker-and-the-rise-and-fall-of-the-comanches-the-most-powerful-indian-tribe-in-american-history', 'how-to-change-your-mind-what-the-new-science-of-psychedelics-teaches-us-about-consciousness-dying-addiction-depression-and-transcendence', 'rough-sleepers-dr-jim-o-connell-s-urgent-mission-to-bring-healing-to-homeless-people', 'spare-parts-four-undocumented-teenagers-one-ugly-robot-and-the-battle-for-the-american-dream', 'the-blue-sweater-bridging-the-gap-between-rich-and-poor-in-an-interconnected-world', 'the-boys-in-the-boat-nine-americans-and-their-epic-quest-for-gold-at-the-1936-berlin-olympics', 'the-fearless-organization-creating-psychological-safety-in-the-workplace-for-learning-innovation-and-growth']
+[2026-10-10 17:32:04]   judul>150: 0 []
+
+[2026-10-10 17:32:28] === MULAI FULL ===
+[2026-10-10 17:32:29]   biography-memoir: 394 buku terkumpul (situs: 394)
+[2026-10-10 17:32:30]   business-leadership: 397 buku terkumpul (situs: 397)
+[2026-10-10 17:32:30]   communication-skills: 168 buku terkumpul (situs: 168)
+[2026-10-10 17:32:30]   editorial-picks: 8 buku terkumpul (situs: 8)
+[2026-10-10 17:32:30]   future-innovation: 228 buku terkumpul (situs: 228)
+[2026-10-10 17:32:30]   health-wellbeing: 249 buku terkumpul (situs: 249)
+[2026-10-10 17:32:30]   high-performance: 176 buku terkumpul (situs: 176)
+[2026-10-10 17:32:30]   meaningful-stories: 474 buku terkumpul (situs: 474)
+[2026-10-10 17:32:30]   mind-behavior: 306 buku terkumpul (situs: 306)
+[2026-10-10 17:32:30]   mindfulness-wisdom: 328 buku terkumpul (situs: 328)
+[2026-10-10 17:32:30]   personal-growth: 269 buku terkumpul (situs: 269)
+[2026-10-10 17:32:31]   relationships-parenting: 213 buku terkumpul (situs: 213)
+[2026-10-10 17:32:31]   wealth-finance: 253 buku terkumpul (situs: 253)
+[2026-10-10 17:32:31]   world-culture: 527 buku terkumpul (situs: 527)
+[2026-10-10 17:32:31] Ringkasan: buku=3982 request=0 cache=172 gagal=0 kartu_ok=3990 dilewati=0
+[2026-10-10 17:32:31]   tanpa_penulis: 0 []
+[2026-10-10 17:32:31]   tanpa_durasi: 0 []
+[2026-10-10 17:32:31]   tanpa_sampul: 0 []
+[2026-10-10 17:32:31]   slug>80: 12 ['a-city-on-mars-can-we-settle-space-should-we-settle-space-and-have-we-really-thought-this-through', 'a-world-of-three-zeros-the-new-economics-of-zero-poverty-zero-unemployment-and-zero-net-carbon-emissions', 'band-of-brothers-e-company-506th-regiment-101st-airborne-from-normandy-to-hitler-s-eagle-s-nest', 'empire-of-the-summer-moon-quanah-parker-and-the-rise-and-fall-of-the-comanches-the-most-powerful-indian-tribe-in-american-history', 'how-to-change-your-mind-what-the-new-science-of-psychedelics-teaches-us-about-consciousness-dying-addiction-depression-and-transcendence', 'rough-sleepers-dr-jim-o-connell-s-urgent-mission-to-bring-healing-to-homeless-people', 'spare-parts-four-undocumented-teenagers-one-ugly-robot-and-the-battle-for-the-american-dream', 'the-blue-sweater-bridging-the-gap-between-rich-and-poor-in-an-interconnected-world', 'the-boys-in-the-boat-nine-americans-and-their-epic-quest-for-gold-at-the-1936-berlin-olympics', 'the-fearless-organization-creating-psychological-safety-in-the-workplace-for-learning-innovation-and-growth']
+[2026-10-10 17:32:31]   judul>150: 0 []
+
+[2026-10-12 11:40:22] === MULAI RINGKASAN DRY RUN ===
+[2026-10-12 11:40:22] Terpilih 2 buku unik dari 2 kategori
+[2026-10-12 11:40:25] GET openlibrary atomic-habits -> 200 (5 hasil)
+[2026-10-12 11:40:25]   [1/2] atomic-habits: 8 bab, 2962 kata, sampul OL: ya
+[2026-10-12 11:40:29] GET /books/1491 -> 200 (157913 B)
+[2026-10-12 11:40:33] GET openlibrary 1491 -> 200 (1 hasil)
+[2026-10-12 11:40:33]   [2/2] 1491: 12 bab, 2677 kata, sampul OL: ya
+[2026-10-12 11:40:33] Ringkasan: buku=2 gagal=0 [] request=3 cache=1
+[2026-10-12 11:40:33]   personal-growth: 1/1
+[2026-10-12 11:40:33]   world-culture: 1/1
+
+[2026-10-12 11:40:52] === MULAI RINGKASAN FULL ===
+[2026-10-12 11:40:52] Terpilih 84 buku unik dari 14 kategori
+[2026-10-12 11:40:55] GET /books/5-second-rule -> 200 (169344 B)
+[2026-10-12 11:40:59] GET openlibrary 5-second-rule -> 200 (1 hasil)
+[2026-10-12 11:40:59]   [1/84] 5-second-rule: 11 bab, 2720 kata, sampul OL: ya
+[2026-10-12 11:41:02] GET /books/discipline-destiny -> 200 (164864 B)
+[2026-10-12 11:41:05] GET openlibrary discipline-destiny -> 200 (2 hasil)
+[2026-10-12 11:41:05]   [2/84] discipline-destiny: 9 bab, 3005 kata, sampul OL: ya
+[2026-10-12 11:41:09] GET /books/limits-growth -> 200 (162133 B)
+[2026-10-12 11:41:12] GET openlibrary limits-growth -> 200 (0 hasil)
+[2026-10-12 11:41:12]   [3/84] limits-growth: 10 bab, 2535 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:41:15] GET /books/little-history-world -> 200 (158510 B)
+[2026-10-12 11:41:18] GET openlibrary little-history-world -> 200 (2 hasil)
+[2026-10-12 11:41:18]   [4/84] little-history-world: 14 bab, 2492 kata, sampul OL: ya
+[2026-10-12 11:41:22] GET /books/road -> 200 (154376 B)
+[2026-10-12 11:41:25] GET openlibrary road -> 200 (5 hasil)
+[2026-10-12 11:41:25]   [5/84] road: 11 bab, 2548 kata, sampul OL: ya
+[2026-10-12 11:41:28] GET /books/twice -> 200 (161348 B)
+[2026-10-12 11:41:31] GET openlibrary twice -> 200 (2 hasil)
+[2026-10-12 11:41:31]   [6/84] twice: 11 bab, 2731 kata, sampul OL: ya
+[2026-10-12 11:41:35] GET /books/16-undeniable-laws-communication -> 200 (162782 B)
+[2026-10-12 11:41:38] GET openlibrary 16-undeniable-laws-communication -> 200 (0 hasil)
+[2026-10-12 11:41:38]   [7/84] 16-undeniable-laws-communication: 7 bab, 2764 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:41:41] GET /books/25-cara-memenangkan-hati-orang -> 200 (167667 B)
+[2026-10-12 11:41:45] GET openlibrary 25-cara-memenangkan-hati-orang -> 200 (5 hasil)
+[2026-10-12 11:41:45]   [8/84] 25-cara-memenangkan-hati-orang: 11 bab, 3133 kata, sampul OL: ya
+[2026-10-12 11:41:48] GET /books/4-essential-keys-to-effective-communication -> 200 (139449 B)
+[2026-10-12 11:41:48]   [9/84] GAGAL 4-essential-keys-to-effective-communication
+[2026-10-12 11:41:52] GET /books/7l-tujuh-level-komunikasi -> 200 (168635 B)
+[2026-10-12 11:41:55] GET openlibrary 7l-tujuh-level-komunikasi -> 200 (2 hasil)
+[2026-10-12 11:41:55]   [10/84] 7l-tujuh-level-komunikasi: 10 bab, 3154 kata, sampul OL: ya
+[2026-10-12 11:41:59] GET /books/active-listening-techniques -> 200 (142715 B)
+[2026-10-12 11:41:59]   [11/84] GAGAL active-listening-techniques
+[2026-10-12 11:42:02] GET /books/areopagitica -> 200 (163932 B)
+[2026-10-12 11:42:05] GET openlibrary areopagitica -> 200 (5 hasil)
+[2026-10-12 11:42:05]   [12/84] areopagitica: 13 bab, 2699 kata, sampul OL: ya
+[2026-10-12 11:42:09] GET /books/10x-lebih-mudah-dari-2x -> 200 (163061 B)
+[2026-10-12 11:42:12] GET openlibrary 10x-lebih-mudah-dari-2x -> 200 (0 hasil)
+[2026-10-12 11:42:12]   [13/84] 10x-lebih-mudah-dari-2x: 12 bab, 2639 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:42:16] GET /books/10x-rule -> 200 (163421 B)
+[2026-10-12 11:42:19] GET openlibrary 10x-rule -> 200 (2 hasil)
+[2026-10-12 11:42:19]   [14/84] 10x-rule: 12 bab, 2742 kata, sampul OL: ya
+[2026-10-12 11:42:23] GET /books/15-secrets-successful-people-know-about-time-management -> 200 (152221 B)
+[2026-10-12 11:42:26] GET openlibrary 15-secrets-successful-people-know-about-time-management -> 200 (1 hasil)
+[2026-10-12 11:42:26]   [15/84] 15-secrets-successful-people-know-about-time-management: 9 bab, 2520 kata, sampul OL: ya
+[2026-10-12 11:42:29] GET /books/168-hours -> 200 (141767 B)
+[2026-10-12 11:42:29]   [16/84] GAGAL 168-hours
+[2026-10-12 11:42:33] GET /books/26-marathons -> 200 (140303 B)
+[2026-10-12 11:42:33]   [17/84] GAGAL 26-marathons
+[2026-10-12 11:42:37] GET /books/4-disiplin-eksekusi -> 200 (161229 B)
+[2026-10-12 11:42:40] GET openlibrary 4-disiplin-eksekusi -> 200 (0 hasil)
+[2026-10-12 11:42:40]   [18/84] 4-disiplin-eksekusi: 10 bab, 2574 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:42:44] GET /books/1-2-3-magic -> 200 (144407 B)
+[2026-10-12 11:42:44]   [19/84] GAGAL 1-2-3-magic
+[2026-10-12 11:42:47] GET /books/13-things-mentally-strong-parents-don-t-do -> 200 (144711 B)
+[2026-10-12 11:42:47]   [20/84] GAGAL 13-things-mentally-strong-parents-don-t-do
+[2026-10-12 11:42:51] GET /books/13-things-strong-kids-do -> 200 (141807 B)
+[2026-10-12 11:42:51]   [21/84] GAGAL 13-things-strong-kids-do
+[2026-10-12 11:42:54] GET /books/5-love-languages -> 200 (164199 B)
+[2026-10-12 11:42:57] GET openlibrary 5-love-languages -> 200 (5 hasil)
+[2026-10-12 11:42:57]   [22/84] 5-love-languages: 10 bab, 2797 kata, sampul OL: ya
+[2026-10-12 11:43:01] GET /books/5-love-languages-children -> 200 (155715 B)
+[2026-10-12 11:43:17] GET openlibrary 5-love-languages-children -> 200 (0 hasil)
+[2026-10-12 11:43:17]   [23/84] 5-love-languages-children: 8 bab, 2579 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:43:21] GET /books/7-habits-highly-effective-families -> 200 (156957 B)
+[2026-10-12 11:43:24] GET openlibrary 7-habits-highly-effective-families -> 200 (3 hasil)
+[2026-10-12 11:43:24]   [24/84] 7-habits-highly-effective-families: 11 bab, 2351 kata, sampul OL: ya
+[2026-10-12 11:43:28] GET /books/21-days-big-idea -> 200 (164563 B)
+[2026-10-12 11:43:31] GET openlibrary 21-days-big-idea -> 200 (1 hasil)
+[2026-10-12 11:43:31]   [25/84] 21-days-big-idea: 9 bab, 2935 kata, sampul OL: ya
+[2026-10-12 11:43:35] GET /books/a-brief-history-of-everyone-who-ever-lived -> 200 (141162 B)
+[2026-10-12 11:43:35]   [26/84] GAGAL a-brief-history-of-everyone-who-ever-lived
+[2026-10-12 11:43:38] GET /books/a-city-on-mars-can-we-settle-space-should-we-settle-space-and-have-we-really-thought-this-through -> 200 (142351 B)
+[2026-10-12 11:43:38]   [27/84] GAGAL a-city-on-mars-can-we-settle-space-should-we-settle-space-and-have-we-really-thought-this-through
+[2026-10-12 11:43:42] GET /books/a-crack-in-creation -> 200 (141005 B)
+[2026-10-12 11:43:42]   [28/84] GAGAL a-crack-in-creation
+[2026-10-12 11:43:45] GET /books/a-life-on-our-planet -> 200 (146124 B)
+[2026-10-12 11:43:45]   [29/84] GAGAL a-life-on-our-planet
+[2026-10-12 11:43:49] GET /books/a-short-history-of-nearly-everything -> 200 (136371 B)
+[2026-10-12 11:43:49]   [30/84] GAGAL a-short-history-of-nearly-everything
+[2026-10-12 11:43:52] GET /books/adhd-2-0 -> 200 (135199 B)
+[2026-10-12 11:43:52]   [31/84] GAGAL adhd-2-0
+[2026-10-12 11:43:56] GET /books/adult-children-emotionally-immature-parents -> 200 (162640 B)
+[2026-10-12 11:44:00] GET openlibrary adult-children-emotionally-immature-parents -> 200 (4 hasil)
+[2026-10-12 11:44:00]   [32/84] adult-children-emotionally-immature-parents: 9 bab, 2832 kata, sampul OL: ya
+[2026-10-12 11:44:03] GET /books/ageless-body-timeless-mind -> 200 (146400 B)
+[2026-10-12 11:44:03]   [33/84] GAGAL ageless-body-timeless-mind
+[2026-10-12 11:44:06] GET /books/alcohol-explained -> 200 (141179 B)
+[2026-10-12 11:44:06]   [34/84] GAGAL alcohol-explained
+[2026-10-12 11:44:10] GET /books/all-consuming -> 200 (150855 B)
+[2026-10-12 11:44:13] GET openlibrary all-consuming -> 200 (2 hasil)
+[2026-10-12 11:44:13]   [35/84] all-consuming: 10 bab, 2160 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:44:16] GET /books/all-her-head -> 200 (160433 B)
+[2026-10-12 11:44:21] GET openlibrary all-her-head -> 200 (1 hasil)
+[2026-10-12 11:44:21]   [36/84] all-her-head: 9 bab, 2684 kata, sampul OL: ya
+[2026-10-12 11:44:24] GET /books/10-pillars-wealth -> 200 (164786 B)
+[2026-10-12 11:44:27] GET openlibrary 10-pillars-wealth -> 200 (1 hasil)
+[2026-10-12 11:44:27]   [37/84] 10-pillars-wealth: 13 bab, 2617 kata, sampul OL: ya
+[2026-10-12 11:44:31] GET /books/100-baggers -> 200 (141705 B)
+[2026-10-12 11:44:31]   [38/84] GAGAL 100-baggers
+[2026-10-12 11:44:35] GET /books/12-bulan-menuju-1-juta -> 200 (161294 B)
+[2026-10-12 11:44:38] GET openlibrary 12-bulan-menuju-1-juta -> 200 (1 hasil)
+[2026-10-12 11:44:38]   [39/84] 12-bulan-menuju-1-juta: 11 bab, 2729 kata, sampul OL: ya
+[2026-10-12 11:44:41] GET /books/13-steps-to-bloody-good-wealth -> 200 (140220 B)
+[2026-10-12 11:44:41]   [40/84] GAGAL 13-steps-to-bloody-good-wealth
+[2026-10-12 11:44:45] GET /books/1929 -> 200 (164985 B)
+[2026-10-12 11:44:48] GET openlibrary 1929 -> 200 (1 hasil)
+[2026-10-12 11:44:48]   [41/84] 1929: 10 bab, 2824 kata, sampul OL: ya
+[2026-10-12 11:44:51] GET /books/21-success-secrets-self-made-millionaires -> 200 (163142 B)
+[2026-10-12 11:44:55] GET openlibrary 21-success-secrets-self-made-millionaires -> 200 (0 hasil)
+[2026-10-12 11:44:55]   [42/84] 21-success-secrets-self-made-millionaires: 11 bab, 2641 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:44:55]   [43/84] atomic-habits: 8 bab, 2962 kata, sampul OL: ya
+[2026-10-12 11:44:58] GET /books/12-rules-life -> 200 (163449 B)
+[2026-10-12 11:45:02] GET openlibrary 12-rules-life -> 200 (5 hasil)
+[2026-10-12 11:45:02]   [44/84] 12-rules-life: 15 bab, 2859 kata, sampul OL: ya
+[2026-10-12 11:45:05] GET /books/13-things-mentally-strong-people-don-t-do -> 200 (146152 B)
+[2026-10-12 11:45:05]   [45/84] GAGAL 13-things-mentally-strong-people-don-t-do
+[2026-10-12 11:45:08] GET /books/13-things-mentally-strong-women-don-t-do -> 200 (142455 B)
+[2026-10-12 11:45:08]   [46/84] GAGAL 13-things-mentally-strong-women-don-t-do
+[2026-10-12 11:45:12] GET /books/15-invaluable-laws-growth -> 200 (171958 B)
+[2026-10-12 11:45:15] GET openlibrary 15-invaluable-laws-growth -> 200 (4 hasil)
+[2026-10-12 11:45:15]   [47/84] 15-invaluable-laws-growth: 19 bab, 2701 kata, sampul OL: ya
+[2026-10-12 11:45:19] GET /books/3-things-successful-people-do -> 200 (163495 B)
+[2026-10-12 11:45:22] GET openlibrary 3-things-successful-people-do -> 200 (2 hasil)
+[2026-10-12 11:45:22]   [48/84] 3-things-successful-people-do: 8 bab, 2804 kata, sampul OL: ya
+[2026-10-12 11:45:25] GET /books/101-essays-will-change-way-you-think -> 200 (163163 B)
+[2026-10-12 11:45:30] GET openlibrary 101-essays-will-change-way-you-think -> 200 (1 hasil)
+[2026-10-12 11:45:30]   [49/84] 101-essays-will-change-way-you-think: 13 bab, 2425 kata, sampul OL: ya
+[2026-10-12 11:45:33] GET /books/48-laws-power -> 200 (149353 B)
+[2026-10-12 11:45:33]   [50/84] GAGAL 48-laws-power
+[2026-10-12 11:45:37] GET /books/5-elements-effective-thinking -> 200 (161646 B)
+[2026-10-12 11:45:40] GET openlibrary 5-elements-effective-thinking -> 200 (1 hasil)
+[2026-10-12 11:45:40]   [51/84] 5-elements-effective-thinking: 9 bab, 2794 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:45:44] GET /books/a-liberated-mind -> 200 (144164 B)
+[2026-10-12 11:45:44]   [52/84] GAGAL a-liberated-mind
+[2026-10-12 11:45:47] GET /books/a-path-through-the-jungle -> 200 (143970 B)
+[2026-10-12 11:45:47]   [53/84] GAGAL a-path-through-the-jungle
+[2026-10-12 11:45:51] GET /books/a-spy-s-guide-to-thinking -> 200 (139080 B)
+[2026-10-12 11:45:51]   [54/84] GAGAL a-spy-s-guide-to-thinking
+[2026-10-12 11:45:54] GET /books/10-happier -> 200 (163502 B)
+[2026-10-12 11:45:58] GET openlibrary 10-happier -> 200 (5 hasil)
+[2026-10-12 11:45:58]   [55/84] 10-happier: 10 bab, 2785 kata, sampul OL: ya
+[2026-10-12 11:46:01] GET /books/108-zen-quotes-to-calm-your-mind -> 200 (136184 B)
+[2026-10-12 11:46:01]   [56/84] GAGAL 108-zen-quotes-to-calm-your-mind
+[2026-10-12 11:46:04] GET /books/7-spiritual-laws-success -> 200 (164045 B)
+[2026-10-12 11:46:08] GET openlibrary 7-spiritual-laws-success -> 200 (2 hasil)
+[2026-10-12 11:46:08]   [57/84] 7-spiritual-laws-success: 10 bab, 2885 kata, sampul OL: ya
+[2026-10-12 11:46:11] GET /books/a-course-in-miracles -> 200 (135827 B)
+[2026-10-12 11:46:11]   [58/84] GAGAL a-course-in-miracles
+[2026-10-12 11:46:15] GET /books/a-cup-of-zen -> 200 (135839 B)
+[2026-10-12 11:46:15]   [59/84] GAGAL a-cup-of-zen
+[2026-10-12 11:46:18] GET /books/a-guide-to-the-good-life-the-ancient-art-of-stoic-joy -> 200 (138804 B)
+[2026-10-12 11:46:18]   [60/84] GAGAL a-guide-to-the-good-life-the-ancient-art-of-stoic-joy
+[2026-10-12 11:46:22] GET /books/18-days-in-heaven -> 200 (137656 B)
+[2026-10-12 11:46:22]   [61/84] GAGAL 18-days-in-heaven
+[2026-10-12 11:46:25] GET /books/32-yolks -> 200 (137036 B)
+[2026-10-12 11:46:25]   [62/84] GAGAL 32-yolks
+[2026-10-12 11:46:28] GET /books/38-surat-dari-j-d-rockefeller-untuk-anaknya -> 200 (153290 B)
+[2026-10-12 11:46:32] GET openlibrary 38-surat-dari-j-d-rockefeller-untuk-anaknya -> 200 (0 hasil)
+[2026-10-12 11:46:32]   [63/84] 38-surat-dari-j-d-rockefeller-untuk-anaknya: 11 bab, 2363 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:46:36] GET /books/a-house-in-bali -> 200 (144530 B)
+[2026-10-12 11:46:36]   [64/84] GAGAL a-house-in-bali
+[2026-10-12 11:46:39] GET /books/a-lincoln -> 200 (139040 B)
+[2026-10-12 11:46:39]   [65/84] GAGAL a-lincoln
+[2026-10-12 11:46:42] GET /books/a-long-way-gone -> 200 (140391 B)
+[2026-10-12 11:46:42]   [66/84] GAGAL a-long-way-gone
+[2026-10-12 11:46:46] GET /books/100-startup -> 200 (163357 B)
+[2026-10-12 11:46:49] GET openlibrary 100-startup -> 200 (3 hasil)
+[2026-10-12 11:46:49]   [67/84] 100-startup: 10 bab, 2824 kata, sampul OL: ya
+[2026-10-12 11:46:52] GET /books/100m-leads -> 200 (143031 B)
+[2026-10-12 11:46:52]   [68/84] GAGAL 100m-leads
+[2026-10-12 11:46:56] GET /books/100m-offers -> 200 (140065 B)
+[2026-10-12 11:46:56]   [69/84] GAGAL 100m-offers
+[2026-10-12 11:47:00] GET /books/17-indisputable-laws-teamwork -> 200 (164813 B)
+[2026-10-12 11:47:03] GET openlibrary 17-indisputable-laws-teamwork -> 200 (5 hasil)
+[2026-10-12 11:47:03]   [70/84] 17-indisputable-laws-teamwork: 20 bab, 2254 kata, sampul OL: ya
+[2026-10-12 11:47:07] GET /books/17-kualitas-penting-seorang-team-player -> 200 (164908 B)
+[2026-10-12 11:47:10] GET openlibrary 17-kualitas-penting-seorang-team-player -> 200 (5 hasil)
+[2026-10-12 11:47:10]   [71/84] 17-kualitas-penting-seorang-team-player: 9 bab, 2857 kata, sampul OL: ya
+[2026-10-12 11:47:14] GET /books/21-hukum-kepemimpinan-yang-tak-terbantahkan -> 200 (159043 B)
+[2026-10-12 11:47:17] GET openlibrary 21-hukum-kepemimpinan-yang-tak-terbantahkan -> 200 (5 hasil)
+[2026-10-12 11:47:17]   [72/84] 21-hukum-kepemimpinan-yang-tak-terbantahkan: 9 bab, 2570 kata, sampul OL: ya
+[2026-10-12 11:47:21] GET /books/1984 -> 200 (157460 B)
+[2026-10-12 11:47:24] GET openlibrary 1984 -> 200 (5 hasil)
+[2026-10-12 11:47:24]   [73/84] 1984: 11 bab, 2479 kata, sampul OL: ya
+[2026-10-12 11:47:28] GET /books/a-wild-sheep-chase -> 200 (137648 B)
+[2026-10-12 11:47:28]   [74/84] GAGAL a-wild-sheep-chase
+[2026-10-12 11:47:32] GET /books/a-woman-s-place -> 200 (135545 B)
+[2026-10-12 11:47:32]   [75/84] GAGAL a-woman-s-place
+[2026-10-12 11:47:36] GET /books/absolutely-true-diary-part-time-indian -> 200 (153878 B)
+[2026-10-12 11:47:39] GET openlibrary absolutely-true-diary-part-time-indian -> 200 (1 hasil)
+[2026-10-12 11:47:39]   [76/84] absolutely-true-diary-part-time-indian: 10 bab, 2496 kata, sampul OL: ya
+[2026-10-12 11:47:43] GET /books/adultery -> 200 (152145 B)
+[2026-10-12 11:47:46] GET openlibrary adultery -> 200 (5 hasil)
+[2026-10-12 11:47:46]   [77/84] adultery: 9 bab, 2441 kata, sampul OL: ya
+[2026-10-12 11:47:49] GET /books/advise-and-consent -> 200 (164330 B)
+[2026-10-12 11:47:52] GET openlibrary advise-and-consent -> 200 (5 hasil)
+[2026-10-12 11:47:52]   [78/84] advise-and-consent: 12 bab, 2781 kata, sampul OL: ya
+[2026-10-12 11:47:52]   [79/84] 1491: 12 bab, 2677 kata, sampul OL: ya
+[2026-10-12 11:47:56] GET /books/1493 -> 200 (139335 B)
+[2026-10-12 11:47:56]   [80/84] GAGAL 1493
+[2026-10-12 11:48:00] GET /books/1776 -> 200 (143930 B)
+[2026-10-12 11:48:00]   [81/84] GAGAL 1776
+[2026-10-12 11:48:03] GET /books/1968 -> 200 (141842 B)
+[2026-10-12 11:48:03]   [82/84] GAGAL 1968
+[2026-10-12 11:48:06] GET /books/21-lessons-for-the-21st-century -> 200 (138787 B)
+[2026-10-12 11:48:06]   [83/84] GAGAL 21-lessons-for-the-21st-century
+[2026-10-12 11:48:10] GET /books/a-brief-history-of-indonesia -> 200 (144309 B)
+[2026-10-12 11:48:10]   [84/84] GAGAL a-brief-history-of-indonesia
+[2026-10-12 11:48:10] Ringkasan: buku=43 gagal=41 ['4-essential-keys-to-effective-communication', 'active-listening-techniques', '168-hours', '26-marathons', '1-2-3-magic', '13-things-mentally-strong-parents-don-t-do', '13-things-strong-kids-do', 'a-brief-history-of-everyone-who-ever-lived', 'a-city-on-mars-can-we-settle-space-should-we-settle-space-and-have-we-really-thought-this-through', 'a-crack-in-creation', 'a-life-on-our-planet', 'a-short-history-of-nearly-everything', 'adhd-2-0', 'ageless-body-timeless-mind', 'alcohol-explained', '100-baggers', '13-steps-to-bloody-good-wealth', '13-things-mentally-strong-people-don-t-do', '13-things-mentally-strong-women-don-t-do', '48-laws-power', 'a-liberated-mind', 'a-path-through-the-jungle', 'a-spy-s-guide-to-thinking', '108-zen-quotes-to-calm-your-mind', 'a-course-in-miracles', 'a-cup-of-zen', 'a-guide-to-the-good-life-the-ancient-art-of-stoic-joy', '18-days-in-heaven', '32-yolks', 'a-house-in-bali', 'a-lincoln', 'a-long-way-gone', '100m-leads', '100m-offers', 'a-wild-sheep-chase', 'a-woman-s-place', '1493', '1776', '1968', '21-lessons-for-the-21st-century', 'a-brief-history-of-indonesia'] request=123 cache=2
+[2026-10-12 11:48:10]   editorial-picks: 6/6
+[2026-10-12 11:48:10]   communication-skills: 4/6
+[2026-10-12 11:48:10]   high-performance: 4/6
+[2026-10-12 11:48:10]   relationships-parenting: 3/6
+[2026-10-12 11:48:10]   future-innovation: 1/6
+[2026-10-12 11:48:10]   health-wellbeing: 3/6
+[2026-10-12 11:48:10]   wealth-finance: 4/6
+[2026-10-12 11:48:10]   personal-growth: 4/6
+[2026-10-12 11:48:10]   mind-behavior: 2/6
+[2026-10-12 11:48:10]   mindfulness-wisdom: 2/6
+[2026-10-12 11:48:10]   biography-memoir: 1/6
+[2026-10-12 11:48:10]   business-leadership: 4/6
+[2026-10-12 11:48:10]   meaningful-stories: 4/6
+[2026-10-12 11:48:10]   world-culture: 1/6
+
+[2026-10-12 11:48:27] === MULAI RINGKASAN FULL ===
+[2026-10-12 11:48:27] Terpilih 84 buku unik dari 14 kategori
+[2026-10-12 11:48:27]   [1/84] 5-second-rule: 11 bab, 2720 kata, sampul OL: ya
+[2026-10-12 11:48:27]   [2/84] discipline-destiny: 9 bab, 3005 kata, sampul OL: ya
+[2026-10-12 11:48:27]   [3/84] limits-growth: 10 bab, 2535 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:48:27]   [4/84] little-history-world: 14 bab, 2492 kata, sampul OL: ya
+[2026-10-12 11:48:27]   [5/84] road: 11 bab, 2548 kata, sampul OL: ya
+[2026-10-12 11:48:27]   [6/84] twice: 11 bab, 2731 kata, sampul OL: ya
+[2026-10-12 11:48:27]   [7/84] 16-undeniable-laws-communication: 7 bab, 2764 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:48:27]   [8/84] 25-cara-memenangkan-hati-orang: 11 bab, 3133 kata, sampul OL: ya
+[2026-10-12 11:48:31] GET openlibrary 4-essential-keys-to-effective-communication -> 200 (2 hasil)
+[2026-10-12 11:48:31]   [9/84] 4-essential-keys-to-effective-communication: 10 bab, 2339 kata, sampul OL: ya
+[2026-10-12 11:48:31]   [10/84] 7l-tujuh-level-komunikasi: 10 bab, 3154 kata, sampul OL: ya
+[2026-10-12 11:48:34] GET openlibrary active-listening-techniques -> 200 (1 hasil)
+[2026-10-12 11:48:34]   [11/84] active-listening-techniques: 11 bab, 2466 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:48:34]   [12/84] areopagitica: 13 bab, 2699 kata, sampul OL: ya
+[2026-10-12 11:48:34]   [13/84] 10x-lebih-mudah-dari-2x: 12 bab, 2639 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:48:34]   [14/84] 10x-rule: 12 bab, 2742 kata, sampul OL: ya
+[2026-10-12 11:48:34]   [15/84] 15-secrets-successful-people-know-about-time-management: 9 bab, 2520 kata, sampul OL: ya
+[2026-10-12 11:48:38] GET openlibrary 168-hours -> 200 (2 hasil)
+[2026-10-12 11:48:38]   [16/84] 168-hours: 13 bab, 2438 kata, sampul OL: ya
+[2026-10-12 11:48:41] GET openlibrary 26-marathons -> 200 (1 hasil)
+[2026-10-12 11:48:41]   [17/84] 26-marathons: 12 bab, 2444 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:48:41]   [18/84] 4-disiplin-eksekusi: 10 bab, 2574 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:48:45] GET openlibrary 1-2-3-magic -> 200 (5 hasil)
+[2026-10-12 11:48:45]   [19/84] 1-2-3-magic: 12 bab, 2329 kata, sampul OL: ya
+[2026-10-12 11:48:48] GET openlibrary 13-things-mentally-strong-parents-don-t-do -> 200 (3 hasil)
+[2026-10-12 11:48:48]   [20/84] 13-things-mentally-strong-parents-don-t-do: 11 bab, 2518 kata, sampul OL: ya
+[2026-10-12 11:48:51] GET openlibrary 13-things-strong-kids-do -> 200 (1 hasil)
+[2026-10-12 11:48:51]   [21/84] 13-things-strong-kids-do: 11 bab, 2348 kata, sampul OL: ya
+[2026-10-12 11:48:51]   [22/84] 5-love-languages: 10 bab, 2797 kata, sampul OL: ya
+[2026-10-12 11:48:51]   [23/84] 5-love-languages-children: 8 bab, 2579 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:48:51]   [24/84] 7-habits-highly-effective-families: 11 bab, 2351 kata, sampul OL: ya
+[2026-10-12 11:48:52]   [25/84] 21-days-big-idea: 9 bab, 2935 kata, sampul OL: ya
+[2026-10-12 11:48:55] GET openlibrary a-brief-history-of-everyone-who-ever-lived -> 200 (1 hasil)
+[2026-10-12 11:48:55]   [26/84] a-brief-history-of-everyone-who-ever-lived: 11 bab, 2467 kata, sampul OL: ya
+[2026-10-12 11:48:58] GET openlibrary a-city-on-mars-can-we-settle-space-should-we-settle-space-and-have-we-really-thought-this-through -> 200 (1 hasil)
+[2026-10-12 11:48:58]   [27/84] a-city-on-mars-can-we-settle-space-should-we-settle-space-and-have-we-really-thought-this-through: 13 bab, 2346 kata, sampul OL: ya
+[2026-10-12 11:49:01] GET openlibrary a-crack-in-creation -> 200 (1 hasil)
+[2026-10-12 11:49:01]   [28/84] a-crack-in-creation: 11 bab, 2412 kata, sampul OL: ya
+[2026-10-12 11:49:04] GET openlibrary a-life-on-our-planet -> 200 (1 hasil)
+[2026-10-12 11:49:04]   [29/84] a-life-on-our-planet: 13 bab, 2402 kata, sampul OL: ya
+[2026-10-12 11:49:10] GET openlibrary a-short-history-of-nearly-everything -> 200 (2 hasil)
+[2026-10-12 11:49:10]   [30/84] a-short-history-of-nearly-everything: 10 bab, 2331 kata, sampul OL: ya
+[2026-10-12 11:49:13] GET openlibrary adhd-2-0 -> 200 (1 hasil)
+[2026-10-12 11:49:13]   [31/84] adhd-2-0: 10 bab, 2343 kata, sampul OL: ya
+[2026-10-12 11:49:13]   [32/84] adult-children-emotionally-immature-parents: 9 bab, 2832 kata, sampul OL: ya
+[2026-10-12 11:49:16] GET openlibrary ageless-body-timeless-mind -> 200 (5 hasil)
+[2026-10-12 11:49:16]   [33/84] ageless-body-timeless-mind: 12 bab, 2615 kata, sampul OL: ya
+[2026-10-12 11:49:19] GET openlibrary alcohol-explained -> 200 (4 hasil)
+[2026-10-12 11:49:19]   [34/84] alcohol-explained: 11 bab, 2356 kata, sampul OL: ya
+[2026-10-12 11:49:19]   [35/84] all-consuming: 10 bab, 2160 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:49:20]   [36/84] all-her-head: 9 bab, 2684 kata, sampul OL: ya
+[2026-10-12 11:49:20]   [37/84] 10-pillars-wealth: 13 bab, 2617 kata, sampul OL: ya
+[2026-10-12 11:49:23] GET openlibrary 100-baggers -> 200 (1 hasil)
+[2026-10-12 11:49:23]   [38/84] 100-baggers: 12 bab, 2328 kata, sampul OL: ya
+[2026-10-12 11:49:23]   [39/84] 12-bulan-menuju-1-juta: 11 bab, 2729 kata, sampul OL: ya
+[2026-10-12 11:49:27] GET openlibrary 13-steps-to-bloody-good-wealth -> 200 (1 hasil)
+[2026-10-12 11:49:27]   [40/84] 13-steps-to-bloody-good-wealth: 12 bab, 2307 kata, sampul OL: ya
+[2026-10-12 11:49:27]   [41/84] 1929: 10 bab, 2824 kata, sampul OL: ya
+[2026-10-12 11:49:27]   [42/84] 21-success-secrets-self-made-millionaires: 11 bab, 2641 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:49:27]   [43/84] atomic-habits: 8 bab, 2962 kata, sampul OL: ya
+[2026-10-12 11:49:28]   [44/84] 12-rules-life: 15 bab, 2859 kata, sampul OL: ya
+[2026-10-12 11:49:31] GET openlibrary 13-things-mentally-strong-people-don-t-do -> 200 (5 hasil)
+[2026-10-12 11:49:31]   [45/84] 13-things-mentally-strong-people-don-t-do: 16 bab, 2256 kata, sampul OL: ya
+[2026-10-12 11:49:34] GET openlibrary 13-things-mentally-strong-women-don-t-do -> 200 (2 hasil)
+[2026-10-12 11:49:34]   [46/84] 13-things-mentally-strong-women-don-t-do: 11 bab, 2406 kata, sampul OL: ya
+[2026-10-12 11:49:35]   [47/84] 15-invaluable-laws-growth: 19 bab, 2701 kata, sampul OL: ya
+[2026-10-12 11:49:35]   [48/84] 3-things-successful-people-do: 8 bab, 2804 kata, sampul OL: ya
+[2026-10-12 11:49:35]   [49/84] 101-essays-will-change-way-you-think: 13 bab, 2425 kata, sampul OL: ya
+[2026-10-12 11:49:39] GET openlibrary 48-laws-power -> 200 (2 hasil)
+[2026-10-12 11:49:39]   [50/84] 48-laws-power: 12 bab, 2551 kata, sampul OL: ya
+[2026-10-12 11:49:39]   [51/84] 5-elements-effective-thinking: 9 bab, 2794 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:49:42] GET openlibrary a-liberated-mind -> 200 (1 hasil)
+[2026-10-12 11:49:42]   [52/84] a-liberated-mind: 12 bab, 2398 kata, sampul OL: ya
+[2026-10-12 11:49:46] GET openlibrary a-path-through-the-jungle -> 200 (1 hasil)
+[2026-10-12 11:49:46]   [53/84] a-path-through-the-jungle: 12 bab, 2454 kata, sampul OL: ya
+[2026-10-12 11:49:49] GET openlibrary a-spy-s-guide-to-thinking -> 200 (0 hasil)
+[2026-10-12 11:49:49]   [54/84] a-spy-s-guide-to-thinking: 10 bab, 2340 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:49:49]   [55/84] 10-happier: 10 bab, 2785 kata, sampul OL: ya
+[2026-10-12 11:49:52] GET openlibrary 108-zen-quotes-to-calm-your-mind -> 200 (0 hasil)
+[2026-10-12 11:49:52]   [56/84] 108-zen-quotes-to-calm-your-mind: 11 bab, 2253 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:49:53]   [57/84] 7-spiritual-laws-success: 10 bab, 2885 kata, sampul OL: ya
+[2026-10-12 11:49:56] GET openlibrary a-course-in-miracles -> 200 (5 hasil)
+[2026-10-12 11:49:56]   [58/84] a-course-in-miracles: 11 bab, 2295 kata, sampul OL: ya
+[2026-10-12 11:50:00] GET openlibrary a-cup-of-zen -> 200 (1 hasil)
+[2026-10-12 11:50:00]   [59/84] a-cup-of-zen: 10 bab, 2264 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:50:03] GET openlibrary a-guide-to-the-good-life-the-ancient-art-of-stoic-joy -> 200 (2 hasil)
+[2026-10-12 11:50:03]   [60/84] a-guide-to-the-good-life-the-ancient-art-of-stoic-joy: 10 bab, 2688 kata, sampul OL: ya
+[2026-10-12 11:50:06] GET openlibrary 18-days-in-heaven -> 200 (0 hasil)
+[2026-10-12 11:50:06]   [61/84] 18-days-in-heaven: 13 bab, 2282 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:50:10] GET openlibrary 32-yolks -> 200 (1 hasil)
+[2026-10-12 11:50:10]   [62/84] 32-yolks: 11 bab, 2348 kata, sampul OL: ya
+[2026-10-12 11:50:10]   [63/84] 38-surat-dari-j-d-rockefeller-untuk-anaknya: 11 bab, 2363 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:50:13] GET openlibrary a-house-in-bali -> 200 (5 hasil)
+[2026-10-12 11:50:13]   [64/84] a-house-in-bali: 12 bab, 2751 kata, sampul OL: ya
+[2026-10-12 11:50:17] GET openlibrary a-lincoln -> 200 (2 hasil)
+[2026-10-12 11:50:17]   [65/84] a-lincoln: 9 bab, 2359 kata, sampul OL: ya
+[2026-10-12 11:50:20] GET openlibrary a-long-way-gone -> 200 (2 hasil)
+[2026-10-12 11:50:20]   [66/84] a-long-way-gone: 12 bab, 2312 kata, sampul OL: ya
+[2026-10-12 11:50:21]   [67/84] 100-startup: 10 bab, 2824 kata, sampul OL: ya
+[2026-10-12 11:50:24] GET openlibrary 100m-leads -> 200 (1 hasil)
+[2026-10-12 11:50:24]   [68/84] 100m-leads: 12 bab, 2331 kata, sampul OL: ya
+[2026-10-12 11:50:28] GET openlibrary 100m-offers -> 200 (2 hasil)
+[2026-10-12 11:50:28]   [69/84] 100m-offers: 11 bab, 2314 kata, sampul OL: ya
+[2026-10-12 11:50:28]   [70/84] 17-indisputable-laws-teamwork: 20 bab, 2254 kata, sampul OL: ya
+[2026-10-12 11:50:28]   [71/84] 17-kualitas-penting-seorang-team-player: 9 bab, 2857 kata, sampul OL: ya
+[2026-10-12 11:50:28]   [72/84] 21-hukum-kepemimpinan-yang-tak-terbantahkan: 9 bab, 2570 kata, sampul OL: ya
+[2026-10-12 11:50:29]   [73/84] 1984: 11 bab, 2479 kata, sampul OL: ya
+[2026-10-12 11:50:32] GET openlibrary a-wild-sheep-chase -> 200 (0 hasil)
+[2026-10-12 11:50:32]   [74/84] a-wild-sheep-chase: 11 bab, 2324 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:50:35] GET openlibrary a-woman-s-place -> 200 (1 hasil)
+[2026-10-12 11:50:35]   [75/84] a-woman-s-place: 11 bab, 2224 kata, sampul OL: tidak (fallback F15)
+[2026-10-12 11:50:36]   [76/84] absolutely-true-diary-part-time-indian: 10 bab, 2496 kata, sampul OL: ya
+[2026-10-12 11:50:36]   [77/84] adultery: 9 bab, 2441 kata, sampul OL: ya
+[2026-10-12 11:50:36]   [78/84] advise-and-consent: 12 bab, 2781 kata, sampul OL: ya
+[2026-10-12 11:50:36]   [79/84] 1491: 12 bab, 2677 kata, sampul OL: ya
+[2026-10-12 11:50:40] GET openlibrary 1493 -> 200 (1 hasil)
+[2026-10-12 11:50:40]   [80/84] 1493: 10 bab, 2351 kata, sampul OL: ya
+[2026-10-12 11:50:43] GET openlibrary 1776 -> 200 (2 hasil)
+[2026-10-12 11:50:43]   [81/84] 1776: 12 bab, 2372 kata, sampul OL: ya
+[2026-10-12 11:50:46] GET openlibrary 1968 -> 200 (5 hasil)
+[2026-10-12 11:50:46]   [82/84] 1968: 12 bab, 2357 kata, sampul OL: ya
+[2026-10-12 11:50:50] GET openlibrary 21-lessons-for-the-21st-century -> 200 (2 hasil)
+[2026-10-12 11:50:50]   [83/84] 21-lessons-for-the-21st-century: 10 bab, 2360 kata, sampul OL: ya
+[2026-10-12 11:50:53] GET openlibrary a-brief-history-of-indonesia -> 200 (2 hasil)
+[2026-10-12 11:50:53]   [84/84] a-brief-history-of-indonesia: 12 bab, 2500 kata, sampul OL: ya
+[2026-10-12 11:50:53] Ringkasan: buku=84 gagal=0 [] request=41 cache=84
+[2026-10-12 11:50:53]   editorial-picks: 6/6
+[2026-10-12 11:50:53]   communication-skills: 6/6
+[2026-10-12 11:50:53]   high-performance: 6/6
+[2026-10-12 11:50:53]   relationships-parenting: 6/6
+[2026-10-12 11:50:53]   future-innovation: 6/6
+[2026-10-12 11:50:53]   health-wellbeing: 6/6
+[2026-10-12 11:50:53]   wealth-finance: 6/6
+[2026-10-12 11:50:53]   personal-growth: 6/6
+[2026-10-12 11:50:53]   mind-behavior: 6/6
+[2026-10-12 11:50:53]   mindfulness-wisdom: 6/6
+[2026-10-12 11:50:53]   biography-memoir: 6/6
+[2026-10-12 11:50:53]   business-leadership: 6/6
+[2026-10-12 11:50:53]   meaningful-stories: 6/6
+[2026-10-12 11:50:53]   world-culture: 6/6
+

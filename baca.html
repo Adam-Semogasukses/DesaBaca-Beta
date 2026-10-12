@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>BACA - DESA BACA</title>
+  <meta name="description" content="Ruang membaca Desa Baca." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/panel.css" />
+  <script src="js/theme-init.js"></script>
+</head>
+
+<body class="panel-body">
+  <!-- LAYOUT v4: tinggi dikunci setinggi layar; sidebar diam. Mobile (<md): navigasi di bawah.
+       <xl: panel Detail Buku ada di bawah teks dan halaman scroll di <main>;
+       xl: dua kolom, tiap kolom scroll sendiri. -->
+  <div class="app-shell">
+
+    <header class="topbar" style="min-height:58px">
+      <div class="topbar-left">
+        <a href="dashboard.html" class="circle-btn" title="Kembali ke Dashboard" aria-label="Kembali ke Dashboard"><i class="fa-solid fa-arrow-left" style="font-size:12px"></i></a>
+        <div>
+          <div class="title" style="font-size:12px">DESA BACA</div>
+          <div class="sub">Ruang membaca</div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <span id="topBookName" class="book-name"></span>
+        <button id="saveBtn" type="button" class="save-btn" aria-pressed="false">
+          <i id="saveIcon" class="fa-regular fa-bookmark"></i><span id="saveLabel" class="lbl">Simpan</span>
+        </button>
+        <button id="themeToggle" type="button" class="round-btn" aria-label="Ganti Tema"><i id="themeIcon" class="fa-solid fa-moon"></i></button>
+      </div>
+    </header>
+
+    <div class="workspace">
+
+      <aside class="rail">
+        <div class="rail-group">
+          <a href="index.html" class="rail-home" title="Beranda Desa Baca" aria-label="Beranda Desa Baca"><i class="fa-solid fa-lightbulb"></i></a>
+          <nav class="rail-nav" aria-label="Navigasi">
+            <a href="dashboard.html" class="rail-btn" title="Dashboard" aria-label="Dashboard"><i class="fa-solid fa-table-cells-large"></i></a>
+            <a href="dashboard.html#progres" class="rail-btn active" title="Progres Baca" aria-label="Progres Baca" aria-current="page"><i class="fa-solid fa-graduation-cap"></i></a>
+            <a href="dashboard.html#bookmarks" class="rail-btn" title="Buku Tersimpan" aria-label="Buku Tersimpan"><i class="fa-regular fa-bookmark"></i></a>
+            <a href="dashboard.html#riwayat" class="rail-btn" title="Riwayat Baca" aria-label="Riwayat Baca"><i class="fa-solid fa-chart-column"></i></a>
+            <a href="katalog.html" class="rail-btn" title="Katalog Buku" aria-label="Katalog Buku"><i class="fa-solid fa-book-open"></i></a>
+          </nav>
+        </div>
+        <div class="rail-foot">15 MENIT</div>
+      </aside>
+
+      <aside class="subnav">
+        <div>
+          <h2>Dashboard</h2>
+          <p class="label">Overview</p>
+          <div class="subnav-links">
+            <a href="dashboard.html" class="subnav-link"><i class="fa-solid fa-table-cells-large"></i><span>Dashboard</span></a>
+            <a href="dashboard.html#progres" class="subnav-link active" aria-current="page"><i class="fa-solid fa-chart-line"></i><span>Progres Baca</span></a>
+            <a href="dashboard.html#riwayat" class="subnav-link"><i class="fa-solid fa-clock-rotate-left"></i><span>Riwayat Baca</span></a>
+            <a href="katalog.html" class="subnav-link"><i class="fa-solid fa-book-open"></i><span>Katalog Buku</span></a>
+            <a href="dashboard.html#bookmarks" class="subnav-link"><i class="fa-regular fa-bookmark"></i><span>Buku Tersimpan</span></a>
+          </div>
+        </div>
+        <div class="account">
+          <p class="label">Akun Aktif</p>
+          <p id="userName">Pengguna Desa Baca</p>
+        </div>
+      </aside>
+
+      <main class="reader-main">
+        <div class="reader-grid">
+
+          <section class="reader">
+            <div class="reader-head">
+              <div>
+                <p class="eyebrow">Sedang Dibaca</p>
+                <h1 id="bookTitle"></h1>
+              </div>
+              <span id="chapterChip" class="chip-blue"></span>
+            </div>
+
+            <div class="reader-tools" role="toolbar" aria-label="Pengaturan bacaan">
+              <div class="tool-group">
+                <button id="fontDown" type="button" class="tool-btn" aria-label="Perkecil teks" title="Perkecil teks">A&minus;</button>
+                <span id="fontLabel" class="tool-label" aria-live="polite">16px</span>
+                <button id="fontUp" type="button" class="tool-btn" aria-label="Perbesar teks" title="Perbesar teks">A+</button>
+              </div>
+              <div class="tool-group">
+                <button id="scrollSpeed" type="button" class="tool-btn" title="Ganti kecepatan gulir otomatis">Sedang</button>
+                <button id="scrollToggle" type="button" class="tool-btn" aria-pressed="false" aria-label="Mulai gulir otomatis" title="Mulai gulir otomatis"><i class="fa-solid fa-play"></i><span class="tool-text">Gulir otomatis</span></button>
+              </div>
+            </div>
+
+            <div class="reader-scroll">
+              <article class="reader-text">
+                <div class="reader-meta"><span id="readMins">Ringkasan buku</span><span>•</span><span id="readPct"></span></div>
+                <h2 id="chapterHeading"></h2>
+                <div id="prose" class="prose" aria-live="polite">
+                  <p>Memuat ringkasan…</p>
+                </div>
+                <p id="sourceCredit" class="source-credit" hidden>Sumber: <a id="sourceLink" href="#" target="_blank" rel="noopener noreferrer">F15 Library</a></p>
+              </article>
+            </div>
+
+            <div class="reader-foot">
+              <button id="prevBtn" type="button" class="btn btn-outline"><i class="fa-solid fa-arrow-left ico-l"></i><span class="text-only">Sebelumnya</span></button>
+              <button id="doneBtn" type="button" class="btn btn-primary"><i class="fa-solid fa-check ico-c"></i>Tandai selesai</button>
+              <button id="nextBtn" type="button" class="btn btn-outline"><span class="text-only">Berikutnya</span><i class="fa-solid fa-arrow-right ico-r"></i></button>
+            </div>
+          </section>
+
+          <aside class="book-panel">
+            <div class="book-detail">
+              <p class="eyebrow">Detail Buku</p>
+              <div class="row">
+                <img id="bookCover" alt="" />
+                <div style="min-width:0">
+                  <h3 id="detailTitle"></h3>
+                  <p id="detailAuthor" class="author"></p>
+                  <div class="chapters"><i class="fa-solid fa-book-open"></i><span id="detailChapters"></span></div>
+                  <p id="detailSource" class="source-credit" hidden>Sumber: <a id="detailSourceLink" href="#" target="_blank" rel="noopener noreferrer">F15 Library</a></p>
+                </div>
+              </div>
+            </div>
+            <div class="chapter-box">
+              <div class="head"><b>Daftar Bab</b><span id="sidePct"></span></div>
+              <div class="progress"><span id="sideBar" style="width:0%"></span></div>
+              <div id="chapterList" class="chapter-list"></div>
+            </div>
+          </aside>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Data layer (mockup localStorage). Baca catatan di header js/store.js sebelum mengubah apa pun. -->
+  <script src="js/store.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/rail.js"></script>
+  <script src="js/content.js"></script>
+  <script src="js/baca.js"></script>
+  <script src="js/reader-tools.js"></script>
+</body>
+</html>

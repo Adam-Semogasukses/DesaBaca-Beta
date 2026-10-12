@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>DASHBOARD HOME - DESA BACA</title>
+  <meta name="description" content="Dashboard pembelajaran dan progres membaca buku di Desa Baca." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/panel.css" />
+  <script src="js/theme-init.js"></script>
+</head>
+
+<body class="panel-body">
+  <!-- LAYOUT v4: tinggi dikunci setinggi layar (dvh); sidebar diam, hanya <main> yang scroll.
+       Mobile (<md): ikon navigasi di bawah. md: rail kiri. lg: sub-sidebar muncul. -->
+  <div class="app-shell">
+
+    <header class="topbar">
+      <div class="topbar-left"><span class="title">DASHBOARD HOME</span></div>
+      <div class="topbar-right">
+        <a href="index.html" class="back"><i class="fa-solid fa-arrow-left"></i><span>Kembali ke Beranda</span></a>
+      </div>
+    </header>
+
+    <div class="workspace">
+
+      <!-- 1. RAIL IKON -->
+      <aside class="rail">
+        <div class="rail-group">
+          <a href="index.html" class="rail-home" title="Beranda Desa Baca" aria-label="Beranda Desa Baca"><i class="fa-solid fa-lightbulb"></i></a>
+          <nav class="rail-nav" aria-label="Navigasi dashboard">
+            <a href="#dashboard" class="rail-btn" data-view-link="dashboard" title="Dashboard" aria-label="Dashboard"><i class="fa-solid fa-table-cells-large"></i></a>
+            <a href="#progres" class="rail-btn" data-view-link="progres" title="Progres Baca" aria-label="Progres Baca"><i class="fa-solid fa-graduation-cap"></i></a>
+            <a href="#bookmarks" class="rail-btn" data-view-link="bookmarks" title="Buku Tersimpan" aria-label="Buku Tersimpan"><i class="fa-regular fa-bookmark"></i></a>
+            <a href="#riwayat" class="rail-btn" data-view-link="riwayat" title="Riwayat Baca" aria-label="Riwayat Baca"><i class="fa-solid fa-chart-column"></i></a>
+            <a href="katalog.html" class="rail-btn" title="Katalog Buku" aria-label="Katalog Buku"><i class="fa-solid fa-book-open"></i></a>
+          </nav>
+        </div>
+        <button id="themeToggle" class="rail-theme" type="button" aria-label="Ganti Tema"><i id="themeIcon" class="fa-solid fa-moon"></i></button>
+      </aside>
+
+      <!-- 2. SUB-NAV -->
+      <aside class="subnav">
+        <div>
+          <h2>Dashboard</h2>
+          <p class="label">Overview</p>
+          <div class="subnav-links">
+            <a href="#dashboard" class="subnav-link" data-view-link="dashboard"><i class="fa-solid fa-table-cells-large"></i><span>Dashboard</span></a>
+            <a href="#progres" class="subnav-link" data-view-link="progres"><i class="fa-solid fa-chart-line"></i><span>Progres Baca</span></a>
+            <a href="#riwayat" class="subnav-link" data-view-link="riwayat"><i class="fa-solid fa-clock-rotate-left"></i><span>Riwayat Baca</span></a>
+            <a href="katalog.html" class="subnav-link"><i class="fa-solid fa-book-open"></i><span>Katalog Buku</span></a>
+            <a href="#bookmarks" class="subnav-link" data-view-link="bookmarks"><i class="fa-regular fa-bookmark"></i><span>Buku Tersimpan</span><span id="bmBadge" class="count-badge hidden"></span></a>
+          </div>
+        </div>
+        <div class="account">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+            <p class="label" style="margin:0">Akun Aktif</p>
+            <button type="button" id="dashLogoutBtn" title="Keluar dari akun" style="background:none;border:none;color:var(--red);font-size:11px;cursor:pointer;font-weight:700;display:flex;align-items:center;gap:4px">
+              <i class="fa-solid fa-right-from-bracket"></i> Keluar
+            </button>
+          </div>
+          <p id="userName" style="font-weight:700">Pengguna Desa Baca</p>
+        </div>
+      </aside>
+
+      <!-- 3. KONTEN -->
+      <main class="panel-main" id="main">
+
+        <!-- VIEW: DASHBOARD -->
+        <section id="view-dashboard" class="frame" data-view="dashboard">
+          <div class="stat-grid">
+            <a href="#progres" class="inner-card stat-card tone-blue stat-link" aria-label="Lihat progres membaca">
+              <div>
+                <span class="stat-label">Buku Dibuka</span>
+                <div class="stat-value-row"><span class="stat-value" id="sOpened">0</span><span class="icon-box tone-blue"><i class="fa-solid fa-graduation-cap"></i></span></div>
+                <p class="stat-name">Pernah Dibuka</p>
+              </div>
+              <p class="stat-note">Semua buku yang Anda pernah buka</p>
+            </a>
+
+            <a href="#riwayat" class="inner-card stat-card tone-emerald stat-link" aria-label="Lihat riwayat baca">
+              <div>
+                <span class="stat-label">Buku Selesai</span>
+                <div class="stat-value-row"><span class="stat-value v-emerald" id="sCompleted">0</span><span class="icon-box tone-emerald"><i class="fa-regular fa-circle-check"></i></span></div>
+                <p class="stat-name">Tuntas Dibaca</p>
+              </div>
+              <p class="stat-note">Semua buku yang Anda selesaikan</p>
+            </a>
+
+            <a href="#progres" class="inner-card stat-card tone-amber stat-link" aria-label="Lihat progres membaca">
+              <div>
+                <span class="stat-label">Buku Dibaca</span>
+                <div class="stat-value-row"><span class="stat-value v-amber" id="sInProgress">0</span><span class="icon-box tone-amber"><i class="fa-regular fa-clock"></i></span></div>
+                <p class="stat-name">Buku Sedang Dibaca</p>
+              </div>
+              <p class="stat-note">Semua buku yang sedang Anda baca</p>
+            </a>
+
+            <div class="inner-card stat-card tone-purple">
+              <div>
+                <span class="stat-label">Waktu Membaca</span>
+                <div class="stat-value-row"><span class="stat-value v-purple" id="sMinutes">0</span><span class="icon-box tone-purple"><i class="fa-solid fa-book-open-reader"></i></span></div>
+                <p class="stat-name">Total Menit</p>
+              </div>
+              <p class="stat-note">Waktu yang Anda habiskan untuk baca</p>
+            </div>
+          </div>
+
+          <div class="dash-lower">
+            <div class="stack">
+              <div id="resumeCard" class="inner-card resume-card"></div>
+              <a href="#progres" class="inner-card completion stat-link" aria-label="Lihat progres membaca">
+                <span class="stat-label">Progres Belajar</span>
+                <div class="row top">
+                  <span style="font-size:12px;font-weight:600">Total Penyelesaian</span>
+                  <b class="v-blue" id="sPct">0%</b>
+                </div>
+                <div class="progress"><span id="sPctBar" style="width:0%"></span></div>
+                <div class="row foot"><span id="sDone">0 Selesai</span><span id="sReading">0 sedang dibaca</span></div>
+              </a>
+
+              <div class="mini-grid">
+                <div class="inner-card mini-stat">
+                  <span class="icon-box lg tone-emerald"><i class="fa-regular fa-clock"></i></span>
+                  <div><b id="sHours">0</b><p>Jam dihabiskan untuk membaca</p></div>
+                </div>
+                <div class="inner-card mini-stat">
+                  <span class="icon-box lg tone-amber"><i class="fa-solid fa-fire"></i></span>
+                  <div><b id="sStreak">0</b><p>Rentetan Hari Membaca</p></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Leaderboard lokal. Data: DesaBacaStore.getLeaderboard() (MOCK).
+                 TODO(DB): GET backend/leaderboard.php?village=bacaMaju (lihat SQL di bawah js/store.js) -->
+            <div class="inner-card board">
+              <div>
+                <span class="board-title"><i class="fa-solid fa-trophy"></i>Leaderboard Lokal</span>
+                <div class="board-meta">
+                  <span class="village-chip"><i class="fa-solid fa-house-flag"></i> Desa <span id="boardVillage"></span></span>
+                  <span>Buku terbaca minggu ini</span>
+                </div>
+              </div>
+              <p class="week" id="boardWeek"></p>
+              <div class="board-list"><ol id="boardList"></ol></div>
+              <p class="foot-note">Dihitung dari buku yang kamu buka sejak Senin. Reset tiap Senin. Nama warga lain masih data contoh (mockup).</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW: PROGRES MEMBACA.  Data: DesaBacaStore.getAllProgress() (semua buku yang pernah dibuka) -->
+        <section id="view-progres" class="frame narrow hidden" data-view="progres">
+          <div class="view-head">
+            <div>
+              <h1>Progres Membaca</h1>
+              <p>Semua buku yang pernah kamu buka. Pilih satu untuk melanjutkan.</p>
+            </div>
+          </div>
+
+          <div id="progresEmpty" class="empty hidden">
+            <div class="ic"><i class="fa-solid fa-graduation-cap"></i></div>
+            <p class="t">Belum ada buku yang dibuka</p>
+            <p class="d">Buka satu buku dari katalog, nanti progresnya muncul di sini.</p>
+            <div class="actions">
+              <a href="katalog.html" class="btn btn-primary">Jelajahi katalog</a>
+            </div>
+          </div>
+
+          <div id="progresList" class="card-grid"></div>
+        </section>
+
+        <!-- VIEW: RIWAYAT BACA.  Data: DesaBacaStore.getAllProgress() + getHistory() -->
+        <section id="view-riwayat" class="frame narrow hidden" data-view="riwayat">
+          <div class="view-head">
+            <div>
+              <h1>Riwayat Baca</h1>
+              <p>Semua buku yang pernah kamu buka dan selesaikan.</p>
+            </div>
+            <button id="clearAll" type="button" class="btn-danger-outline hidden"><i class="fa-regular fa-trash-can"></i> Hapus riwayat</button>
+          </div>
+
+          <div id="historyEmpty" class="empty hidden">
+            <div class="ic"><i class="fa-solid fa-clock-rotate-left"></i></div>
+            <p class="t">Belum ada riwayat membaca</p>
+            <p class="d">Mulai baca satu buku, nanti jejaknya muncul di sini.</p>
+            <div class="actions">
+              <a href="baca.html?book=atomic-habits" class="btn btn-primary">Mulai membaca</a>
+              <button type="button" class="btn btn-outline" data-action="demo">Isi data contoh</button>
+            </div>
+          </div>
+
+          <div id="historyFull" class="stack" style="gap:24px">
+            <div id="continueWrap" class="hidden">
+              <h2 class="section-label">Lanjutkan membaca</h2>
+              <div id="continueList" class="card-grid"></div>
+            </div>
+            <div>
+              <h2 class="section-label">Jejak membaca</h2>
+              <div id="timeline" class="timeline"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW: BUKU TERSIMPAN.  Data: DesaBacaStore.getBookmarks() -->
+        <section id="view-bookmarks" class="frame narrow hidden" data-view="bookmarks">
+          <div class="view-head">
+            <div>
+              <h1>Buku Tersimpan</h1>
+              <p>Buku yang kamu simpan untuk dibaca nanti.</p>
+            </div>
+          </div>
+
+          <div id="bookmarkEmpty" class="empty hidden">
+            <div class="ic"><i class="fa-regular fa-bookmark"></i></div>
+            <p class="t">Belum ada buku tersimpan</p>
+            <p class="d">Tekan ikon bookmark di kartu buku untuk menyimpannya.</p>
+            <div class="actions">
+              <a href="index.html#ebooks" class="btn btn-primary">Cari buku</a>
+              <button type="button" class="btn btn-outline" data-action="demo">Isi data contoh</button>
+            </div>
+          </div>
+
+          <div id="bookmarkList" class="card-grid bookmarks"></div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Data layer (mockup localStorage). Baca catatan di header js/store.js sebelum mengubah apa pun. -->
+  <script src="js/store.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/rail.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
