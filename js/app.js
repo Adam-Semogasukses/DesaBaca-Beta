@@ -700,7 +700,6 @@
           break;
         case 'close-auth': closeAuth(); break;
         case 'toggle-pass': togglePass(act); break;
-        case 'social': showToast('Login Facebook belum aktif. Gunakan Google atau Akun Lokal.', 'info'); break;
       }
       return;
     }

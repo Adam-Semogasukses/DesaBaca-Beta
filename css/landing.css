@@ -435,8 +435,6 @@ html.dark .tabs button.active { background: var(--d3); }
 .social-btn.google { background: #fff; color: #292524; }
 html.dark .social-btn.google { background: var(--d3); border-color: var(--d4); color: var(--text-strong); }
 .social-btn.google:hover { border-color: var(--red); }
-.social-btn.facebook { background: #1877F2; border-color: #1877F2; color: #fff; }
-.social-btn.facebook:hover { background: #166FE5; }
 .social-btn svg { width: 16px; height: 16px; }
 
 .divider { position: relative; display: flex; align-items: center; justify-content: center; margin: 20px 0; }
