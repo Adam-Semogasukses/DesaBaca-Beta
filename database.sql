@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS reading_progress (
   current_chapter TINYINT UNSIGNED DEFAULT 1,
   done_chapters VARCHAR(64) DEFAULT '',
   minutes_read INT UNSIGNED DEFAULT 0,
+  seconds_read INT UNSIGNED NOT NULL DEFAULT 0,
   status ENUM('reading','completed') DEFAULT 'reading',
   first_read_at TIMESTAMP NULL,
   last_read_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

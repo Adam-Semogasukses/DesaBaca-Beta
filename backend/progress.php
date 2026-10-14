@@ -3,12 +3,13 @@ require 'config.php';
 requireLogin();
 
 $userId = $_SESSION['user_id'];
+ensureSecondsColumn($conn);
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'GET') {
     $stmt = $conn->prepare(
         "SELECT b.slug, b.title, b.chapters, r.progress, r.current_chapter, r.done_chapters, 
-                r.minutes_read, r.status, r.first_read_at, r.last_read_at 
+                r.minutes_read, r.seconds_read, r.status, r.first_read_at, r.last_read_at 
          FROM reading_progress r 
          JOIN books b ON b.id = r.book_id 
          WHERE r.user_id = ? 
@@ -25,7 +26,8 @@ if ($method === 'GET') {
             'chapter'       => (int)($r['current_chapter'] ?? 1),
             'done'          => array_values($doneArr),
             'progress'      => (int)($r['progress'] ?? 0),
-            'minutes'       => (int)($r['minutes_read'] ?? 0),
+            'minutes'       => (int)floor(((int)($r['seconds_read'] ?? 0)) / 60),
+            'seconds'       => (int)($r['seconds_read'] ?? 0),
             'status'        => $r['status'] ?: 'reading',
             'first_read_at' => $r['first_read_at'],
             'last_read_at'  => $r['last_read_at'],
@@ -90,6 +92,24 @@ if ($action === 'open') {
     jsonResponse(['success' => true, 'message' => 'Progress dibuka']);
 }
 
+if ($action === 'time') {
+    // Tambah waktu baca (detik) yang dihitung client selama halaman baca terbuka.
+    $secs = max(0, min(300, (int)($data['seconds'] ?? 0)));
+    if ($secs > 0) {
+        if ($current) {
+            $up = $conn->prepare("UPDATE reading_progress SET seconds_read = seconds_read + ?, minutes_read = FLOOR(seconds_read / 60), last_read_at=? WHERE id=?");
+            $up->bind_param('isi', $secs, $now, $current['id']);
+            $up->execute();
+        } else {
+            $m = intdiv($secs, 60);
+            $ins = $conn->prepare("INSERT INTO reading_progress (user_id, book_id, current_chapter, progress, minutes_read, seconds_read, status, first_read_at, last_read_at) VALUES (?, ?, 1, 0, ?, ?, 'reading', ?, ?)");
+            $ins->bind_param('iiiiss', $userId, $bookId, $m, $secs, $now, $now);
+            $ins->execute();
+        }
+    }
+    jsonResponse(['success' => true]);
+}
+
 if ($action === 'chapter_done') {
     if (!in_array($chapter, $doneArr)) {
         $doneArr[] = $chapter;
@@ -97,19 +117,18 @@ if ($action === 'chapter_done') {
     }
     $doneStr = implode(',', $doneArr);
     $pct = min(100, round((count($doneArr) / $totalChapters) * 100));
-    $minutes = count($doneArr) * 15;
     $finished = count($doneArr) >= $totalChapters;
     $status = $finished ? 'completed' : 'reading';
     $nextChapter = $finished ? $chapter : min($totalChapters, $chapter + 1);
 
     if ($current) {
         $firstRead = $current['first_read_at'] ?: $now;
-        $up = $conn->prepare("UPDATE reading_progress SET current_chapter=?, done_chapters=?, progress=?, minutes_read=?, status=?, last_read_at=?, first_read_at=? WHERE id=?");
-        $up->bind_param('isiisssi', $nextChapter, $doneStr, $pct, $minutes, $status, $now, $firstRead, $current['id']);
+        $up = $conn->prepare("UPDATE reading_progress SET current_chapter=?, done_chapters=?, progress=?, status=?, last_read_at=?, first_read_at=? WHERE id=?");
+        $up->bind_param('isissssi', $nextChapter, $doneStr, $pct, $status, $now, $firstRead, $current['id']);
         $up->execute();
     } else {
-        $ins = $conn->prepare("INSERT INTO reading_progress (user_id, book_id, current_chapter, done_chapters, progress, minutes_read, status, first_read_at, last_read_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $ins->bind_param('iiisiisss', $userId, $bookId, $nextChapter, $doneStr, $pct, $minutes, $status, $now, $now);
+        $ins = $conn->prepare("INSERT INTO reading_progress (user_id, book_id, current_chapter, done_chapters, progress, status, first_read_at, last_read_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $ins->bind_param('iiisisss', $userId, $bookId, $nextChapter, $doneStr, $pct, $status, $now, $now);
         $ins->execute();
     }
 

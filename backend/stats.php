@@ -3,6 +3,7 @@ require 'config.php';
 requireLogin();
 
 $userId = $_SESSION['user_id'];
+ensureSecondsColumn($conn);
 
 // 1. Buku tersimpan (bookmarks)
 $q = $conn->prepare("SELECT COUNT(*) total FROM bookmarks WHERE user_id=?");
@@ -26,10 +27,11 @@ $completed = (int)$q->get_result()->fetch_assoc()['total'];
 $inProgress = max(0, $opened - $completed);
 
 // 5. Total menit membaca
-$q = $conn->prepare("SELECT SUM(minutes_read) total_minutes FROM reading_progress WHERE user_id=?");
+$q = $conn->prepare("SELECT SUM(seconds_read) total_seconds FROM reading_progress WHERE user_id=?");
 $q->bind_param('i', $userId);
 $q->execute();
-$minutes = (int)($q->get_result()->fetch_assoc()['total_minutes'] ?? 0);
+$seconds = (int)($q->get_result()->fetch_assoc()['total_seconds'] ?? 0);
+$minutes = intdiv($seconds, 60);
 
 // 6. Streak hari membaca (dari reading_history)
 $q = $conn->prepare("SELECT DISTINCT DATE(created_at) as read_date FROM reading_history WHERE user_id=? ORDER BY read_date DESC");
@@ -77,7 +79,8 @@ jsonResponse([
         'in_progress'    => $inProgress,
         'bookmarks'      => $bookmarks,
         'minutes'        => $minutes,
-        'hours'          => round(($minutes / 60) * 10) / 10,
+        'seconds'        => $seconds,
+        'hours'          => round(($seconds / 3600) * 10) / 10,
         'streak'         => $streak,
         'completion_pct' => $completionPct,
         'week_books'     => $weekBooks

@@ -25,6 +25,14 @@ function jsonResponse($data, $status = 200) {
     exit;
 }
 
+// Pastikan kolom waktu baca (detik) ada; dibuat otomatis kalau database belum di-update.
+function ensureSecondsColumn($conn) {
+    $r = $conn->query("SHOW COLUMNS FROM reading_progress LIKE 'seconds_read'");
+    if ($r && $r->num_rows === 0) {
+        $conn->query("ALTER TABLE reading_progress ADD COLUMN seconds_read INT UNSIGNED NOT NULL DEFAULT 0");
+    }
+}
+
 function requireLogin() {
     if (empty($_SESSION['user_id'])) {
         jsonResponse(['success'=>false,'message'=>'Silakan login terlebih dahulu.'], 401);

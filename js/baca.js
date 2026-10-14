@@ -178,6 +178,30 @@
   openChapter();
   renderChapter();
 
+  /* ---------- pelacak waktu baca ----------
+   * Mulai menghitung saat halaman baca dibuka. Bertambah 1 detik tiap detik selama tab
+   * terlihat & jendela fokus; berhenti saat tab disembunyikan. Disimpan lokal tiap detik,
+   * dikirim ke server tiap 10 detik dan saat halaman ditutup. */
+  let pendingSecs = 0;
+  let lastTick = Date.now();
+  const canRead = () => document.visibilityState === 'visible' && document.hasFocus();
+  function flushTime(beacon) {
+    if (pendingSecs > 0) { Store.sendReadingTime(book.slug, pendingSecs, beacon); pendingSecs = 0; }
+  }
+  setInterval(() => {
+    const now = Date.now();
+    const whole = Math.floor((now - lastTick) / 1000);
+    if (whole < 1) return;
+    lastTick += whole * 1000;
+    if (!canRead()) return;
+    const add = Math.min(whole, 5); // abaikan lonjakan (mis. laptop sleep)
+    Store.addReadingTime(book.slug, add);
+    pendingSecs += add;
+    if (pendingSecs >= 10) flushTime(false);
+  }, 1000);
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') flushTime(true); });
+  window.addEventListener('pagehide', () => flushTime(true));
+
   // Sinkronisasi data user & progres terbaru dari database (tidak menahan render pertama)
   Store.syncFromDatabase().then(() => {
     const latest = Store.getProgress(book.slug);

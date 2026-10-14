@@ -29,6 +29,7 @@ CALL add_col_if_missing('books', 'chapters', 'TINYINT UNSIGNED DEFAULT 6');
 CALL add_col_if_missing('reading_progress', 'current_chapter', 'TINYINT UNSIGNED DEFAULT 1');
 CALL add_col_if_missing('reading_progress', 'done_chapters',   'VARCHAR(64) DEFAULT ''''');
 CALL add_col_if_missing('reading_progress', 'minutes_read',    'INT UNSIGNED DEFAULT 0');
+CALL add_col_if_missing('reading_progress', 'seconds_read',    'INT UNSIGNED NOT NULL DEFAULT 0');
 CALL add_col_if_missing('reading_progress', 'status',          'ENUM(''reading'',''completed'') DEFAULT ''reading''');
 CALL add_col_if_missing('reading_progress', 'first_read_at',   'TIMESTAMP NULL');
 

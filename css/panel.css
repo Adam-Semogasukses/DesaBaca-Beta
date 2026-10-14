@@ -165,7 +165,7 @@ html.dark .icon-box.tone-purple  { color: #c084fc; }
 .v-blue    { color: #2563eb; } html.dark .v-blue    { color: #60a5fa; }
 
 .dash-lower { display: grid; grid-template-columns: 1fr; gap: 20px; align-items: start; }
-@media (min-width: 1024px) { .dash-lower { grid-template-columns: 2fr 1fr; } }
+@media (min-width: 1024px) { .dash-lower { grid-template-columns: 2fr 1fr; align-items: stretch; } }
 .stack { display: flex; flex-direction: column; gap: 20px; }
 
 .completion { padding: 24px; }
@@ -182,7 +182,7 @@ html.dark .icon-box.tone-purple  { color: #c084fc; }
 .mini-stat p { font-size: 12px; font-weight: 500; line-height: 1.35; color: var(--muted); }
 
 /* leaderboard */
-.board { padding: 24px; }
+.board { padding: 24px; display: flex; flex-direction: column; }
 .board-title { font-size: 12px; font-weight: 700; letter-spacing: .02em; white-space: nowrap; }
 .board-title i { color: #f59e0b; margin-right: 6px; }
 .board-meta { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
@@ -190,9 +190,9 @@ html.dark .icon-box.tone-purple  { color: #c084fc; }
 html.dark .village-chip { color: #f87171; }
 .board-meta span:last-child { font-size: 11px; color: var(--faint); }
 .board .week { font-size: 10px; color: var(--faint); margin: 4px 0 16px; }
-.board-list { padding: 8px; border-radius: var(--radius-lg); border: 1px solid var(--panel-border); background: var(--inset-bg); }
+.board-list { flex: 1; min-height: 260px; position: relative; overflow: hidden; padding: 8px; border-radius: var(--radius-lg); border: 1px solid var(--panel-border); background: var(--inset-bg); }
 html:not(.dark) .board-list { background: #F8F3EA; }
-.board-list ol { display: flex; flex-direction: column; gap: 4px; }
+.board-list ol { position: absolute; inset: 8px; overflow-y: auto; overscroll-behavior: contain; display: flex; flex-direction: column; gap: 4px; }
 .board-row { display: flex; align-items: center; gap: 12px; padding: 8px 10px; border-radius: var(--radius-md); border: 1px solid transparent; font-size: 12px; }
 .board-row.me { background: rgba(239, 68, 68, .1); border-color: rgba(239, 68, 68, .3); }
 .rank { width: 24px; height: 24px; flex-shrink: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; background: #e7e5e4; color: #57534e; }

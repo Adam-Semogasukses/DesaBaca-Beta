@@ -106,7 +106,7 @@
               <div>
                 <span class="stat-label">Waktu Membaca</span>
                 <div class="stat-value-row"><span class="stat-value v-purple" id="sMinutes">0</span><span class="icon-box tone-purple"><i class="fa-solid fa-book-open-reader"></i></span></div>
-                <p class="stat-name">Total Menit</p>
+                <p class="stat-name" id="sMinutesName">Total Menit</p>
               </div>
               <p class="stat-note">Waktu yang Anda habiskan untuk baca</p>
             </div>
@@ -137,8 +137,7 @@
               </div>
             </div>
 
-            <!-- Leaderboard lokal. Data: DesaBacaStore.getLeaderboard() (MOCK).
-                 TODO(DB): GET backend/leaderboard.php?village=bacaMaju (lihat SQL di bawah js/store.js) -->
+            <!-- Leaderboard: data pengguna terdaftar dari backend/leaderboard.php. Daftar bisa di-scroll. -->
             <div class="inner-card board">
               <div>
                 <span class="board-title"><i class="fa-solid fa-trophy"></i>Leaderboard Lokal</span>
@@ -149,7 +148,7 @@
               </div>
               <p class="week" id="boardWeek"></p>
               <div class="board-list"><ol id="boardList"></ol></div>
-              <p class="foot-note">Dihitung dari buku yang kamu buka sejak Senin. Reset tiap Senin. Nama warga lain masih data contoh (mockup).</p>
+              <p class="foot-note">Dihitung dari buku yang kamu buka sejak Senin. Reset tiap Senin.</p>
             </div>
           </div>
         </section>

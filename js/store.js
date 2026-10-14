@@ -14,7 +14,6 @@
   };
 
   const VILLAGE_NAME = 'bacaMaju';
-  const MINUTES_PER_CHAPTER = 15;
   const HISTORY_LIMIT = 500;
   const DEDUPE_OPEN_MS = 30 * 60 * 1000;
 
@@ -134,7 +133,7 @@
    * PROGRESS & HISTORY
    * ========================================================================= */
   function emptyProgress(book) {
-    return { chapter: 1, done: [], progress: 0, status: 'reading', minutes: 0,
+    return { chapter: 1, done: [], progress: 0, status: 'reading', minutes: 0, seconds: 0,
              first_read_at: null, last_read_at: null, chapters: book.chapters };
   }
 
@@ -188,6 +187,28 @@
     }
   }
 
+  // Tambah waktu baca (detik) ke cache lokal. Sinkron ke server dilakukan oleh pemanggil.
+  function addReadingTime(slug, secs) {
+    const book = getBook(slug);
+    if (!book || !(secs > 0)) return;
+    const p = getProgress(slug);
+    p.seconds = (p.seconds || 0) + secs;
+    p.minutes = Math.floor(p.seconds / 60);
+    p.first_read_at = p.first_read_at || new Date().toISOString();
+    saveProgress(slug, p);
+  }
+
+  function sendReadingTime(slug, secs, useBeacon) {
+    if (!getCurrentUser() || !(secs > 0)) return;
+    const url = 'backend/progress.php';
+    const body = JSON.stringify({ slug, action: 'time', seconds: secs });
+    if (useBeacon && navigator.sendBeacon) {
+      navigator.sendBeacon(url, new Blob([body], { type: 'application/json' }));
+    } else if (window.DesaBaca && window.DesaBaca.api) {
+      window.DesaBaca.api(url, { method: 'POST', body }).catch(() => {});
+    }
+  }
+
   function completeChapter(slug, chapter) {
     const book = getBook(slug);
     if (!book) return { finished: false, progress: 0 };
@@ -195,7 +216,6 @@
     const now = new Date().toISOString();
     if (!p.done.includes(chapter)) p.done = [...p.done, chapter].sort((a, b) => a - b);
     p.progress = Math.round((p.done.length / book.chapters) * 100);
-    p.minutes = p.done.length * MINUTES_PER_CHAPTER;
     p.first_read_at = p.first_read_at || now;
     p.last_read_at = now;
     const finished = p.done.length >= book.chapters;
@@ -239,13 +259,15 @@
   function getStats() {
     const all = getAllProgress();
     const completed = all.filter((p) => p.status === 'completed' || p.progress >= 100).length;
-    const minutes = all.reduce((s, p) => s + (p.minutes || 0), 0);
+    const seconds = all.reduce((s, p) => s + (p.seconds || 0), 0);
+    const minutes = Math.floor(seconds / 60);
     return {
       opened: all.length,
       completed,
       in_progress: Math.max(0, all.length - completed),
       minutes,
-      hours: Math.round((minutes / 60) * 10) / 10,
+      seconds,
+      hours: Math.round((seconds / 3600) * 10) / 10,
       streak: computeStreak(),
       bookmarks: read(KEYS.bookmarks, []).length,
       completion_pct: all.length ? Math.round((completed / all.length) * 100) : 0,
@@ -272,40 +294,23 @@
   /* ===========================================================================
    * LEADERBOARD
    * ========================================================================= */
-  // 9 warga contoh (mockup). Ditambah 1 user yang sedang login = 10 baris.
-  const MOCK_VILLAGERS = [
-    'budiono', 'supri', 'ahmad', 'yanto', 'wati',
-    'sri', 'joko', 'siti', 'hasan',
-  ];
-
-  function hashString(s) {
-    let h = 2166136261;
-    for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
-    return h >>> 0;
-  }
-  function mulberry32(a) {
-    return function () {
-      a |= 0; a = (a + 0x6d2b79f5) | 0;
-      let t = Math.imul(a ^ (a >>> 15), 1 | a);
-      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-    };
-  }
-  const titleCase = (s) => s.charAt(0).toUpperCase() + s.slice(1);
-
-  function getLeaderboard() {
+  // Data dari backend/leaderboard.php (semua pengguna terdaftar). Jika offline / belum
+  // ada server, hanya user yang sedang login yang ditampilkan.
+  async function getLeaderboard() {
     const start = weekStart();
-    const wk = dayKey(start);
     const user = getCurrentUser();
-    const myName = (user && (user.display_name || user.username)) || 'Kamu';
+    let entries = [];
 
-    const entries = MOCK_VILLAGERS
-      .filter((n) => n.toLowerCase() !== myName.toLowerCase())
-      .map((n) => {
-        const r = mulberry32(hashString(wk + n))();
-        return { name: titleCase(n), books: Math.floor(Math.pow(r, 1.6) * 6), isMe: false };
-      });
-    entries.push({ name: myName, books: weekBooks(), isMe: true });
+    try {
+      if (window.DesaBaca && window.DesaBaca.api) {
+        const res = await window.DesaBaca.api('backend/leaderboard.php');
+        if (res && res.success && Array.isArray(res.entries)) entries = res.entries;
+      }
+    } catch (e) { /* fallback di bawah */ }
+
+    if (!entries.length && user) {
+      entries = [{ name: user.display_name || user.username, books: weekBooks(), isMe: true }];
+    }
 
     entries.sort((a, b) => b.books - a.books || a.name.localeCompare(b.name));
     entries.forEach((e, i) => { e.rank = i > 0 && e.books === entries[i - 1].books ? entries[i - 1].rank : i + 1; });
@@ -379,8 +384,8 @@
       ({ id: 'demo' + i, slug, type, chapter, at: new Date(now - h * H).toISOString() })));
     const iso = (h) => new Date(now - h * H).toISOString();
     write(KEYS.progress, {
-      'atomic-habits': { chapter: 3, done: [1, 2], progress: 33, status: 'reading', minutes: 30, first_read_at: iso(70), last_read_at: iso(45) },
-      '100m-leads': { chapter: 2, done: [1], progress: 17, status: 'reading', minutes: 15, first_read_at: iso(26), last_read_at: iso(25) },
+      'atomic-habits': { chapter: 3, done: [1, 2], progress: 33, status: 'reading', minutes: 30, seconds: 1800, first_read_at: iso(70), last_read_at: iso(45) },
+      '100m-leads': { chapter: 2, done: [1], progress: 17, status: 'reading', minutes: 15, seconds: 900, first_read_at: iso(26), last_read_at: iso(25) },
       'alcohol-explained': { chapter: 1, done: [], progress: 0, status: 'reading', minutes: 0, first_read_at: iso(3), last_read_at: iso(3) },
     });
     write(KEYS.bookmarks, [
@@ -390,10 +395,10 @@
   }
 
   global.DesaBacaStore = {
-    VILLAGE_NAME, MINUTES_PER_CHAPTER,
+    VILLAGE_NAME,
     getBooks, getBook,
     getBookmarks, isBookmarked, toggleBookmark,
-    getProgress, getAllProgress, recordOpen, completeChapter,
+    getProgress, getAllProgress, recordOpen, completeChapter, addReadingTime, sendReadingTime,
     getHistory, clearHistory,
     getStats, getLeaderboard,
     getCurrentUser, setCurrentUser, clearUserData, isLoggedIn,

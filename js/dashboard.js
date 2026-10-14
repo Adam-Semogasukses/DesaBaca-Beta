@@ -10,7 +10,6 @@
   const Store = window.DesaBacaStore;
 
   const VIEWS = ['dashboard', 'progres', 'riwayat', 'bookmarks'];
-  const TOP_N = 10;
 
   /* ---------------------------------------------------------------------------
    * Navigasi antar view (hash: #dashboard | #progres | #riwayat | #bookmarks)
@@ -66,8 +65,11 @@
     if ($('#sOpened')) $('#sOpened').textContent = stats.opened;
     if ($('#sCompleted')) $('#sCompleted').textContent = stats.completed;
     if ($('#sInProgress')) $('#sInProgress').textContent = stats.in_progress;
-    if ($('#sMinutes')) $('#sMinutes').textContent = stats.minutes;
-    if ($('#sHours')) $('#sHours').textContent = stats.hours;
+    const secs = stats.seconds != null ? stats.seconds : (stats.minutes || 0) * 60;
+    // < 1 menit tampil dalam detik, selebihnya menit
+    if ($('#sMinutes')) $('#sMinutes').textContent = secs < 60 ? secs : Math.floor(secs / 60);
+    if ($('#sMinutesName')) $('#sMinutesName').textContent = secs < 60 ? 'Total Detik' : 'Total Menit';
+    if ($('#sHours')) $('#sHours').textContent = Number((secs / 3600).toFixed(secs < 3600 ? 2 : 1));
     if ($('#sStreak')) $('#sStreak').textContent = stats.streak;
     if ($('#sPct')) $('#sPct').textContent = stats.completion_pct + '%';
     if ($('#sPctBar')) $('#sPctBar').style.width = stats.completion_pct + '%';
@@ -98,10 +100,7 @@
 
     const max = Math.max(1, ...board.entries.map((e) => e.books));
     const bar = (n) => Math.max(n > 0 ? 6 : 0, Math.round((n / max) * 100));
-    const top = board.entries.slice(0, TOP_N);
-    const me = board.entries.slice(TOP_N).find((e) => e.isMe);
-
-    let html = top.map((e) => `
+    const html = board.entries.map((e) => `
       <li class="board-row${e.isMe ? ' me' : ''}">
         <span class="rank${rankClass(e.rank)}">${e.rank}</span>
         <div class="board-body">
@@ -113,19 +112,10 @@
         </div>
       </li>`).join('');
 
-    if (me) {
-      html += `
-      <li class="board-gap" aria-hidden="true">⋮</li>
-      <li class="board-row me">
-        <span class="rank">${me.rank}</span>
-        <div class="board-body"><div class="board-line">
-          <span class="board-name">${esc(me.name)}<span class="me-tag">kamu</span></span>
-          <span class="board-count">${me.books} <small>buku</small></span>
-        </div></div>
-      </li>`;
-    }
     const bList = $('#boardList');
-    if (bList) bList.innerHTML = html;
+    if (bList) {
+      bList.innerHTML = html || '<li class="board-gap">Belum ada pengguna terdaftar.</li>';
+    }
   }
 
   /* ---------------------------------------------------------------------------
@@ -322,7 +312,7 @@
       .map((b) => Object.assign({}, b, { book: Store.getBook(b.slug), progress: Store.getProgress(b.slug) }))
       .filter((b) => b.book);
 
-    renderBoard(Store.getLeaderboard());
+    Store.getLeaderboard().then(renderBoard);
     renderResume(progressList);
     renderProgress(progressList);
     renderHistory(history, progressList);
