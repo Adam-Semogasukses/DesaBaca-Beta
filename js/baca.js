@@ -39,7 +39,10 @@
 
   const initial = Store.getProgress(book.slug);
   const state = { chapter: initial.chapter, done: initial.done.slice(), saved: Store.isBookmarked(book.slug) };
-  const progress = () => Math.round((state.done.length / book.chapters) * 100);
+  const progress = () => Math.max(
+    Math.round((state.done.length / book.chapters) * 100),
+    state.done.length >= book.chapters ? 100 : Math.round(((state.chapter - 1) / book.chapters) * 100)
+  );
 
   /* ---------- isi bacaan (js/content.js) ---------- */
   const content = (window.DesaBacaContent && window.DesaBacaContent.get(book.slug)) || [];
@@ -93,6 +96,9 @@
     $('#prevBtn').disabled = state.chapter === 1;
     $('#nextBtn').disabled = state.chapter === book.chapters;
     $('#doneBtn').disabled = false;
+    $('#doneBtn').innerHTML = state.chapter >= book.chapters
+      ? '<i class="fa-solid fa-flag-checkered ico-c"></i>Selesai membaca'
+      : '<i class="fa-solid fa-check ico-c"></i>Tandai selesai';
 
     let html = '';
     for (let n = 1; n <= book.chapters; n++) {
@@ -133,11 +139,19 @@
   const nextChapter = () => { if (state.chapter < book.chapters) goChapter(state.chapter + 1); };
   const prevChapter = () => { if (state.chapter > 1) goChapter(state.chapter - 1); };
 
-  function completeChapter() {
+  async function completeChapter() {
+    const isLast = state.chapter >= book.chapters;
     const r = Store.completeChapter(book.slug, state.chapter);
     state.done = Store.getProgress(book.slug).done;
-    if (!r.finished && state.chapter < book.chapters) goChapter(state.chapter + 1);
-    else renderChapter();
+    if (isLast) {
+      // Buku selesai: simpan waktu & progres ke server, lalu tutup halaman baca ke dashboard
+      $('#doneBtn').disabled = true;
+      flushTime(true);
+      await Promise.race([r.synced, new Promise((res) => setTimeout(res, 2500))]);
+      window.location.href = Store.isLoggedIn() ? 'dashboard.html#progres' : 'katalog.html';
+      return;
+    }
+    goChapter(state.chapter + 1);
   }
 
   async function toggleSave() {

@@ -290,21 +290,8 @@
   async function refresh() {
     updateUserName();
 
-    // Coba ambil statistik langsung dari backend/stats.php jika login
-    try {
-      if (api) {
-        const statsRes = await api('backend/stats.php');
-        if (statsRes && statsRes.success && statsRes.stats) {
-          renderStats(statsRes.stats);
-        } else {
-          renderStats(Store.getStats());
-        }
-      } else {
-        renderStats(Store.getStats());
-      }
-    } catch (e) {
-      renderStats(Store.getStats());
-    }
+    // Statistik dihitung dari progres yang sudah disinkronkan (lokal + server)
+    renderStats(Store.getStats());
 
     const history = Store.getHistory();
     const progressList = Store.getAllProgress();

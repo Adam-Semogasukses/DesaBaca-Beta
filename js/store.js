@@ -61,6 +61,21 @@
     return d;
   }
 
+  // Gabung progres lokal & server: jangan sampai data server yang lebih lama/kosong
+  // menimpa bab yang sudah ditandai selesai di browser.
+  function mergeProgress(local, server) {
+    const out = { ...server };
+    Object.keys(local || {}).forEach((slug) => {
+      const l = local[slug], s = server[slug];
+      if (!s) { out[slug] = l; return; }
+      const ld = (l.done || []).length, sd = (s.done || []).length;
+      const base = (l.status === 'completed' && s.status !== 'completed') || ld > sd ? l : s;
+      out[slug] = { ...base, seconds: Math.max(l.seconds || 0, s.seconds || 0) };
+      out[slug].minutes = Math.floor(out[slug].seconds / 60);
+    });
+    return out;
+  }
+
   /* ---------------------------------------------------------------------------
    * USER & AUTH HELPERS
    * ------------------------------------------------------------------------- */
@@ -140,7 +155,14 @@
   function getProgress(slug) {
     const book = getBook(slug);
     if (!book) return null;
-    return { ...emptyProgress(book), ...(read(KEYS.progress, {})[slug] || {}), chapters: book.chapters };
+    const p = { ...emptyProgress(book), ...(read(KEYS.progress, {})[slug] || {}), chapters: book.chapters };
+    // Bar progres ikut maju sesuai posisi bab yang sedang dibaca (bab sebelumnya sudah dilewati),
+    // tidak hanya menunggu tombol "tandai selesai".
+    if (p.status !== 'completed') {
+      const byPosition = Math.round(((Math.max(1, p.chapter) - 1) / book.chapters) * 100);
+      p.progress = Math.min(99, Math.max(p.progress || 0, byPosition));
+    }
+    return p;
   }
 
   function getAllProgress() {
@@ -211,10 +233,12 @@
 
   function completeChapter(slug, chapter) {
     const book = getBook(slug);
-    if (!book) return { finished: false, progress: 0 };
+    if (!book) return { finished: false, progress: 0, synced: Promise.resolve() };
     const p = getProgress(slug);
     const now = new Date().toISOString();
     if (!p.done.includes(chapter)) p.done = [...p.done, chapter].sort((a, b) => a - b);
+    // Menandai bab terakhir = buku selesai dibaca (semua bab dianggap tuntas)
+    if (chapter >= book.chapters) p.done = Array.from({ length: book.chapters }, (_, i) => i + 1);
     p.progress = Math.round((p.done.length / book.chapters) * 100);
     p.first_read_at = p.first_read_at || now;
     p.last_read_at = now;
@@ -226,15 +250,16 @@
     pushHistory(slug, 'chapter_done', chapter);
     if (finished) pushHistory(slug, 'finish', chapter);
 
-    // Sync ke DB
+    // Sync ke DB (promise dikembalikan agar pemanggil bisa menunggu sebelum pindah halaman)
+    let synced = Promise.resolve();
     if (window.DesaBaca && window.DesaBaca.api) {
-      window.DesaBaca.api('backend/progress.php', {
+      synced = window.DesaBaca.api('backend/progress.php', {
         method: 'POST',
-        body: JSON.stringify({ slug, chapter, action: 'chapter_done' })
+        body: JSON.stringify({ slug, chapter, action: 'chapter_done', total: book.chapters })
       }).catch(() => {});
     }
 
-    return { finished, progress: p.progress };
+    return { finished, progress: p.progress, synced };
   }
 
   function getHistory(limit) {
@@ -340,7 +365,18 @@
         try {
           const prRes = await window.DesaBaca.api('backend/progress.php');
           if (prRes.success && prRes.progress) {
-            write(KEYS.progress, prRes.progress);
+            const local = read(KEYS.progress, {});
+            write(KEYS.progress, mergeProgress(local, prRes.progress));
+            // Buku yang sudah selesai di browser tapi belum selesai di server: kirim ulang
+            Object.keys(local).forEach((slug) => {
+              const book = getBook(slug), s = prRes.progress[slug];
+              if (book && local[slug].status === 'completed' && (!s || s.status !== 'completed')) {
+                window.DesaBaca.api('backend/progress.php', {
+                  method: 'POST',
+                  body: JSON.stringify({ slug, chapter: book.chapters, action: 'chapter_done', total: book.chapters })
+                }).catch(() => {});
+              }
+            });
           }
         } catch (e) {}
 

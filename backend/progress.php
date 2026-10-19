@@ -56,6 +56,8 @@ if (!$book) {
 
 $bookId = $book['id'];
 $totalChapters = (int)($book['chapters'] ?? 6);
+$clientTotal = (int)($data['total'] ?? 0);
+if ($clientTotal >= 1 && $clientTotal <= 100) $totalChapters = $clientTotal;
 
 // Ambil progress saat ini
 $stmt = $conn->prepare("SELECT * FROM reading_progress WHERE user_id=? AND book_id=? LIMIT 1");
@@ -114,6 +116,10 @@ if ($action === 'chapter_done') {
     if (!in_array($chapter, $doneArr)) {
         $doneArr[] = $chapter;
         sort($doneArr);
+    }
+    // Bab terakhir ditandai selesai = buku selesai dibaca (semua bab tuntas)
+    if ($chapter >= $totalChapters) {
+        $doneArr = range(1, $totalChapters);
     }
     $doneStr = implode(',', $doneArr);
     $pct = min(100, round((count($doneArr) / $totalChapters) * 100));
