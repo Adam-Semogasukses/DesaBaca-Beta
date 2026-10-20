@@ -407,29 +407,6 @@
     return false;
   }
 
-  function seedDemo() {
-    const now = Date.now();
-    const H = 3600 * 1000;
-    const plan = [
-      [70, 'atomic-habits', 'open', 1], [69, 'atomic-habits', 'chapter_done', 1],
-      [46, 'atomic-habits', 'open', 2], [45, 'atomic-habits', 'chapter_done', 2],
-      [26, '100m-leads', 'open', 1], [25, '100m-leads', 'chapter_done', 1],
-      [3, 'alcohol-explained', 'open', 1],
-    ];
-    write(KEYS.history, plan.map(([h, slug, type, chapter], i) =>
-      ({ id: 'demo' + i, slug, type, chapter, at: new Date(now - h * H).toISOString() })));
-    const iso = (h) => new Date(now - h * H).toISOString();
-    write(KEYS.progress, {
-      'atomic-habits': { chapter: 3, done: [1, 2], progress: 33, status: 'reading', minutes: 30, seconds: 1800, first_read_at: iso(70), last_read_at: iso(45) },
-      '100m-leads': { chapter: 2, done: [1], progress: 17, status: 'reading', minutes: 15, seconds: 900, first_read_at: iso(26), last_read_at: iso(25) },
-      'alcohol-explained': { chapter: 1, done: [], progress: 0, status: 'reading', minutes: 0, first_read_at: iso(3), last_read_at: iso(3) },
-    });
-    write(KEYS.bookmarks, [
-      { slug: 'alcohol-explained', saved_at: iso(5) },
-      { slug: '100m-leads', saved_at: iso(30) },
-    ]);
-  }
-
   global.DesaBacaStore = {
     VILLAGE_NAME,
     getBooks, getBook,
@@ -439,6 +416,5 @@
     getStats, getLeaderboard,
     getCurrentUser, setCurrentUser, clearUserData, isLoggedIn,
     syncFromDatabase,
-    seedDemo,
   };
 })(window);

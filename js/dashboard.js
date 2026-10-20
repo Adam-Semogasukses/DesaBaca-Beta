@@ -324,8 +324,6 @@
       await refresh();
       return;
     }
-
-    if (e.target.closest('[data-action="demo"]')) { Store.seedDemo(); refresh(); }
   });
 
   const clearBtn = $('#clearAll');
