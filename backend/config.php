@@ -8,6 +8,9 @@ $user    = 'root';
 $pass    = '';
 $charset = 'utf8mb4';
 
+// Client ID Google OAuth (samakan dengan CLIENT_ID di js/app.js). Kosong = login Google nonaktif.
+define('GOOGLE_CLIENT_ID', '');
+
 $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {
     http_response_code(500);

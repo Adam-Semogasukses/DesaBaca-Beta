@@ -130,7 +130,7 @@ if ($action === 'chapter_done') {
     if ($current) {
         $firstRead = $current['first_read_at'] ?: $now;
         $up = $conn->prepare("UPDATE reading_progress SET current_chapter=?, done_chapters=?, progress=?, status=?, last_read_at=?, first_read_at=? WHERE id=?");
-        $up->bind_param('isissssi', $nextChapter, $doneStr, $pct, $status, $now, $firstRead, $current['id']);
+        $up->bind_param('isisssi', $nextChapter, $doneStr, $pct, $status, $now, $firstRead, $current['id']);
         $up->execute();
     } else {
         $ins = $conn->prepare("INSERT INTO reading_progress (user_id, book_id, current_chapter, done_chapters, progress, status, first_read_at, last_read_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");

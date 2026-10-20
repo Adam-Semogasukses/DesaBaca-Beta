@@ -97,58 +97,32 @@ if ($action === 'login') {
 /* -------------------------------------------------------------- GOOGLE LOGIN */
 if ($action === 'google') {
     $credential = $data['credential'] ?? '';
-    $googleId   = '';
-    $email      = '';
-    $name       = '';
-    $picture    = '';
+    $pwHash     = null;   // diisi hanya pada login lewat form (nama + email + kata sandi)
 
-    // Jika menerima id_token / credential JWT Google dari Google Identity Services
-    if (!empty($credential)) {
-        // Coba verifikasi via Google tokeninfo jika curl/allow_url_fopen tersedia
-        $verified = false;
-        if (ini_get('allow_url_fopen')) {
-            $context = stream_context_create(['http' => ['timeout' => 5]]);
-            $verifyJson = @file_get_contents("https://oauth2.googleapis.com/tokeninfo?id_token=" . urlencode($credential), false, $context);
-            if ($verifyJson) {
-                $payload = json_decode($verifyJson, true);
-                if (!empty($payload['sub'])) {
-                    $googleId = $payload['sub'];
-                    $email    = $payload['email'] ?? '';
-                    $name     = $payload['name'] ?? explode('@', $email)[0];
-                    $picture  = $payload['picture'] ?? '';
-                    $verified = true;
-                }
-            }
+    if ($credential !== '') {
+        // Token resmi Google (GIS): wajib lolos verifikasi ke server Google.
+        $ctx  = stream_context_create(['http' => ['timeout' => 5, 'ignore_errors' => true]]);
+        $json = GOOGLE_CLIENT_ID === '' ? null
+              : @file_get_contents('https://oauth2.googleapis.com/tokeninfo?id_token=' . urlencode($credential), false, $ctx);
+        $payload = $json ? json_decode($json, true) : null;
+        if (empty($payload['sub']) || ($payload['aud'] ?? '') !== GOOGLE_CLIENT_ID) {
+            jsonResponse(['success' => false, 'message' => 'Token Google tidak valid.'], 401);
         }
-
-        // Fallback: decode JWT payload secara lokal jika tokeninfo tidak bisa dijangkau
-        if (!$verified) {
-            $parts = explode('.', $credential);
-            if (count($parts) === 3) {
-                $payloadJson = base64_decode(str_replace(['-', '_'], ['+', '/'], $parts[1]));
-                $payload = json_decode($payloadJson, true);
-                if (!empty($payload['sub'])) {
-                    $googleId = $payload['sub'];
-                    $email    = $payload['email'] ?? '';
-                    $name     = $payload['name'] ?? explode('@', $email)[0];
-                    $picture  = $payload['picture'] ?? '';
-                }
-            }
-        }
+        $googleId = $payload['sub'];
+        $email    = $payload['email'] ?? '';
+        $name     = $payload['name'] ?? '';
+        $picture  = $payload['picture'] ?? '';
     } else {
-        // Alternatif jika frontend meneruskan profile langsung
-        $googleId = trim($data['google_id'] ?? '');
-        $email    = trim($data['email'] ?? '');
+        // Form nama + email + kata sandi. Kata sandi wajib, supaya email orang lain tidak bisa dipakai masuk.
         $name     = trim($data['name'] ?? '');
-        $picture  = trim($data['avatar'] ?? $data['picture'] ?? '');
-    }
-
-    if (empty($googleId) && !empty($email)) {
-        $googleId = 'g_' . substr(md5($email), 0, 16);
-    }
-
-    if (empty($googleId) && empty($email) && empty($name)) {
-        jsonResponse(['success' => false, 'message' => 'Data Google tidak valid atau gagal diverifikasi.'], 400);
+        $email    = trim($data['email'] ?? '');
+        $password = $data['password'] ?? '';
+        $picture  = '';
+        if ($name === '' || !filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($password) < 6) {
+            jsonResponse(['success' => false, 'message' => 'Nama, email valid, dan kata sandi minimal 6 karakter diperlukan.'], 422);
+        }
+        $googleId = 'g_' . substr(md5(strtolower($email)), 0, 16);
+        $pwHash   = password_hash($password, PASSWORD_DEFAULT);
     }
 
     if (empty($name)) {
@@ -160,12 +134,24 @@ if ($action === 'google') {
     }
 
     // Cek apakah user sudah terdaftar berdasarkan google_id atau email
-    $stmt = $conn->prepare("SELECT id, username, display_name, avatar, email FROM users WHERE (google_id IS NOT NULL AND google_id = ?) OR (email IS NOT NULL AND email = ?) LIMIT 1");
+    $stmt = $conn->prepare("SELECT id, username, display_name, avatar, email, password FROM users WHERE (google_id IS NOT NULL AND google_id = ?) OR (email IS NOT NULL AND email = ?) LIMIT 1");
     $stmt->bind_param('ss', $googleId, $email);
     $stmt->execute();
     $existing = $stmt->get_result()->fetch_assoc();
 
     if ($existing) {
+        // Mode form: kata sandi harus cocok. Akun lama tanpa kata sandi memakai kata sandi ini sebagai kata sandinya.
+        if ($pwHash !== null) {
+            if (!empty($existing['password'])) {
+                if (!password_verify($password, $existing['password'])) {
+                    jsonResponse(['success' => false, 'message' => 'Kata sandi salah untuk email ini.'], 401);
+                }
+            } else {
+                $sp = $conn->prepare("UPDATE users SET password = ? WHERE id = ?");
+                $sp->bind_param('si', $pwHash, $existing['id']);
+                $sp->execute();
+            }
+        }
         $userId = $existing['id'];
         $displayName = $existing['display_name'] ?: $name;
         $avatar = !empty($existing['avatar']) ? $existing['avatar'] : $picture;
@@ -193,8 +179,8 @@ if ($action === 'google') {
         }
 
         $cleanEmail = !empty($email) ? $email : null;
-        $ins = $conn->prepare("INSERT INTO users (username, display_name, email, google_id, avatar) VALUES (?, ?, ?, ?, ?)");
-        $ins->bind_param('sssss', $username, $displayName, $cleanEmail, $googleId, $picture);
+        $ins = $conn->prepare("INSERT INTO users (username, display_name, email, google_id, avatar, password) VALUES (?, ?, ?, ?, ?, ?)");
+        $ins->bind_param('ssssss', $username, $displayName, $cleanEmail, $googleId, $picture, $pwHash);
         $ins->execute();
         $userId = $ins->insert_id;
         $avatar = $picture;

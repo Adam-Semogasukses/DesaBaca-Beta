@@ -2,7 +2,7 @@
 // GET backend/books.php
 //   ?kategori=<slug>   saring per kategori (slug kategori, mis. personal-growth)
 //   ?q=<kata>          cari di judul/penulis
-//   ?sort=title|author|duration   (default title)
+//   ?sort=title|author   (default title)
 //   ?page=1&per_page=24           (per_page maks 100)
 // Respons: { success, source, total, page, per_page, has_more, category?, books:[...] }
 // Catatan: versi lama endpoint ini mengembalikan isi tabel books mentah; tidak ada
@@ -36,9 +36,6 @@ if ($q !== '') {
 switch ($_GET['sort'] ?? 'title') {
     case 'author':
         usort($books, fn($a, $b) => strnatcasecmp((string)$a['author'], (string)$b['author']) ?: strnatcasecmp($a['title'], $b['title']));
-        break;
-    case 'duration':
-        usort($books, fn($a, $b) => ($a['duration_minutes'] ?? 999) <=> ($b['duration_minutes'] ?? 999) ?: strnatcasecmp($a['title'], $b['title']));
         break;
     default:
         usort($books, fn($a, $b) => strnatcasecmp($a['title'], $b['title']));

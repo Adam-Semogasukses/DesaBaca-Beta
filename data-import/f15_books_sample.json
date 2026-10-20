@@ -2,15 +2,14 @@
   "meta": {
     "source": "https://www.f15library.com",
     "mode": "dry-run",
-    "fetched_at": "2026-10-10T07:26:40+00:00",
-    "count": 21
+    "fetched_at": "2026-10-20T03:50:07+00:00",
+    "count": 20
   },
   "books": [
     {
       "slug": "100m-leads",
       "title": "$100M Leads",
       "author": "Alex Hormozi",
-      "duration_minutes": 12,
       "cover_url": "https://f15-api.imajikreasi.com/assets/covers/43e097d5cf2a5fba.avif",
       "source_url": "https://www.f15library.com/books/100m-leads",
       "categories": [
@@ -21,7 +20,6 @@
       "slug": "100m-offers",
       "title": "$100M Offers",
       "author": "Alex Hormozi",
-      "duration_minutes": 12,
       "cover_url": "https://f15-api.imajikreasi.com/assets/covers/9278cebc8f5a820c.avif",
       "source_url": "https://www.f15library.com/books/100m-offers",
       "categories": [
@@ -32,7 +30,6 @@
       "slug": "1491",
       "title": "1491",
       "author": "Charles C. Mann",
-      "duration_minutes": 14,
       "cover_url": "https://f15-api.imajikreasi.com/assets/covers/3ac679d1a9e98d54.avif",
       "source_url": "https://www.f15library.com/books/1491",
       "categories": [
@@ -43,7 +40,6 @@
       "slug": "1493",
       "title": "1493",
       "author": "Charles C. Mann",
-      "duration_minutes": 12,
       "cover_url": "https://f15-api.imajikreasi.com/assets/covers/8fbb34a2de850fdd.avif",
       "source_url": "https://www.f15library.com/books/1493",
       "categories": [
@@ -54,7 +50,6 @@
       "slug": "17-kualitas-penting-seorang-team-player",
       "title": "17 Essential Qualities of a Team Player",
       "author": "John C. Maxwell",
-      "duration_minutes": 15,
       "cover_url": "https://f15-api.imajikreasi.com/assets/covers/c83d30bfdd0b6493.avif",
       "source_url": "https://www.f15library.com/books/17-kualitas-penting-seorang-team-player",
       "categories": [
@@ -65,7 +60,6 @@
       "slug": "1776",
       "title": "1776",
       "author": "David McCullough",
-      "duration_minutes": 12,
       "cover_url": "https://f15-api.imajikreasi.com/assets/covers/95cc01c4cb95a9f7.avif",
       "source_url": "https://www.f15library.com/books/1776",
       "categories": [
@@ -76,7 +70,6 @@
       "slug": "1968",
       "title": "1968",
       "author": "Mark Kurlansky",
-      "duration_minutes": 12,
       "cover_url": "https://f15-api.imajikreasi.com/assets/covers/e9f4842387b8136f.avif",
       "source_url": "https://www.f15library.com/books/1968",
       "categories": [
@@ -87,7 +80,6 @@
       "slug": "1984",
       "title": "1984",
       "author": "George Orwell",
-      "duration_minutes": 13,
       "cover_url": "https://f15-api.imajikreasi.com/assets/covers/cfe51aa6b41b632a.avif",
       "source_url": "https://www.f15library.com/books/1984",
       "categories": [
@@ -98,7 +90,6 @@
       "slug": "21-lessons-for-the-21st-century",
       "title": "21 Lessons for the 21st Century",
       "author": "Yuval Noah Harari",
-      "duration_minutes": 13,
       "cover_url": "https://f15-api.imajikreasi.com/assets/covers/eddfff22908d4d23.avif",
       "source_url": "https://www.f15library.com/books/21-lessons-for-the-21st-century",
       "categories": [
@@ -106,10 +97,19 @@
       ]
     },
     {
+      "slug": "24-assets",
+      "title": "24 Assets",
+      "author": "Daniel Priestley",
+      "cover_url": "https://f15-api.imajikreasi.com/assets/covers/2b9efdccc1347ad1.avif",
+      "source_url": "https://www.f15library.com/books/24-assets",
+      "categories": [
+        "business-leadership"
+      ]
+    },
+    {
       "slug": "7-powers-the-foundations-of-business-strategy",
       "title": "7 Powers",
       "author": "Hamilton Helmer",
-      "duration_minutes": 13,
       "cover_url": "https://f15-api.imajikreasi.com/assets/covers/2d4dff108e6681e2.avif",
       "source_url": "https://www.f15library.com/books/7-powers-the-foundations-of-business-strategy",
       "categories": [
@@ -117,23 +117,11 @@
       ]
     },
     {
-      "slug": "7-rules-of-power",
-      "title": "7 Rules of Power",
-      "author": "Jeffrey Pfeffer",
-      "duration_minutes": 12,
-      "cover_url": "https://f15-api.imajikreasi.com/assets/covers/b51f6f5d8564ad49.avif",
-      "source_url": "https://www.f15library.com/books/7-rules-of-power",
-      "categories": [
-        "business-leadership"
-      ]
-    },
-    {
-      "slug": "8-pelajaran-kepemimpinan-militer-untuk-pengusaha",
-      "title": "8 Lessons in Military Leadership for Entrepreneurs",
-      "author": "Robert T. Kiyosaki",
-      "duration_minutes": 15,
-      "cover_url": "https://f15-api.imajikreasi.com/assets/covers/339ae2c8d2e815e4.avif",
-      "source_url": "https://www.f15library.com/books/8-pelajaran-kepemimpinan-militer-untuk-pengusaha",
+      "slug": "7-principles-of-transformational-leadership",
+      "title": "7 Principles of Transformational Leadership",
+      "author": "Hugh Blane",
+      "cover_url": "https://f15-api.imajikreasi.com/assets/covers/c1b407533eb92625.avif",
+      "source_url": "https://www.f15library.com/books/7-principles-of-transformational-leadership",
       "categories": [
         "business-leadership"
       ]
@@ -142,7 +130,6 @@
       "slug": "a-brief-history-of-indonesia",
       "title": "A Brief History of Indonesia",
       "author": "Tim Hannigan",
-      "duration_minutes": 13,
       "cover_url": "https://f15-api.imajikreasi.com/assets/covers/f43c93c665fd3c92.avif",
       "source_url": "https://www.f15library.com/books/a-brief-history-of-indonesia",
       "categories": [
@@ -153,7 +140,6 @@
       "slug": "atomic-habits",
       "title": "Atomic Habits",
       "author": "James Clear",
-      "duration_minutes": 16,
       "cover_url": "https://f15-api.imajikreasi.com/assets/covers/83cf990e0373464d.avif",
       "source_url": "https://www.f15library.com/books/atomic-habits",
       "categories": [
@@ -164,7 +150,6 @@
       "slug": "bell-adano",
       "title": "A Bell for Adano",
       "author": "John Hersey",
-      "duration_minutes": 15,
       "cover_url": "https://f15-api.imajikreasi.com/assets/covers/9c522b681bf61672.avif",
       "source_url": "https://www.f15library.com/books/bell-adano",
       "categories": [
@@ -175,7 +160,6 @@
       "slug": "book-mediterranean-food",
       "title": "A Book of Mediterranean Food",
       "author": "Elizabeth David",
-      "duration_minutes": 14,
       "cover_url": "https://f15-api.imajikreasi.com/assets/covers/2541d6c0a301056f.avif",
       "source_url": "https://www.f15library.com/books/book-mediterranean-food",
       "categories": [
@@ -186,7 +170,6 @@
       "slug": "boy-called-christmas",
       "title": "A Boy Called Christmas",
       "author": "Matt Haig",
-      "duration_minutes": 13,
       "cover_url": "https://f15-api.imajikreasi.com/assets/covers/29775b64ed6869ef.avif",
       "source_url": "https://www.f15library.com/books/boy-called-christmas",
       "categories": [
@@ -197,7 +180,6 @@
       "slug": "brief-history-seven-killings",
       "title": "A Brief History of Seven Killings",
       "author": "Marlon James",
-      "duration_minutes": 13,
       "cover_url": "https://f15-api.imajikreasi.com/assets/covers/7e462fa8b8ae52ac.avif",
       "source_url": "https://www.f15library.com/books/brief-history-seven-killings",
       "categories": [
@@ -208,7 +190,6 @@
       "slug": "clergyman-s-daughter",
       "title": "A Clergyman's Daughter",
       "author": "George Orwell",
-      "duration_minutes": 13,
       "cover_url": "https://f15-api.imajikreasi.com/assets/covers/9602698155d947b6.avif",
       "source_url": "https://www.f15library.com/books/clergyman-s-daughter",
       "categories": [
@@ -219,20 +200,8 @@
       "slug": "clockwork-orange",
       "title": "A Clockwork Orange",
       "author": "Anthony Burgess",
-      "duration_minutes": 11,
       "cover_url": "https://f15-api.imajikreasi.com/assets/covers/09e1be020b4f8e7a.avif",
       "source_url": "https://www.f15library.com/books/clockwork-orange",
-      "categories": [
-        "meaningful-stories"
-      ]
-    },
-    {
-      "slug": "constellation-vital-phenomena",
-      "title": "A Constellation of Vital Phenomena",
-      "author": "Anthony Marra",
-      "duration_minutes": 13,
-      "cover_url": "https://f15-api.imajikreasi.com/assets/covers/acd20e9ab09b8cd6.avif",
-      "source_url": "https://www.f15library.com/books/constellation-vital-phenomena",
       "categories": [
         "meaningful-stories"
       ]

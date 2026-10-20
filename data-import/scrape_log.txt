@@ -677,3 +677,19 @@
 [2026-10-12 11:50:53]   meaningful-stories: 6/6
 [2026-10-12 11:50:53]   world-culture: 6/6
 
+[2026-10-20 10:49:53] === MULAI DRY RUN ===
+[2026-10-20 10:49:56] GET /collections/world-culture?sort=title -> 200 (178925 B)
+[2026-10-20 10:49:56]   world-culture: 24 kartu di halaman 1 (situs: 735 buku), diambil 7
+[2026-10-20 10:50:00] GET /collections/meaningful-stories?sort=title -> 200 (178035 B)
+[2026-10-20 10:50:00]   meaningful-stories: 24 kartu di halaman 1 (situs: 529 buku), diambil 6
+[2026-10-20 10:50:03] GET /collections/business-leadership?sort=title -> 200 (178962 B)
+[2026-10-20 10:50:03]   business-leadership: 24 kartu di halaman 1 (situs: 810 buku), diambil 6
+[2026-10-20 10:50:07] GET /collections/personal-growth?sort=title -> 200 (178587 B)
+[2026-10-20 10:50:07]   tambahan: atomic-habits ditemukan di personal-growth halaman 1
+[2026-10-20 10:50:07]   cek tumpang-tindih: 72 kartu unik dari 3 halaman, 0 muncul di >1 koleksi
+[2026-10-20 10:50:07] Ringkasan: buku=20 request=4 cache=0 gagal=0 kartu_ok=96 dilewati=0
+[2026-10-20 10:50:07]   tanpa_penulis: 0 []
+[2026-10-20 10:50:07]   tanpa_sampul: 0 []
+[2026-10-20 10:50:07]   slug>80: 0 []
+[2026-10-20 10:50:07]   judul>150: 0 []
+

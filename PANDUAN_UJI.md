@@ -24,7 +24,7 @@ Panduan ini untuk Anda sebagai penguji. Ada dua tahap: **Tahap 1** tanpa menyent
 | API kategori | `{BASE}/backend/categories.php?preview=2` | JSON, 15 kategori |
 | API buku | `{BASE}/backend/books.php?kategori=personal-growth` | JSON, 1 buku (Atomic Habits) |
 | API cari | `{BASE}/backend/books.php?q=orwell` | JSON, 2 buku |
-| API urut | `{BASE}/backend/books.php?kategori=world-culture&sort=duration&per_page=3&page=2` | `has_more: true`, 3 buku |
+| API urut | `{BASE}/backend/books.php?kategori=world-culture&sort=author&per_page=3&page=2` | `has_more: true`, 3 buku |
 | API salah | `{BASE}/backend/books.php?kategori=xyz` | `{"success":false,...}` status 404 |
 | Pembaca | `{BASE}/baca.html?book=atomic-habits` | Pembaca Atomic Habits (isi masih placeholder) |
 | Tautan lama | `{BASE}/baca.html?book=atomic_habits` | Tetap membuka Atomic Habits (alias) |
@@ -47,7 +47,7 @@ Periksa juga field `"source"` di respons API: `json:f15_books_sample.json` berar
    - ✅ Baris chip kategori: 15 chip + "Semua". Chip kosong bergaris putus-putus dan bertuliskan "segera".
    - ✅ Bagian Kepemimpinan (6 buku), Cerita Inspiratif (7), Pengembangan Diri (1), Dunia & Budaya (7), masing-masing maksimal 3 kartu + **Lihat Semua**.
    - ✅ Di bawah: bagian **Segera datang** berisi 11 kategori.
-   - ✅ Kartu: sampul, judul, penulis, "12 menit baca", tag kategori, ikon panah ↗ (Atomic Habits memakai ikon bookmark).
+   - ✅ Kartu: sampul, judul, penulis, tag kategori, label "Baca di F15" (Atomic Habits, 100M Leads, Alcohol Explained memakai ikon bookmark).
 3. Klik **Lihat Semua** di Dunia & Budaya → 7 buku, tombol "Semua Kategori" muncul, tombol "Muat lebih banyak" **tidak** muncul (7 < 24).
 4. Klik kartu **1984** (atau judulnya) → F15 Library terbuka di **tab baru**, katalog tetap di tempatnya.
 5. Tekan **Tab** berulang kali sampai kartu terfokus, lalu **Enter** → hasilnya sama dengan klik.

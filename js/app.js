@@ -764,21 +764,15 @@
       e.preventDefault();
       const name = $('#googleNameInput').value.trim();
       const email = $('#googleEmailInput').value.trim();
-      if (!name || !email) {
-        showToast('Nama dan email akun Google harus diisi.', 'error');
+      const password = $('#googlePassInput').value;
+      if (!name || !email || password.length < 6) {
+        showToast('Nama, email, dan kata sandi (minimal 6 karakter) harus diisi.', 'error');
         return;
       }
       const submitBtn = gDirectForm.querySelector('[type=submit]');
       if (submitBtn) submitBtn.disabled = true;
       try {
-        const mockGoogleId = 'g_' + btoa(email.toLowerCase()).replace(/[^a-zA-Z0-9]/g, '').slice(0, 20);
-        const avatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=ea4335&color=fff&bold=true&size=128`;
-        await executeGoogleAuth({
-          google_id: mockGoogleId,
-          name: name,
-          email: email,
-          avatar: avatar
-        });
+        await executeGoogleAuth({ name, email, password });
       } finally {
         if (submitBtn) submitBtn.disabled = false;
       }

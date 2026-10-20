@@ -2,7 +2,7 @@
  * DESA BACA — baca.js (baca.html) — JavaScript native, tanpa Vue.
  *
  * DEMO: hanya 3 buku yang bisa dibaca di sini (lihat BOOKS di js/store.js) dan isinya
- * ringkasan orisinal (js/content.js). Buku lain di katalog berstatus "segera hadir".
+ * ringkasan orisinal (js/content.js). Buku lain di katalog membuka halaman F15 Library.
  * Isi bacaan = ringkasan orisinal di js/content.js.
  *
  * Progres, riwayat, dan bookmark lewat window.DesaBacaStore (jangan akses localStorage langsung

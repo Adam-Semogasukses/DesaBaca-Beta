@@ -73,7 +73,7 @@ function catalogFromDb(mysqli $conn): array
     }
 
     $books = [];
-    $r = $conn->query('SELECT b.id, b.slug, b.title, b.author, b.cover, s.source_url, s.duration_minutes
+    $r = $conn->query('SELECT b.id, b.slug, b.title, b.author, b.cover, s.source_url
                        FROM books b LEFT JOIN book_sources s ON s.book_id = b.id');
     while ($row = $r->fetch_assoc()) {
         $id = (int)$row['id'];
@@ -85,7 +85,6 @@ function catalogFromDb(mysqli $conn): array
             'title'            => $row['title'],
             'author'           => $row['author'],
             'cover'            => $row['cover'],
-            'duration_minutes' => $row['duration_minutes'] !== null ? (int)$row['duration_minutes'] : null,
             'source_url'       => $row['source_url'],
             'categories'       => $rel[$id],
         ];
@@ -108,7 +107,6 @@ function catalogFromJson(): array
         'title'            => $b['title'],
         'author'           => $b['author'],
         'cover'            => $b['cover_url'],
-        'duration_minutes' => $b['duration_minutes'],
         'source_url'       => $b['source_url'],
         'categories'       => $b['categories'],
     ], $raw['books']);

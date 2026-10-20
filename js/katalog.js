@@ -6,7 +6,7 @@
  *   katalog.html?kategori=<slug>  -> semua buku di satu kategori (dimuat bertahap)
  * Kategori kosong / berstatus "segera datang" menampilkan panel "Segera datang".
  * Data dari js/catalog.js (API). Bookmark tetap lewat window.DesaBacaStore, hanya untuk
- * buku yang dikenal Store (bisa dibaca di baca.html). Buku lain berstatus "segera hadir".
+ * buku yang dikenal Store (bisa dibaca di baca.html). Buku lain membuka halaman F15 Library.
  * ========================================================================== */
 (function () {
   'use strict';
@@ -40,17 +40,16 @@
                  aria-label="Simpan ${esc(b.title)} ke bookmark" aria-pressed="${on}">
            <i class="${on ? 'fa-solid' : 'fa-regular'} fa-bookmark"></i>
          </button>`
-      : `<span class="kt-tag" title="Belum bisa dibaca">Segera hadir</span>`;
-    const label = b.title + ' - ' + (b.author || 'Tanpa penulis') + (local ? '' : ' (segera hadir)');
+      : `<span class="kt-tag" title="Dibuka di F15 Library">Baca di F15</span>`;
+    const label = b.title + ' - ' + (b.author || 'Tanpa penulis') + (local ? '' : ' (dibuka di F15 Library)');
     return `
-      <article class="inner-card kt-card" data-open="${esc(b.slug)}" tabindex="0" role="${local ? 'link' : 'article'}" aria-label="${esc(label)}">
+      <article class="inner-card kt-card" data-open="${esc(b.slug)}" tabindex="0" role="link" aria-label="${esc(label)}">
         <div>
           <div class="kt-cover"><img src="${esc(b.cover || '')}" alt="Sampul ${esc(b.title)}" loading="lazy" decoding="async" referrerpolicy="no-referrer" /></div>
           <h3 class="kt-title">${title}</h3>
           <p class="kt-author">${esc(b.author || 'Tanpa penulis')}</p>
         </div>
         <div class="kt-row foot">
-          <div class="kt-readers"><i class="fa-regular fa-clock"></i><span>${b.duration_minutes ? b.duration_minutes + ' menit baca' : '—'}</span></div>
           ${action}
         </div>
         <div class="kt-tags">${tags}</div>
@@ -116,7 +115,7 @@
     const ready = state.cats.filter((c) => !c.coming_soon);
     const soon = state.cats.filter((c) => c.coming_soon);
     const readable = Store.getBooks().map((b) => ({ slug: b.slug, title: b.title, author: b.author, cover: b.cover,
-      duration_minutes: null, category_names: [b.category] }));
+      category_names: [b.category] }));
     const shelf = `
         <section aria-labelledby="sec-readable">
           <div class="kt-section-head"><h2 id="sec-readable">Bisa dibaca sekarang<span class="count">${readable.length} buku</span></h2></div>
@@ -322,7 +321,7 @@
     const book = findBook(slug);
     if (!book) return;
     if (isLocal(book)) { location.href = bookUrl(book.slug); return; }
-    showToast('Buku ini segera hadir. Saat ini baru 3 buku yang bisa dibaca.', 'error');
+    if (book.source_url) window.open(book.source_url, '_blank', 'noopener');
   }
 
   $('#ktBody').addEventListener('click', (e) => {

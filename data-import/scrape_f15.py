@@ -2,13 +2,13 @@
 DESA BACA — pengambil METADATA katalog F15 Library (stdlib saja, tanpa pip).
 
 Hanya membaca halaman koleksi (/collections/{slug}?sort=title&page=N). Kartu di halaman
-itu sudah memuat judul, penulis, durasi, dan URL sampul, jadi halaman /books/{slug}
+itu sudah memuat judul, penulis, dan URL sampul (hanya tiga data itu yang disimpan), jadi halaman /books/{slug}
 (yang berisi teks ringkasan) TIDAK pernah dibuka. Gambar sampul tidak diunduh.
 
 Sopan ke server: 1 request sekaligus, jeda 2,0-2,5 detik (syarat izin F15), User-Agent jelas,
 semua respons disimpan di cache/ sehingga menjalankan ulang = lanjut dari titik berhenti.
 
-  python scrape_f15.py --dry-run     # 3 koleksi x halaman 1, keluaran *_sample.*
+  python scrape_f15.py --dry-run     # 20 buku (3 koleksi + 1 tambahan), keluaran *_sample.*
   python scrape_f15.py --full        # semua koleksi & halaman (BUTUH PERSETUJUAN)
 """
 import argparse, html, json, random, re, sys, time, urllib.error, urllib.request
@@ -41,7 +41,7 @@ CATEGORIES = [
     ('dongeng-cerita-rakyat', 'Dongeng & Cerita Rakyat'),  # lokal, belum ada data
 ]
 LOCAL_ONLY = {'dongeng-cerita-rakyat'}
-DRY_RUN_PLAN = [('world-culture', 7), ('meaningful-stories', 7), ('business-leadership', 6)]
+DRY_RUN_PLAN = [('world-culture', 7), ('meaningful-stories', 6), ('business-leadership', 6)]  # 19 + 1 tambahan = 20
 # Buku tambahan yang dicari per slug (halaman koleksi urut judul, maks 4 halaman). Ditambahkan atas permintaan pemilik proyek.
 DRY_RUN_EXTRA = [('personal-growth', 'atomic-habits')]
 # slug lama di Desa Baca -> slug F15 (baris lama diubah di import.sql, bukan diduplikasi)
@@ -110,7 +110,6 @@ def parse_collection(page_html, coll_slug, page_no):
         title = attr(h3.group(0), 'title')
         ps = [attr(p, 'title') for p in re.findall(r'<p[^>]*>', card)]
         author = next((p[5:].strip() for p in ps if p.lower().startswith('oleh ')), '')
-        dm = re.search(r'(\d+)\s*menit baca', card)
         img = re.search(r'<img[^>]*>', card)
         cover = attr(img.group(0), 'src') if img else ''
         if not title:
@@ -119,7 +118,6 @@ def parse_collection(page_html, coll_slug, page_no):
             continue
         books.append({
             'slug': slug, 'title': title, 'author': author or None,
-            'duration_minutes': int(dm.group(1)) if dm else None,
             'cover_url': cover or None,
             'source_url': f'{BASE}/books/{slug}',
             'categories': [coll_slug],
@@ -138,7 +136,7 @@ def merge(into, books):
         for c in b['categories']:
             if c not in cur['categories']:
                 cur['categories'].append(c)
-        for k in ('author', 'duration_minutes', 'cover_url'):
+        for k in ('author', 'cover_url'):
             cur[k] = cur[k] or b[k]
 
 
@@ -156,7 +154,7 @@ def build_sql(books, categories, title):
         f'-- {title}',
         f'-- Dibuat {datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC oleh data-import/scrape_f15.py. JANGAN dijalankan otomatis.',
         '-- Tidak mengubah tabel yang sudah ada: books hanya di-INSERT IGNORE (baris lama tidak ditimpa).',
-        '-- Tabel baru: categories, book_categories (banyak-ke-banyak), book_sources (durasi & URL sumber,',
+        '-- Tabel baru: categories, book_categories (banyak-ke-banyak), book_sources (URL sumber,',
         '-- karena tabel books belum punya kolom untuk itu).',
         'USE desabaca;', '',
         '-- Slug F15 bisa sampai ~140 karakter (judul + subjudul), sedangkan kolom lama hanya 80.',
@@ -179,7 +177,6 @@ def build_sql(books, categories, title):
         '  book_id INT NOT NULL PRIMARY KEY,',
         "  source VARCHAR(40) NOT NULL DEFAULT 'f15library',",
         '  source_url VARCHAR(255) NOT NULL,',
-        '  duration_minutes SMALLINT UNSIGNED NULL,',
         '  fetched_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,',
         '  FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE',
         ');', '',
@@ -212,12 +209,11 @@ def build_sql(books, categories, title):
         for c in b['categories']:
             out.append('INSERT IGNORE INTO book_categories (book_id,category_id) SELECT b.id, c.id FROM books b '
                        'JOIN categories c ON c.slug=%s WHERE b.slug=%s;' % (sql_str(c), sql_str(b['slug'])))
-    out += ['', '-- Sumber & durasi']
+    out += ['', '-- Sumber']
     for b in books:
-        out.append('INSERT INTO book_sources (book_id,source_url,duration_minutes) SELECT id,%s,%s FROM books '
-                   'WHERE slug=%s ON DUPLICATE KEY UPDATE source_url=VALUES(source_url), '
-                   'duration_minutes=VALUES(duration_minutes);'
-                   % (sql_str(b['source_url']), sql_str(b['duration_minutes']), sql_str(b['slug'])))
+        out.append('INSERT INTO book_sources (book_id,source_url) SELECT id,%s FROM books '
+                   'WHERE slug=%s ON DUPLICATE KEY UPDATE source_url=VALUES(source_url);'
+                   % (sql_str(b['source_url']), sql_str(b['slug'])))
     out += ['', 'COMMIT;', '']
     return '\n'.join(out)
 
@@ -303,8 +299,7 @@ def main():
         f'gagal={stats["gagal"]} kartu_ok={stats["kartu_ok"]} dilewati={stats["kartu_dilewati"]}')
     if stats['halaman_gagal']:
         log(f'  HALAMAN GAGAL ({len(stats["halaman_gagal"])}): {stats["halaman_gagal"]}')
-    for k, fn in (('tanpa_penulis', lambda b: not b['author']), ('tanpa_durasi', lambda b: b['duration_minutes'] is None),
-                  ('tanpa_sampul', lambda b: not b['cover_url']), ('slug>80', lambda b: len(b['slug']) > 80),
+    for k, fn in (('tanpa_penulis', lambda b: not b['author']), ('tanpa_sampul', lambda b: not b['cover_url']), ('slug>80', lambda b: len(b['slug']) > 80),
                   ('judul>150', lambda b: len(b['title']) > 150)):
         bad = [b['slug'] for b in blist if fn(b)]
         log(f'  {k}: {len(bad)} {bad[:10]}')
