@@ -8,10 +8,9 @@ itu sudah memuat judul, penulis, dan URL sampul (hanya tiga data itu yang disimp
 Sopan ke server: 1 request sekaligus, jeda 2,0-2,5 detik (syarat izin F15), User-Agent jelas,
 semua respons disimpan di cache/ sehingga menjalankan ulang = lanjut dari titik berhenti.
 
-  python scrape_f15.py --dry-run     # 20 buku (3 koleksi + 1 tambahan), keluaran *_sample.*
-  python scrape_f15.py --full        # semua koleksi & halaman (BUTUH PERSETUJUAN)
+  python scrape_f15.py               # 20 buku (3 koleksi + 1 tambahan), keluaran *_sample.*
 """
-import argparse, html, json, random, re, sys, time, urllib.error, urllib.request
+import html, json, random, re, sys, time, urllib.error, urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -20,7 +19,6 @@ UA = 'DesaBacaMetadataBot/0.2 (proyek Desa Baca; izin F15 Library: 1 req/2 dtk, 
 HERE = Path(__file__).resolve().parent
 CACHE = HERE / 'cache'
 DELAY = (2.0, 2.5)  # izin F15: maks 1 request per 2 detik, tanpa paralel
-PER_PAGE = 24
 
 # slug F15 -> nama tampilan Desa Baca. Urutan = urutan tampil.
 CATEGORIES = [
@@ -218,91 +216,88 @@ def build_sql(books, categories, title):
     return '\n'.join(out)
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    g = ap.add_mutually_exclusive_group(required=True)
-    g.add_argument('--dry-run', action='store_true')
-    g.add_argument('--full', action='store_true')
-    args = ap.parse_args()
-    suffix = '_sample' if args.dry_run else ''
-    log(f'=== MULAI {"DRY RUN" if args.dry_run else "FULL"} ===')
+def collection_path(coll, page_no=1):
+    return f'/collections/{coll}?sort=title' + (f'&page={page_no}' if page_no > 1 else '')
 
-    books, site_counts, all_cards = {}, {}, {}
-    if args.dry_run:
-        for coll, take in DRY_RUN_PLAN:
-            page = fetch(f'/collections/{coll}?sort=title')
+
+def collect_plan(books, site_counts, all_cards):
+    """Ambil sebagian kartu halaman 1 tiap koleksi di DRY_RUN_PLAN."""
+    for coll, take in DRY_RUN_PLAN:
+        page = fetch(collection_path(coll))
+        if page is None:
+            continue
+        total, _, found = parse_collection(page, coll, 1)
+        site_counts[coll] = total
+        merge(all_cards, [dict(b, categories=list(b['categories'])) for b in found])
+        merge(books, found[:take])
+        log(f'  {coll}: {len(found)} kartu di halaman 1 (situs: {total} buku), diambil {take}')
+
+
+def collect_extra(books):
+    """Cari buku tambahan di DRY_RUN_EXTRA (maks 4 halaman per koleksi)."""
+    for coll, want in DRY_RUN_EXTRA:
+        hit = None
+        for page_no in range(1, 5):
+            page = fetch(collection_path(coll, page_no))
             if page is None:
-                continue
-            total, _, found = parse_collection(page, coll, 1)
-            site_counts[coll] = total
-            merge(all_cards, [dict(b, categories=list(b['categories'])) for b in found])
-            merge(books, found[:take])
-            log(f'  {coll}: {len(found)} kartu di halaman 1 (situs: {total} buku), diambil {take}')
-        for coll, want in DRY_RUN_EXTRA:
-            hit = None
-            for pn in range(1, 5):
-                pg = fetch(f'/collections/{coll}?sort=title' + (f'&page={pn}' if pn > 1 else ''))
-                if pg is None:
-                    break
-                _, _, found = parse_collection(pg, coll, pn)
-                hit = next((b for b in found if b['slug'] == want), None)
-                if hit:
-                    merge(books, [hit])
-                    log(f'  tambahan: {want} ditemukan di {coll} halaman {pn}')
-                    break
-            if not hit:
-                log(f'  tambahan: {want} TIDAK ditemukan di {coll}')
-    else:
-        for coll, _ in CATEGORIES:
-            if coll in LOCAL_ONLY:
-                continue
-            page_no, last = 1, 1
-            while page_no <= last:
-                q = '?sort=title' + (f'&page={page_no}' if page_no > 1 else '')
-                page = fetch(f'/collections/{coll}{q}')
-                if page is None:
-                    page_no += 1
-                    continue
-                total, last_seen, found = parse_collection(page, coll, page_no)
-                if page_no == 1:
-                    site_counts[coll] = total
-                    last = max(last_seen, -(-(total or 0) // PER_PAGE))
-                merge(books, found)
-                page_no += 1
-            got = sum(1 for b in books.values() if coll in b['categories'])
-            log(f'  {coll}: {got} buku terkumpul (situs: {site_counts.get(coll)})')
-            if site_counts.get(coll) and got != site_counts[coll]:
-                log(f'  PERINGATAN {coll}: jumlah tidak cocok, jalankan ulang --full (cache melanjutkan)')
+                break
+            _, _, found = parse_collection(page, coll, page_no)
+            hit = next((b for b in found if b['slug'] == want), None)
+            if hit:
+                merge(books, [hit])
+                log(f'  tambahan: {want} ditemukan di {coll} halaman {page_no}')
+                break
+        if not hit:
+            log(f'  tambahan: {want} TIDAK ditemukan di {coll}')
 
-    categories = [{
+
+def build_categories(books, site_counts):
+    return [{
         'slug': s, 'name': n, 'f15_collection': None if s in LOCAL_ONLY else s,
         'status': 'segera_datang' if s in LOCAL_ONLY else 'aktif',
         'site_count': site_counts.get(s),
         'collected': sum(1 for b in books.values() if s in b['categories']),
     } for s, n in CATEGORIES]
 
-    blist = sorted(books.values(), key=lambda b: b['slug'])
-    meta = {'source': BASE, 'mode': 'dry-run' if args.dry_run else 'full',
+
+def write_outputs(blist, categories):
+    meta = {'source': BASE, 'mode': 'dry-run',
             'fetched_at': datetime.now(timezone.utc).isoformat(timespec='seconds'),
             'count': len(blist)}
-    (HERE / f'f15_books{suffix}.json').write_text(
+    (HERE / 'f15_books_sample.json').write_text(
         json.dumps({'meta': meta, 'books': blist}, ensure_ascii=False, indent=2), encoding='utf-8')
     (HERE / 'categories.json').write_text(json.dumps(categories, ensure_ascii=False, indent=2), encoding='utf-8')
-    (HERE / f'import{suffix}.sql').write_text(
-        build_sql(blist, categories, 'DESA BACA - import katalog F15' + (' (SAMPEL DRY RUN)' if suffix else '')),
-        encoding='utf-8')
+    (HERE / 'import_sample.sql').write_text(
+        build_sql(blist, categories, 'DESA BACA - import katalog F15 (SAMPEL DRY RUN)'), encoding='utf-8')
 
-    if args.dry_run:
-        multi = [s for s, b in all_cards.items() if len(b['categories']) > 1]
-        log(f'  cek tumpang-tindih: {len(all_cards)} kartu unik dari 3 halaman, {len(multi)} muncul di >1 koleksi')
+
+def report(blist, all_cards):
+    multi = [s for s, b in all_cards.items() if len(b['categories']) > 1]
+    log(f'  cek tumpang-tindih: {len(all_cards)} kartu unik dari 3 halaman, {len(multi)} muncul di >1 koleksi')
     log(f'Ringkasan: buku={len(blist)} request={stats["request"]} cache={stats["cache_hit"]} '
         f'gagal={stats["gagal"]} kartu_ok={stats["kartu_ok"]} dilewati={stats["kartu_dilewati"]}')
     if stats['halaman_gagal']:
         log(f'  HALAMAN GAGAL ({len(stats["halaman_gagal"])}): {stats["halaman_gagal"]}')
-    for k, fn in (('tanpa_penulis', lambda b: not b['author']), ('tanpa_sampul', lambda b: not b['cover_url']), ('slug>80', lambda b: len(b['slug']) > 80),
-                  ('judul>150', lambda b: len(b['title']) > 150)):
-        bad = [b['slug'] for b in blist if fn(b)]
-        log(f'  {k}: {len(bad)} {bad[:10]}')
+    checks = (
+        ('tanpa_penulis', lambda b: not b['author']),
+        ('tanpa_sampul', lambda b: not b['cover_url']),
+        ('slug>80', lambda b: len(b['slug']) > 80),
+        ('judul>150', lambda b: len(b['title']) > 150),
+    )
+    for name, is_bad in checks:
+        bad = [b['slug'] for b in blist if is_bad(b)]
+        log(f'  {name}: {len(bad)} {bad[:10]}')
+
+
+def main():
+    log('=== MULAI DRY RUN ===')
+    books, site_counts, all_cards = {}, {}, {}
+    collect_plan(books, site_counts, all_cards)
+    collect_extra(books)
+
+    blist = sorted(books.values(), key=lambda b: b['slug'])
+    write_outputs(blist, build_categories(books, site_counts))
+    report(blist, all_cards)
     with open(HERE / 'scrape_log.txt', 'a', encoding='utf-8') as f:
         f.write('\n'.join(log_lines) + '\n\n')
 

@@ -86,14 +86,14 @@ Request ke situs: **3** (+1 sitemap, +3 halaman izin) · Gagal: **0** · Kartu t
 ## 6. Berkas di folder ini
 | Berkas | Isi |
 |---|---|
-| `scrape_f15.py` | Skrip (`--dry-run` / `--full`), hanya stdlib. |
-| `f15_books_sample.json` | 20 buku sampel. Run penuh akan menghasilkan `f15_books.json`. |
+| `scrape_f15.py` | Skrip dry run 20 buku (mode `--full` sudah dihapus), hanya stdlib. |
+| `f15_books_sample.json` | 20 buku sampel. |
 | `categories.json` | 15 kategori (slug, nama, status, angka situs bila sudah diambil). |
-| `import_sample.sql` | SQL sampel. Run penuh akan menghasilkan `import.sql`. |
+| `import_sample.sql` | SQL sampel. |
 | `scrape_log.txt` | Log request, jumlah sukses/gagal/dilewati. |
 | `cache/` | HTML halaman koleksi + sitemap, untuk resume. |
 
-**Untuk menjalankan penuh (setelah disetujui):** `python data-import/scrape_f15.py --full`
+**Untuk menjalankan ulang dry run:** `python data-import/scrape_f15.py`
 
 ---
 ## Pembaruan 10 Okt 2026 (setelah email dikirim ke F15)

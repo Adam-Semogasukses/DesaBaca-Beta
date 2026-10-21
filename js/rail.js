@@ -1,10 +1,3 @@
-/* =============================================================================
- * DESA BACA — rail.js : menu samping yang bisa disembunyikan (khusus HP, <768px)
- * Dipakai di dashboard.html, katalog.html, baca.html. Tombol dibuat lewat JS.
- *  - Di HP, rail ikon ada di KIRI (bukan di bawah). Tombol « menyembunyikannya,
- *    tab kecil di tepi kiri layar membukanya lagi. Pilihan diingat di localStorage.
- *  - Default: terbuka; khusus halaman baca (baca.html) default tersembunyi agar teks lega.
- * ========================================================================== */
 (function () {
   'use strict';
   const ws = document.querySelector('.workspace');

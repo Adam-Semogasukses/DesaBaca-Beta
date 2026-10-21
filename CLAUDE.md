@@ -15,7 +15,7 @@ Dijalankan lewat Laragon (Apache + MySQL). URL lokal: `http://localhost/desabaca
 1. Laragon → Start All (Apache + MySQL).
 2. Buat database `desabaca`: import `database.sql`, lalu `database_update.sql` bila perlu (kolom `seconds_read` juga dibuat otomatis oleh `ensureSecondsColumn()` di `backend/config.php`).
 3. Koneksi DB ada di `backend/config.php` (`root`, tanpa password).
-4. Katalog F15 (dry run, 20 buku: judul, penulis, sampul): import `data-import/import_sample.sql`. Selama belum diimpor, `backend/books.php` / `categories.php` jatuh ke `f15_books_sample.json` di `data-import/`. Data lengkap (`--full`, ±3.982 buku) sudah dihapus dari repo; bisa dipulihkan dari riwayat git atau dibuat ulang dengan `scrape_f15.py --full`.
+4. Katalog F15 (dry run, 20 buku: judul, penulis, sampul): import `data-import/import_sample.sql`. Selama belum diimpor, `backend/books.php` / `categories.php` jatuh ke `f15_books_sample.json` di `data-import/`. Mode `--full` (±3.982 buku) sudah dihapus dari `scrape_f15.py`; skrip kini hanya dry run 20 buku. Skrip/data lengkap bisa dipulihkan dari riwayat git.
 5. Panduan uji manual: `PANDUAN_UJI.md`. Tidak ada test otomatis.
 
 > `backend/README.txt` dan `README_v4.txt` sebagian sudah usang (menyebut folder `desa-baca-n`, XAMPP, dan data mockup). Anggap CLAUDE.md ini yang terbaru.

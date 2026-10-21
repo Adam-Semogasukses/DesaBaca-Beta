@@ -1,9 +1,3 @@
-/* =============================================================================
- * DESA BACA — reader-tools.js (baca.html): ukuran teks + gulir otomatis
- *  - A- / A+ : 5 tingkat ukuran teks (14-22px), disimpan di localStorage.
- *  - Gulir otomatis: Pelan / Sedang / Cepat. Berhenti sendiri jika pengguna
- *    menggulir/menyentuh layar, pindah bab, atau teks bab sudah habis.
- * ========================================================================== */
 (function () {
   'use strict';
   const { $, lsGet, lsSet } = window.DesaBaca;
