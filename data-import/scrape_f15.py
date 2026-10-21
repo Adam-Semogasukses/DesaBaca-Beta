@@ -216,14 +216,12 @@ def build_sql(books, categories, title):
     return '\n'.join(out)
 
 
-def collection_path(coll, page_no=1):
-    return f'/collections/{coll}?sort=title' + (f'&page={page_no}' if page_no > 1 else '')
+def main():
+    log('=== MULAI DRY RUN ===')
 
-
-def collect_plan(books, site_counts, all_cards):
-    """Ambil sebagian kartu halaman 1 tiap koleksi di DRY_RUN_PLAN."""
+    books, site_counts, all_cards = {}, {}, {}
     for coll, take in DRY_RUN_PLAN:
-        page = fetch(collection_path(coll))
+        page = fetch(f'/collections/{coll}?sort=title')
         if page is None:
             continue
         total, _, found = parse_collection(page, coll, 1)
@@ -231,36 +229,29 @@ def collect_plan(books, site_counts, all_cards):
         merge(all_cards, [dict(b, categories=list(b['categories'])) for b in found])
         merge(books, found[:take])
         log(f'  {coll}: {len(found)} kartu di halaman 1 (situs: {total} buku), diambil {take}')
-
-
-def collect_extra(books):
-    """Cari buku tambahan di DRY_RUN_EXTRA (maks 4 halaman per koleksi)."""
     for coll, want in DRY_RUN_EXTRA:
         hit = None
-        for page_no in range(1, 5):
-            page = fetch(collection_path(coll, page_no))
-            if page is None:
+        for pn in range(1, 5):
+            pg = fetch(f'/collections/{coll}?sort=title' + (f'&page={pn}' if pn > 1 else ''))
+            if pg is None:
                 break
-            _, _, found = parse_collection(page, coll, page_no)
+            _, _, found = parse_collection(pg, coll, pn)
             hit = next((b for b in found if b['slug'] == want), None)
             if hit:
                 merge(books, [hit])
-                log(f'  tambahan: {want} ditemukan di {coll} halaman {page_no}')
+                log(f'  tambahan: {want} ditemukan di {coll} halaman {pn}')
                 break
         if not hit:
             log(f'  tambahan: {want} TIDAK ditemukan di {coll}')
 
-
-def build_categories(books, site_counts):
-    return [{
+    categories = [{
         'slug': s, 'name': n, 'f15_collection': None if s in LOCAL_ONLY else s,
         'status': 'segera_datang' if s in LOCAL_ONLY else 'aktif',
         'site_count': site_counts.get(s),
         'collected': sum(1 for b in books.values() if s in b['categories']),
     } for s, n in CATEGORIES]
 
-
-def write_outputs(blist, categories):
+    blist = sorted(books.values(), key=lambda b: b['slug'])
     meta = {'source': BASE, 'mode': 'dry-run',
             'fetched_at': datetime.now(timezone.utc).isoformat(timespec='seconds'),
             'count': len(blist)}
@@ -268,36 +259,19 @@ def write_outputs(blist, categories):
         json.dumps({'meta': meta, 'books': blist}, ensure_ascii=False, indent=2), encoding='utf-8')
     (HERE / 'categories.json').write_text(json.dumps(categories, ensure_ascii=False, indent=2), encoding='utf-8')
     (HERE / 'import_sample.sql').write_text(
-        build_sql(blist, categories, 'DESA BACA - import katalog F15 (SAMPEL DRY RUN)'), encoding='utf-8')
+        build_sql(blist, categories, 'DESA BACA - import katalog F15 (SAMPEL DRY RUN)'),
+        encoding='utf-8')
 
-
-def report(blist, all_cards):
     multi = [s for s, b in all_cards.items() if len(b['categories']) > 1]
     log(f'  cek tumpang-tindih: {len(all_cards)} kartu unik dari 3 halaman, {len(multi)} muncul di >1 koleksi')
     log(f'Ringkasan: buku={len(blist)} request={stats["request"]} cache={stats["cache_hit"]} '
         f'gagal={stats["gagal"]} kartu_ok={stats["kartu_ok"]} dilewati={stats["kartu_dilewati"]}')
     if stats['halaman_gagal']:
         log(f'  HALAMAN GAGAL ({len(stats["halaman_gagal"])}): {stats["halaman_gagal"]}')
-    checks = (
-        ('tanpa_penulis', lambda b: not b['author']),
-        ('tanpa_sampul', lambda b: not b['cover_url']),
-        ('slug>80', lambda b: len(b['slug']) > 80),
-        ('judul>150', lambda b: len(b['title']) > 150),
-    )
-    for name, is_bad in checks:
-        bad = [b['slug'] for b in blist if is_bad(b)]
-        log(f'  {name}: {len(bad)} {bad[:10]}')
-
-
-def main():
-    log('=== MULAI DRY RUN ===')
-    books, site_counts, all_cards = {}, {}, {}
-    collect_plan(books, site_counts, all_cards)
-    collect_extra(books)
-
-    blist = sorted(books.values(), key=lambda b: b['slug'])
-    write_outputs(blist, build_categories(books, site_counts))
-    report(blist, all_cards)
+    for k, fn in (('tanpa_penulis', lambda b: not b['author']), ('tanpa_sampul', lambda b: not b['cover_url']), ('slug>80', lambda b: len(b['slug']) > 80),
+                  ('judul>150', lambda b: len(b['title']) > 150)):
+        bad = [b['slug'] for b in blist if fn(b)]
+        log(f'  {k}: {len(bad)} {bad[:10]}')
     with open(HERE / 'scrape_log.txt', 'a', encoding='utf-8') as f:
         f.write('\n'.join(log_lines) + '\n\n')
 
