@@ -1,7 +1,3 @@
-/* =============================================================================
- * DESA BACA — DATA LAYER (HYBRID: API Backend PHP/MySQL + Client Cache)
- * file: js/store.js
- * ============================================================================= */
 (function (global) {
   'use strict';
 
@@ -17,10 +13,7 @@
   const HISTORY_LIMIT = 500;
   const DEDUPE_OPEN_MS = 30 * 60 * 1000;
 
-  /* ---------------------------------------------------------------------------
-   * BOOK CATALOG
-   * ------------------------------------------------------------------------- */
-  // Demo baca: hanya 3 buku (isi bacaan = placeholder). Buku lain di katalog membuka halaman F15 Library.
+  // book catalog
   const BOOKS = [
     { slug: 'atomic-habits', title: 'Atomic Habits', author: 'James Clear', category: 'Pengembangan Diri', cover: 'https://covers.openlibrary.org/b/id/12539702-M.jpg', cover_fallback: 'https://f15-api.imajikreasi.com/assets/covers/83cf990e0373464d.avif', chapters: 6 },
     { slug: '100m-leads', title: '$100M Leads', author: 'Alex Hormozi', category: 'Kepemimpinan', cover: 'https://covers.openlibrary.org/b/id/14796132-M.jpg', cover_fallback: 'https://f15-api.imajikreasi.com/assets/covers/43e097d5cf2a5fba.avif', chapters: 6 },
@@ -31,9 +24,7 @@
   const LEGACY_SLUGS = { atomic_habits: 'atomic-habits' };
   const getBook = (slug) => BOOKS.find((b) => b.slug === (LEGACY_SLUGS[slug] || slug)) || null;
 
-  /* ---------------------------------------------------------------------------
-   * Storage helpers (localStorage fallback)
-   * ------------------------------------------------------------------------- */
+  // storage helper
   const memoryFallback = {};
   function read(key, fallback) {
     try {
@@ -48,9 +39,7 @@
     try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) { /* ignore */ }
   }
 
-  /* ---------------------------------------------------------------------------
-   * Date helpers
-   * ------------------------------------------------------------------------- */
+  // data helper
   const pad = (n) => String(n).padStart(2, '0');
   const dayKey = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
   function weekStart(date) {
@@ -61,8 +50,6 @@
     return d;
   }
 
-  // Gabung progres lokal & server: jangan sampai data server yang lebih lama/kosong
-  // menimpa bab yang sudah ditandai selesai di browser.
   function mergeProgress(local, server) {
     const out = { ...server };
     Object.keys(local || {}).forEach((slug) => {
@@ -76,9 +63,7 @@
     return out;
   }
 
-  /* ---------------------------------------------------------------------------
-   * USER & AUTH HELPERS
-   * ------------------------------------------------------------------------- */
+  // user auth helper
   function getCurrentUser() {
     try {
       const raw = localStorage.getItem(KEYS.userProfile);
@@ -107,9 +92,7 @@
 
   const isLoggedIn = () => !!getCurrentUser();
 
-  /* ===========================================================================
-   * BOOKMARKS
-   * ========================================================================= */
+  // bookmark
   function getBookmarks() {
     return read(KEYS.bookmarks, []).slice().sort((a, b) => (b.saved_at || '').localeCompare(a.saved_at || ''));
   }
@@ -119,7 +102,7 @@
     if (!getBook(slug)) return false;
     const user = getCurrentUser();
 
-    // Jika user login, sinkronkan langsung ke backend MySQL
+    // sinkron user login ke php
     if (user && window.DesaBaca && window.DesaBaca.api) {
       try {
         const res = await window.DesaBaca.api('backend/bookmarks.php', {
@@ -135,7 +118,7 @@
       }
     }
 
-    // Fallback lokal (jika belum login atau offline)
+    // kalo belum lgoin
     const list = read(KEYS.bookmarks, []);
     const exists = list.some((x) => x.slug === slug);
     const updated = exists ? list.filter((x) => x.slug !== slug)
@@ -144,9 +127,7 @@
     return !exists;
   }
 
-  /* ===========================================================================
-   * PROGRESS & HISTORY
-   * ========================================================================= */
+  // progres & history
   function emptyProgress(book) {
     return { chapter: 1, done: [], progress: 0, status: 'reading', minutes: 0, seconds: 0,
              first_read_at: null, last_read_at: null, chapters: book.chapters };
@@ -156,8 +137,6 @@
     const book = getBook(slug);
     if (!book) return null;
     const p = { ...emptyProgress(book), ...(read(KEYS.progress, {})[slug] || {}), chapters: book.chapters };
-    // Bar progres ikut maju sesuai posisi bab yang sedang dibaca (bab sebelumnya sudah dilewati),
-    // tidak hanya menunggu tombol "tandai selesai".
     if (p.status !== 'completed') {
       const byPosition = Math.round(((Math.max(1, p.chapter) - 1) / book.chapters) * 100);
       p.progress = Math.min(99, Math.max(p.progress || 0, byPosition));
@@ -200,7 +179,7 @@
     const dupe = last && last.chapter === p.chapter && now - new Date(last.at) < DEDUPE_OPEN_MS;
     if (!dupe) pushHistory(slug, 'open', p.chapter);
 
-    // Sync ke DB
+    // Sinkron ke database
     if (window.DesaBaca && window.DesaBaca.api) {
       window.DesaBaca.api('backend/progress.php', {
         method: 'POST',
@@ -209,7 +188,7 @@
     }
   }
 
-  // Tambah waktu baca (detik) ke cache lokal. Sinkron ke server dilakukan oleh pemanggil.
+  // Tambah waktu baca ke chace lokal
   function addReadingTime(slug, secs) {
     const book = getBook(slug);
     if (!book || !(secs > 0)) return;
@@ -250,7 +229,7 @@
     pushHistory(slug, 'chapter_done', chapter);
     if (finished) pushHistory(slug, 'finish', chapter);
 
-    // Sync ke DB (promise dikembalikan agar pemanggil bisa menunggu sebelum pindah halaman)
+    // Sinkron ke database promise biar bisa dipanggil lagi
     let synced = Promise.resolve();
     if (window.DesaBaca && window.DesaBaca.api) {
       synced = window.DesaBaca.api('backend/progress.php', {
@@ -278,9 +257,7 @@
     }
   }
 
-  /* ===========================================================================
-   * STATS
-   * ========================================================================= */
+  // stats
   function getStats() {
     const all = getAllProgress();
     const completed = all.filter((p) => p.status === 'completed' || p.progress >= 100).length;
@@ -316,11 +293,7 @@
       .map((h) => h.slug)).size;
   }
 
-  /* ===========================================================================
-   * LEADERBOARD
-   * ========================================================================= */
-  // Data dari backend/leaderboard.php (semua pengguna terdaftar). Jika offline / belum
-  // ada server, hanya user yang sedang login yang ditampilkan.
+  // leaderboard
   async function getLeaderboard() {
     const start = weekStart();
     const user = getCurrentUser();
@@ -342,18 +315,16 @@
     return { village: VILLAGE_NAME, week_start: start.toISOString(), entries };
   }
 
-  /* ===========================================================================
-   * SINKRONISASI ONLINE KE DATABASE
-   * ========================================================================= */
+  // sinkron online ke database
   async function syncFromDatabase() {
     if (!window.DesaBaca || !window.DesaBaca.api) return;
     try {
-      // 1. Cek User Session
+      // Cek User Session
       const meRes = await window.DesaBaca.api('backend/auth.php?action=me');
       if (meRes.logged_in && meRes.user) {
         setCurrentUser(meRes.user);
 
-        // 2. Sync Bookmarks
+        // Sinkron Bookmarks
         try {
           const bmRes = await window.DesaBaca.api('backend/bookmarks.php');
           if (bmRes.success && Array.isArray(bmRes.bookmarks)) {
@@ -361,7 +332,7 @@
           }
         } catch (e) {}
 
-        // 3. Sync Progress
+        // Sinkron Progress
         try {
           const prRes = await window.DesaBaca.api('backend/progress.php');
           if (prRes.success && prRes.progress) {
@@ -380,7 +351,7 @@
           }
         } catch (e) {}
 
-        // 4. Sync History
+        // sinkron History
         try {
           const hRes = await window.DesaBaca.api('backend/history.php');
           if (hRes.success && Array.isArray(hRes.history)) {
@@ -397,7 +368,7 @@
 
         return true;
       } else {
-        // Jika server menyatakan tidak login, bersihkan user di client
+        // bersihin user dari client kalo belum login
         clearUserData();
         return false;
       }

@@ -1,15 +1,3 @@
-"""
-DESA BACA — pengambil METADATA katalog F15 Library (stdlib saja, tanpa pip).
-
-Hanya membaca halaman koleksi (/collections/{slug}?sort=title&page=N). Kartu di halaman
-itu sudah memuat judul, penulis, dan URL sampul (hanya tiga data itu yang disimpan), jadi halaman /books/{slug}
-(yang berisi teks ringkasan) TIDAK pernah dibuka. Gambar sampul tidak diunduh.
-
-Sopan ke server: 1 request sekaligus, jeda 2,0-2,5 detik (syarat izin F15), User-Agent jelas,
-semua respons disimpan di cache/ sehingga menjalankan ulang = lanjut dari titik berhenti.
-
-  python scrape_f15.py               # 20 buku (3 koleksi + 1 tambahan), keluaran *_sample.*
-"""
 import html, json, random, re, sys, time, urllib.error, urllib.request
 from datetime import datetime, timezone
 from pathlib import Path

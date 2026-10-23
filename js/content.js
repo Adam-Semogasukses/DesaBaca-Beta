@@ -1,9 +1,3 @@
-/* =============================================================================
- * DESA BACA — content.js : isi bacaan 3 buku demo (slug harus sama dengan BOOKS di store.js)
- * Ini RINGKASAN ORISINAL yang ditulis ulang, BUKAN teks asli buku. Edit bebas:
- * tiap bab = { title, paras: [paragraf...], points: [poin kunci...] }.
- * Mau tambah buku? Tambah di BOOKS (store.js) lalu isi entri baru di sini (6 bab).
- * ========================================================================== */
 (function (global) {
   'use strict';
 

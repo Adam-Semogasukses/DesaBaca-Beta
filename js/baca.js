@@ -1,13 +1,3 @@
-/* =============================================================================
- * DESA BACA — baca.js (baca.html) — JavaScript native, tanpa Vue.
- *
- * DEMO: hanya 3 buku yang bisa dibaca di sini (lihat BOOKS di js/store.js) dan isinya
- * ringkasan orisinal (js/content.js). Buku lain di katalog membuka halaman F15 Library.
- * Isi bacaan = ringkasan orisinal di js/content.js.
- *
- * Progres, riwayat, dan bookmark lewat window.DesaBacaStore (jangan akses localStorage langsung
- * untuk data itu di sini). Buku dipilih lewat ?book=<slug>.
- * ========================================================================== */
 (function () {
   'use strict';
 
@@ -15,7 +5,7 @@
   const Store = window.DesaBacaStore;
 
 
-  /* ---------- state ---------- */
+  /*  state  */
   const requested = new URLSearchParams(location.search).get('book') || 'atomic-habits';
   const book = Store.getBook(requested);
 
@@ -44,7 +34,7 @@
     state.done.length >= book.chapters ? 100 : Math.round(((state.chapter - 1) / book.chapters) * 100)
   );
 
-  /* ---------- isi bacaan (js/content.js) ---------- */
+  /*  isi bacaan (js/content.js)  */
   const content = (window.DesaBacaContent && window.DesaBacaContent.get(book.slug)) || [];
   const chapterTitle = (n) => (content[n - 1] && content[n - 1].title) || 'Bab ' + n;
 
@@ -56,7 +46,7 @@
       <p>Setelah selesai membaca bab ini, tekan tombol <strong>Tandai selesai</strong>. Kamu dapat melanjutkan ke bab berikutnya tanpa kehilangan posisi bacaan.</p>`;
   }
 
-  /* ---------- render ---------- */
+  /*  render  */
   function setCover() {
     const img = $('#bookCover');
     let triedFallback = false;
@@ -122,7 +112,7 @@
     $('#themeIcon').className = isDark() ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
   }
 
-  /* ---------- aksi ---------- */
+  /*  aksi  */
   function openChapter() { Store.recordOpen(book.slug, state.chapter); }
 
   function goChapter(n) {
@@ -163,7 +153,7 @@
     renderSave();
   }
 
-  /* ---------- event ---------- */
+  /*  event  */
   $('#prevBtn').addEventListener('click', prevChapter);
   $('#nextBtn').addEventListener('click', nextChapter);
   $('#doneBtn').addEventListener('click', completeChapter);
@@ -184,7 +174,7 @@
     }
   });
 
-  /* ---------- start ---------- */
+  /*  start  */
   setCover();
   renderStatic();
   renderSave();
@@ -192,10 +182,7 @@
   openChapter();
   renderChapter();
 
-  /* ---------- pelacak waktu baca ----------
-   * Mulai menghitung saat halaman baca dibuka. Bertambah 1 detik tiap detik selama tab
-   * terlihat & jendela fokus; berhenti saat tab disembunyikan. Disimpan lokal tiap detik,
-   * dikirim ke server tiap 10 detik dan saat halaman ditutup. */
+  // pelacak waktu baca
   let pendingSecs = 0;
   let lastTick = Date.now();
   const canRead = () => document.visibilityState === 'visible' && document.hasFocus();
@@ -229,3 +216,4 @@
     }
   });
 })();
+

@@ -1,13 +1,3 @@
-/* =============================================================================
- * DESA BACA — katalog.js (katalog.html) — JavaScript native.
- *
- * Dua tampilan dari satu halaman:
- *   katalog.html                  -> tiap kategori menampilkan 3 buku + "Lihat Semua"
- *   katalog.html?kategori=<slug>  -> semua buku di satu kategori (dimuat bertahap)
- * Kategori kosong / berstatus "segera datang" menampilkan panel "Segera datang".
- * Data dari js/catalog.js (API). Bookmark tetap lewat window.DesaBacaStore, hanya untuk
- * buku yang dikenal Store (bisa dibaca di baca.html). Buku lain membuka halaman F15 Library.
- * ========================================================================== */
 (function () {
   'use strict';
 
@@ -15,7 +5,7 @@
   const Store = window.DesaBacaStore;
   const Catalog = window.DesaBacaCatalog;
 
-  const PREVIEW_COUNT = 3;                 // jumlah buku per kategori di tampilan "semua"
+  const PREVIEW_COUNT = 3;
   const PER_PAGE = 24;
 
   const state = { cats: null, failed: false, list: [], page: 1, hasMore: false, total: 0 };
@@ -25,9 +15,7 @@
   const activeSlug = () => new URLSearchParams(location.search).get('kategori');
   const isLocal = (b) => !!Store.getBook(b.slug);   // bisa dibuka di pembaca Desa Baca
 
-  /* ---------------------------------------------------------------------------
-   * Render
-   * ------------------------------------------------------------------------- */
+  // render
   function cardHTML(b) {
     const local = isLocal(b);
     const on = local && Store.isBookmarked(b.slug);
@@ -208,17 +196,14 @@
     state.cats = state.failed ? null : r.categories;
   }
 
-  /* ---------------------------------------------------------------------------
-   * Pencarian: semua kategori & buku. Hasil menggantikan isi katalog sementara.
-   * Kosongkan kotak (atau Esc) untuk kembali ke tampilan semula.
-   * ------------------------------------------------------------------------- */
+  // pencarian
   const SEARCH_DELAY = 300;
   const SEARCH_PER_PAGE = 24;
-  let searchQ = '';                        // kata cari aktif ('' = tidak mencari)
-  let searchSeq = 0;                       // nomor permintaan; hasil lama diabaikan
+  let searchQ = '';
+  let searchSeq = 0;
   let searchTimer = null;
-  let sessionReady = false;                // sesi (login) sudah dicek
-  let pendingSearch = null;                // pencarian yang diketik sebelum sesi siap
+  let sessionReady = false;
+  let pendingSearch = null;
 
   async function renderSearchView(q) {
     const seq = ++searchSeq;
@@ -226,7 +211,7 @@
     document.title = 'Pencarian: ' + q + ' - KATALOG BUKU - DESA BACA';
     renderLoading();
     const r = await Catalog.books({ q, per_page: SEARCH_PER_PAGE }).catch(() => null);
-    if (seq !== searchSeq) return;         // sudah ada pencarian/kembali yang lebih baru
+    if (seq !== searchSeq) return;
     if (!r || !r.success) { renderError(); return; }
 
     const low = q.toLowerCase();
@@ -262,7 +247,7 @@
     clearTimeout(searchTimer);
     const q = String(raw || '').trim();
     if (!q) { clearKtSearch(); return; }
-    if (!sessionReady) { pendingSearch = q; return; }   // dijalankan setelah sesi siap
+    if (!sessionReady) { pendingSearch = q; return; }
     if (!Store.isLoggedIn()) {
       showToast('Silakan masuk terlebih dahulu untuk mencari buku.', 'error');
       return;
@@ -291,9 +276,7 @@
   });
   $('#ktSearch').addEventListener('keydown', (e) => { if (e.key === 'Escape') clearKtSearch(); });
 
-  /* ---------------------------------------------------------------------------
-   * Aksi kartu
-   * ------------------------------------------------------------------------- */
+  // aksi kartu
   function paintBookmark(btn, on) {
     btn.classList.toggle('on', on);
     btn.setAttribute('aria-pressed', on);
@@ -346,9 +329,7 @@
     if (box) { box.classList.add('broken'); img.remove(); box.innerHTML = '<i class="fa-solid fa-book" aria-hidden="true"></i>'; }
   }, true);
 
-  /* ---------------------------------------------------------------------------
-   * Akun, tema (sama seperti dashboard.js)
-   * ------------------------------------------------------------------------- */
+  // akun dan tema
   function updateUserName() {
     const user = Store.getCurrentUser();
     const el = $('#userName');
@@ -378,12 +359,10 @@
     location.href = 'index.html';
   });
 
-  // kembali dari halaman baca: status bookmark bisa berubah (data katalog tidak diminta ulang)
+  // kembali dari halaman baca
   window.addEventListener('pageshow', (e) => { if (e.persisted && state.cats) render(); });
 
-  /* ---------------------------------------------------------------------------
-   * Start
-   * ------------------------------------------------------------------------- */
+  // START
   (async function init() {
     syncThemeIcon();
     updateUserName();

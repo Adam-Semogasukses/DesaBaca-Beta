@@ -1,8 +1,4 @@
-/* =============================================================================
- * DESA BACA — dashboard.js (dashboard.html)
- * Mengambil nama pengguna dari database & menampilkan data buku terbaca,
- * sedang dibaca, serta tersimpan.
- * ========================================================================== */
+
 (function () {
   'use strict';
 
@@ -11,9 +7,7 @@
 
   const VIEWS = ['dashboard', 'progres', 'riwayat', 'bookmarks'];
 
-  /* ---------------------------------------------------------------------------
-   * Navigasi antar view (hash: #dashboard | #progres | #riwayat | #bookmarks)
-   * ------------------------------------------------------------------------- */
+  // navigasi
   function viewFromHash() {
     const h = location.hash.replace('#', '');
     return VIEWS.includes(h) ? h : 'dashboard';
@@ -30,9 +24,7 @@
     if (main) main.scrollTop = 0;
   }
 
-  /* ---------------------------------------------------------------------------
-   * Helper format
-   * ------------------------------------------------------------------------- */
+  // helper format
   const clock = (iso) => new Date(iso).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }).replace(':', '.');
   function dayLabel(iso) {
     const d = new Date(iso), t = new Date(), y = new Date();
@@ -58,9 +50,7 @@
   const rankClass = (r) => r <= 3 ? ' r' + r : '';
   const bookUrl = (slug) => 'baca.html?book=' + encodeURIComponent(slug);
 
-  /* ---------------------------------------------------------------------------
-   * Render: statistik
-   * ------------------------------------------------------------------------- */
+  //render stat
   function renderStats(stats) {
     if ($('#sOpened')) $('#sOpened').textContent = stats.opened;
     if ($('#sCompleted')) $('#sCompleted').textContent = stats.completed;
@@ -83,9 +73,7 @@
     }
   }
 
-  /* ---------------------------------------------------------------------------
-   * Render: leaderboard
-   * ------------------------------------------------------------------------- */
+  // render leaderboard
   function renderBoard(board) {
     if ($('#boardVillage')) $('#boardVillage').textContent = board.village;
 
@@ -118,9 +106,7 @@
     }
   }
 
-  /* ---------------------------------------------------------------------------
-   * Render: lanjutkan membaca (buku terakhir yang belum selesai)
-   * ------------------------------------------------------------------------- */
+  // render lanjut baca
   function renderResume(progressList) {
     const el = $('#resumeCard');
     if (!el) return;
@@ -150,9 +136,7 @@
       </a>`;
   }
 
-  /* ---------------------------------------------------------------------------
-   * Render: progres membaca (semua buku yang pernah dibuka, terbaru dulu)
-   * ------------------------------------------------------------------------- */
+  // render progres baca
   function renderProgress(progressList) {
     const empty = !progressList.length;
     if ($('#progresEmpty')) $('#progresEmpty').classList.toggle('hidden', !empty);
@@ -177,9 +161,7 @@
     }).join('');
   }
 
-  /* ---------------------------------------------------------------------------
-   * Render: riwayat
-   * ------------------------------------------------------------------------- */
+  //render riwayat
   function renderHistory(history, progressList) {
     const empty = !history.length;
     if ($('#historyEmpty')) $('#historyEmpty').classList.toggle('hidden', !empty);
@@ -232,9 +214,7 @@
     }
   }
 
-  /* ---------------------------------------------------------------------------
-   * Render: bookmark (buku tersimpan)
-   * ------------------------------------------------------------------------- */
+  //render bookmark
   const bmPct = (b) => (b.progress && b.progress.progress) || 0;
 
   function renderBookmarks(saved) {
@@ -266,9 +246,7 @@
     }
   }
 
-  /* ---------------------------------------------------------------------------
-   * updateUserName: ganti mockup user dengan nama akun aktif
-   * ------------------------------------------------------------------------- */
+  // updateUserName
   function updateUserName() {
     const user = Store.getCurrentUser();
     const el = $('#userName');
@@ -284,9 +262,7 @@
     }
   }
 
-  /* ---------------------------------------------------------------------------
-   * refresh: ambil ulang semua data dari Store lalu render
-   * ------------------------------------------------------------------------- */
+  // refresh
   async function refresh() {
     updateUserName();
 
@@ -314,9 +290,7 @@
     if (btn) btn.title = dark ? 'Beralih ke Mode Terang Warm' : 'Beralih ke Mode Gelap';
   }
 
-  /* ---------------------------------------------------------------------------
-   * Event
-   * ------------------------------------------------------------------------- */
+  // Evvent
   document.addEventListener('click', async (e) => {
     const rm = e.target.closest('[data-remove]');
     if (rm) {
@@ -356,9 +330,7 @@
   window.addEventListener('storage', refresh);
   window.addEventListener('pageshow', refresh);
 
-  /* ---------------------------------------------------------------------------
-   * Start
-   * ------------------------------------------------------------------------- */
+  // START
   (async function init() {
     syncThemeIcon();
     showView(viewFromHash());

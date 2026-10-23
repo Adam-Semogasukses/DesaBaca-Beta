@@ -1,16 +1,10 @@
-/* =============================================================================
- * DESA BACA — app.js (landing page / index.html)
- * Mendukung Login, Register, Google Sign-In, & Sinkronisasi Database MySQL.
- * ========================================================================== */
 (function () {
   'use strict';
 
   const { $, $$, esc, showToast, api, lsGet, lsSet, lsRemove, USER_KEY } = window.DesaBaca;
   const Store = window.DesaBacaStore;
 
-  /* ---------------------------------------------------------------------------
-   * DATA TAMPILAN
-   * ------------------------------------------------------------------------- */
+  // data tampilan
   const POPULAR_BOOKS = [
     { slug: 'atomic-habits', cover: 'https://f15-api.imajikreasi.com/assets/covers/83cf990e0373464d.avif', title: 'Atomic Habits - James Clear', author: 'James Clear', readers: 44,
       desc: 'perubahan kecil yang dilakukan secara konsisten setiap hari dapat berakumulasi menghasilkan transformasi dan dampak besar dalam hidup.',
@@ -23,24 +17,20 @@
       tags: ['Pengembangan Diri'] },
   ];
 
-  /* ---------------------------------------------------------------------------
-   * STATE
-   * ------------------------------------------------------------------------- */
+  // state
   const state = {
     bookmarks: [],
-    cats: [],            // kategori dari backend/categories.php
+    cats: [],
     catsFailed: false,
     currentUser: null,
     authTab: 'login',
   };
 
-  /* ---------------------------------------------------------------------------
-   * RENDER
-   * ------------------------------------------------------------------------- */
+  // render
   const catUrl = (slug) => 'katalog.html?kategori=' + encodeURIComponent(slug);
   const catIcon = (slug) => (window.DesaBacaCatalog ? window.DesaBacaCatalog.icon(slug) : 'fa-book');
 
-  // marquee: kategori yang sudah ada bukunya (salinan kedua disembunyikan dari pembaca layar & Tab)
+  // marquee
   function renderGenres() {
     const track = $('#genreTrack');
     if (!track) return;
@@ -127,9 +117,7 @@
     renderCategories();
   }
 
-  /* ---------------------------------------------------------------------------
-   * TAMPILAN AUTENTIKASI PENGGUNA
-   * ------------------------------------------------------------------------- */
+  // tampilan autentikasi pengguna
   function updateAuthUI() {
     const navBtn = $('#navAuthBtn');
     const navText = $('#navAuthText');
@@ -191,9 +179,7 @@
     drop.classList.toggle('hidden');
   }
 
-  /* ---------------------------------------------------------------------------
-   * TEMA
-   * ------------------------------------------------------------------------- */
+  // tema
   function syncThemeButton() {
     const dark = window.DesaBaca.isDark();
     const icon = $('#themeIcon');
@@ -202,12 +188,10 @@
     if (label) label.textContent = dark ? 'Mode Gelap' : 'Mode Terang';
   }
 
-  /* ---------------------------------------------------------------------------
-   * PENCARIAN — semua kategori & buku. Wajib login (dicek di front-end).
-   * ------------------------------------------------------------------------- */
+  // pencarian
   const SEARCH_LIMIT = 8;
   const SEARCH_DELAY = 300;
-  let searchSeq = 0;                       // nomor permintaan; hasil lama diabaikan
+  let searchSeq = 0;
   let searchTimer = null;
 
   const searchPanel = () => $('#searchResult');
@@ -276,7 +260,7 @@
     renderSearchResults(q, cats, r.books, r.total);
   }
 
-  // mengetik: cek login, lalu cari setelah jeda singkat
+  // mengetik: cek login
   function onSearchInput() {
     const q = $('#heroBookSearch').value.trim();
     clearTimeout(searchTimer);
@@ -285,7 +269,7 @@
     searchTimer = setTimeout(() => runSearch(q), SEARCH_DELAY);
   }
 
-  // Enter / tombol kaca pembesar
+  // Enter input
   function onSearchSubmit(e) {
     e.preventDefault();
     const q = $('#heroBookSearch').value.trim();
@@ -314,9 +298,7 @@
     el.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
-  /* ---------------------------------------------------------------------------
-   * BOOKMARK
-   * ------------------------------------------------------------------------- */
+  // bookmark
   let pendingBookmarkSlug = null;
 
   function loadBookmarks() {
@@ -356,9 +338,7 @@
     window.location.href = 'baca.html?book=' + encodeURIComponent(slug);
   }
 
-  /* ---------------------------------------------------------------------------
-   * MODAL AUTH & EVENT HANDLERS
-   * ------------------------------------------------------------------------- */
+  // modal auth
   const modal = $('#authModal');
   let lastFocus = null;
 
@@ -487,9 +467,7 @@
     }
   }
 
-  /* ---------------------------------------------------------------------------
-   * GOOGLE LOGIN INTEGRATION (GIS + Form Masuk Google)
-   * ------------------------------------------------------------------------- */
+  // mock login google
   function showGoogleFormView() {
     const googleView = $('#googleFormView');
     const loginF = $('#loginForm');
@@ -528,7 +506,7 @@
   }
 
   async function handleGoogleLogin() {
-    // 1. Jika Google GIS terkonfigurasi resmi dengan Client ID valid
+    // jika valid
     if (window.google && window.google.accounts && window.google.accounts.id && window.__DESABACA_GIS_READY) {
       try {
         window.google.accounts.id.prompt((notification) => {
@@ -541,8 +519,6 @@
         console.warn('GIS prompt error:', err);
       }
     }
-
-    // 2. Tampilkan form Google interaktif langsung di dalam modal
     showGoogleFormView();
   }
 
@@ -614,9 +590,7 @@
     }
   }
 
-  /* ---------------------------------------------------------------------------
-   * INISIALISASI GOOGLE GIS JIKA ADA CLIENT ID
-   * ------------------------------------------------------------------------- */
+  // inisialisasi google GIS
   function initGoogleGIS() {
     // Client ID Google OAuth (dapat diisi jika user memiliki Client ID Google Console)
     const CLIENT_ID = '';
@@ -646,9 +620,7 @@
     }
   }
 
-  /* ---------------------------------------------------------------------------
-   * EVENT DELEGATION
-   * ------------------------------------------------------------------------- */
+  // Event delegation
   document.addEventListener('click', (e) => {
     const t = e.target;
 
@@ -796,9 +768,7 @@
     }
   }
 
-  /* ---------------------------------------------------------------------------
-   * START
-   * ------------------------------------------------------------------------- */
+  // START
   loadCategories();
   syncThemeButton();
   loadBookmarks();
@@ -808,12 +778,7 @@
   setTimeout(initGoogleGIS, 1000);
 })();
 
-/* =============================================================================
- * Dropdown navbar: hanya SATU menu yang boleh terbuka pada satu waktu.
- *  - Desktop (mouse): buka saat hover, tutup saat mouse keluar.
- *  - Sentuh: ketuk untuk buka; ketuk lagi untuk tutup (tautan DASHBOARD: ketuk kedua membuka halaman).
- *  - Klik di luar menu atau tombol Esc menutup semuanya.
- * ========================================================================== */
+// dropdown navbar
 (function () {
   'use strict';
   const items = Array.from(document.querySelectorAll('.main-nav .nav-item'));
